@@ -4,7 +4,7 @@ import RichText from '@/components/RichText'
 
 import type { Page } from '@/payload-types'
 
-import { CMSLink } from '../../components/Link'
+import { CMSLink } from '@/components/Link'
 
 type Props = Extract<Page['layout'][0], { blockType: 'content' }>
 
