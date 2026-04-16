@@ -1,90 +1,64 @@
 {
-  "name": "johndennehy-dev",
+  "name": "",
   "version": "1.0.0",
-  "description": "John Dennehy | Web Developer",
-  "author": {
-    "name": "John Dennehy",
-    "email": "hello@johndennehy.dev"
-  },
+  "description": "A blank template to get started with Payload 3.0",
+  "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
     "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev",
-    "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
+    "devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
-    "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",
-    "lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
-    "lint:fix": "cross-env NODE_OPTIONS=--no-deprecation next lint --fix",
+    "lint": "cross-env NODE_OPTIONS=--no-deprecation eslint .",
     "payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
-    "reinstall": "cross-env NODE_OPTIONS=--no-deprecation rm -rf node_modules && rm pnpm-lock.yaml && pnpm --ignore-workspace install",
-    "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
+    "start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+    "test": "pnpm run test:int && pnpm run test:e2e",
+    "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
+    "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts"
   },
   "dependencies": {
-    "@payloadcms/db-postgres": "3.0.0-beta.104",
-    "@payloadcms/live-preview-react": "3.0.0-beta.104",
-    "@payloadcms/next": "3.0.0-beta.104",
-    "@payloadcms/plugin-cloud": "3.0.0-beta.104",
-    "@payloadcms/plugin-form-builder": "3.0.0-beta.104",
-    "@payloadcms/plugin-nested-docs": "3.0.0-beta.104",
-    "@payloadcms/plugin-redirects": "3.0.0-beta.104",
-    "@payloadcms/plugin-seo": "3.0.0-beta.104",
-    "@payloadcms/richtext-lexical": "3.0.0-beta.104",
-    "@payloadcms/storage-s3": "3.0.0-beta.104",
-    "@payloadcms/ui": "3.0.0-beta.104",
-    "@radix-ui/react-checkbox": "^1.1.1",
-    "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-select": "^2.1.1",
-    "@radix-ui/react-slot": "^1.1.0",
-    "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.1",
+    "@payloadcms/db-postgres": "3.83.0",
+    "@payloadcms/next": "3.83.0",
+    "@payloadcms/richtext-lexical": "3.83.0",
+    "@payloadcms/ui": "3.83.0",
+    "@tailwindcss/postcss": "^4.2.2",
     "cross-env": "^7.0.3",
-    "geist": "^1.3.1",
-    "graphql": "^16.9.0",
-    "jsonwebtoken": "9.0.1",
-    "lexical": "0.17.0",
-    "lucide-react": "^0.378.0",
-    "next": "15.0.0-canary.104",
-    "payload": "beta",
-    "payload-admin-bar": "^1.0.6",
-    "prism-react-renderer": "^2.4.0",
-    "react": "19.0.0-rc-06d0b89e-20240801",
-    "react-dom": "19.0.0-rc-06d0b89e-20240801",
-    "react-hook-form": "7.45.4",
-    "sharp": "0.32.6",
-    "tailwind-merge": "^2.5.2",
-    "tailwindcss-animate": "^1.0.7"
+    "dotenv": "16.4.7",
+    "graphql": "^16.8.1",
+    "next": "16.2.3",
+    "payload": "3.83.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "sharp": "0.34.2"
   },
   "devDependencies": {
-    "@next/eslint-plugin-next": "^13.5.6",
-    "@payloadcms/eslint-config": "^1.1.1",
-    "@tailwindcss/typography": "^0.5.15",
-    "@types/escape-html": "^1.0.4",
-    "@types/jsonwebtoken": "^9.0.6",
-    "@types/node": "18.11.3",
-    "@types/react": "npm:types-react@19.0.0-rc.0",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0",
-    "autoprefixer": "^10.4.20",
-    "copyfiles": "^2.4.1",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "15.0.0-canary.104",
-    "postcss": "^8.4.45",
-    "prettier": "^3.3.3",
-    "tailwindcss": "^3.4.11",
-    "typescript": "5.5.4"
+    "@playwright/test": "1.58.2",
+    "@testing-library/react": "16.3.0",
+    "@types/node": "22.19.9",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "4.5.2",
+    "eslint": "^9.16.0",
+    "eslint-config-next": "16.2.3",
+    "jsdom": "28.0.0",
+    "postcss": "^8.5.10",
+    "prettier": "^3.4.2",
+    "tailwindcss": "^4.2.2",
+    "tsx": "4.21.0",
+    "typescript": "5.7.3",
+    "vite-tsconfig-paths": "6.0.5",
+    "vitest": "4.0.18"
   },
   "engines": {
-    "node": "^18.20.2 || >=20.9.0"
+    "node": "^18.20.2 || >=20.9.0",
+    "pnpm": "^9 || ^10"
   },
   "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.0",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
-    }
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.0",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.0"
-  },
-  "packageManager": "pnpm@9.9.0+sha512.60c18acd138bff695d339be6ad13f7e936eea6745660d4cc4a776d5247c540d0edee1a563695c183a66eb917ef88f2b4feb1fc25f32a7adcadc7aaf3438e99c1"
+    "onlyBuiltDependencies": [
+      "sharp",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
 }
