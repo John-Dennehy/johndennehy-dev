@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -13,6 +14,12 @@ const navLinks = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href: string) => {
+    if (href === '/') return pathname === '/'
+    return pathname.startsWith(href)
+  }
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20)
@@ -44,7 +51,11 @@ export default function Navigation() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="link-hover text-sm font-medium text-text-muted"
+                className={`link-hover text-sm font-medium transition-colors ${
+                  isActive(link.href)
+                    ? 'text-text-primary nav-link-active'
+                    : 'text-text-muted'
+                }`}
               >
                 {link.label}
               </Link>
@@ -88,7 +99,11 @@ export default function Navigation() {
               key={link.href}
               href={link.href}
               onClick={() => setMobileOpen(false)}
-              className="block text-sm font-medium text-text-muted transition-colors hover:text-text-primary py-1"
+              className={`block text-sm font-medium transition-colors py-1 ${
+                isActive(link.href)
+                  ? 'text-accent'
+                  : 'text-text-muted hover:text-text-primary'
+              }`}
             >
               {link.label}
             </Link>

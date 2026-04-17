@@ -69,6 +69,9 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    technologies: Technology;
+    projects: Project;
+    'project-feedback': ProjectFeedback;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +81,9 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    technologies: TechnologiesSelect<false> | TechnologiesSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    'project-feedback': ProjectFeedbackSelect<false> | ProjectFeedbackSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -163,6 +169,118 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "technologies".
+ */
+export interface Technology {
+  id: number;
+  name: string;
+  /**
+   * URL-friendly identifier (e.g. "react", "typescript")
+   */
+  slug: string;
+  /**
+   * Technology logo or icon
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Link to official documentation
+   */
+  docsUrl?: string | null;
+  category: 'language' | 'framework' | 'tool' | 'database' | 'other';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: number;
+  title: string;
+  /**
+   * URL-friendly identifier used in /projects/[slug]
+   */
+  slug: string;
+  /**
+   * Short description shown on the project card
+   */
+  summary: string;
+  /**
+   * Full project write-up
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Technologies used in this project
+   */
+  techStack?: (number | Technology)[] | null;
+  /**
+   * Link to live/deployed project
+   */
+  liveUrl?: string | null;
+  /**
+   * Link to source code repository
+   */
+  repoUrl?: string | null;
+  /**
+   * Project screenshot or preview image
+   */
+  thumbnail?: (number | null) | Media;
+  /**
+   * Pin this project to the top of the listing
+   */
+  featured?: boolean | null;
+  /**
+   * Only published projects appear on the site
+   */
+  status: 'draft' | 'published';
+  /**
+   * Used for ordering projects on the listing page
+   */
+  publishedDate?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-feedback".
+ */
+export interface ProjectFeedback {
+  id: number;
+  /**
+   * Which project this feedback is for
+   */
+  project: number | Project;
+  /**
+   * Commenter's name
+   */
+  name: string;
+  /**
+   * The feedback or suggestion
+   */
+  message: string;
+  /**
+   * Only approved feedback is shown on the site
+   */
+  approved?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -192,6 +310,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'technologies';
+        value: number | Technology;
+      } | null)
+    | ({
+        relationTo: 'projects';
+        value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'project-feedback';
+        value: number | ProjectFeedback;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -274,6 +404,50 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "technologies_select".
+ */
+export interface TechnologiesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  logo?: T;
+  docsUrl?: T;
+  category?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  summary?: T;
+  description?: T;
+  techStack?: T;
+  liveUrl?: T;
+  repoUrl?: T;
+  thumbnail?: T;
+  featured?: T;
+  status?: T;
+  publishedDate?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project-feedback_select".
+ */
+export interface ProjectFeedbackSelect<T extends boolean = true> {
+  project?: T;
+  name?: T;
+  message?: T;
+  approved?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
