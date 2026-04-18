@@ -72,6 +72,8 @@ export interface Config {
     technologies: Technology;
     projects: Project;
     'project-feedback': ProjectFeedback;
+    'work-experience': WorkExperience;
+    education: Education;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +86,8 @@ export interface Config {
     technologies: TechnologiesSelect<false> | TechnologiesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     'project-feedback': ProjectFeedbackSelect<false> | ProjectFeedbackSelect<true>;
+    'work-experience': WorkExperienceSelect<false> | WorkExperienceSelect<true>;
+    education: EducationSelect<false> | EducationSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -166,6 +170,24 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -179,14 +201,22 @@ export interface Technology {
    */
   slug: string;
   /**
-   * Technology logo or icon
+   * Devicon icon identifier (e.g. "react", "typescript"). Used to load SVG from CDN: cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/{iconSlug}/{iconSlug}-original.svg. Browse available icons at devicon.dev
+   */
+  iconSlug?: string | null;
+  /**
+   * Devicon icon style variant. "Original" is full colour; "plain" is monochrome.
+   */
+  iconVariant?: ('original' | 'original-wordmark' | 'plain' | 'plain-wordmark' | 'line' | 'line-wordmark') | null;
+  /**
+   * Custom logo upload — overrides the Devicon icon if set
    */
   logo?: (number | null) | Media;
   /**
    * Link to official documentation
    */
   docsUrl?: string | null;
-  category: 'language' | 'framework' | 'tool' | 'database' | 'other';
+  category: 'language' | 'framework' | 'library' | 'tool' | 'database' | 'platform' | 'other';
   updatedAt: string;
   createdAt: string;
 }
@@ -273,9 +303,101 @@ export interface ProjectFeedback {
    */
   message: string;
   /**
+   * Honeypot field — should always be empty. Filled = spam.
+   */
+  website?: string | null;
+  /**
    * Only approved feedback is shown on the site
    */
   approved?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work-experience".
+ */
+export interface WorkExperience {
+  id: number;
+  /**
+   * Job title (e.g. "Frontend Developer")
+   */
+  role: string;
+  company: string;
+  /**
+   * Link to company website
+   */
+  companyUrl?: string | null;
+  /**
+   * e.g. "London, UK" or "Remote"
+   */
+  location?: string | null;
+  startDate: string;
+  /**
+   * Leave empty for current role
+   */
+  endDate?: string | null;
+  /**
+   * Tick if this is your current role
+   */
+  current?: boolean | null;
+  /**
+   * Brief 1-2 sentence overview of the role
+   */
+  summary?: string | null;
+  /**
+   * Key achievements and responsibilities — each is a bullet point
+   */
+  highlights?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Technologies used in this role
+   */
+  techStack?: (number | Technology)[] | null;
+  /**
+   * Display order (lower = higher up). Used alongside dates.
+   */
+  order?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "education".
+ */
+export interface Education {
+  id: number;
+  /**
+   * e.g. "BSc Computer Science" or "Full-Stack Web Development"
+   */
+  qualification: string;
+  /**
+   * e.g. "General Assembly" or "University of London"
+   */
+  institution: string;
+  /**
+   * Link to institution website
+   */
+  institutionUrl?: string | null;
+  location?: string | null;
+  startDate?: string | null;
+  endDate?: string | null;
+  /**
+   * Additional details about the course or qualification
+   */
+  description?: string | null;
+  /**
+   * Technologies learned or used
+   */
+  techStack?: (number | Technology)[] | null;
+  /**
+   * Display order (lower = higher up)
+   */
+  order?: number | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -322,6 +444,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'project-feedback';
         value: number | ProjectFeedback;
+      } | null)
+    | ({
+        relationTo: 'work-experience';
+        value: number | WorkExperience;
+      } | null)
+    | ({
+        relationTo: 'education';
+        value: number | Education;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -404,6 +534,30 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        thumbnail?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        card?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -412,6 +566,8 @@ export interface MediaSelect<T extends boolean = true> {
 export interface TechnologiesSelect<T extends boolean = true> {
   name?: T;
   slug?: T;
+  iconSlug?: T;
+  iconVariant?: T;
   logo?: T;
   docsUrl?: T;
   category?: T;
@@ -445,7 +601,49 @@ export interface ProjectFeedbackSelect<T extends boolean = true> {
   project?: T;
   name?: T;
   message?: T;
+  website?: T;
   approved?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "work-experience_select".
+ */
+export interface WorkExperienceSelect<T extends boolean = true> {
+  role?: T;
+  company?: T;
+  companyUrl?: T;
+  location?: T;
+  startDate?: T;
+  endDate?: T;
+  current?: T;
+  summary?: T;
+  highlights?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  techStack?: T;
+  order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "education_select".
+ */
+export interface EducationSelect<T extends boolean = true> {
+  qualification?: T;
+  institution?: T;
+  institutionUrl?: T;
+  location?: T;
+  startDate?: T;
+  endDate?: T;
+  description?: T;
+  techStack?: T;
+  order?: T;
   updatedAt?: T;
   createdAt?: T;
 }

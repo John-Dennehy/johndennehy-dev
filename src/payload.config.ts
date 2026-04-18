@@ -1,4 +1,5 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
+import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -10,19 +11,31 @@ import { Media } from './collections/Media'
 import { Technologies } from './collections/Technologies'
 import { Projects } from './collections/Projects'
 import { ProjectFeedback } from './collections/ProjectFeedback'
+import { WorkExperience } from './collections/WorkExperience'
+import { Education } from './collections/Education'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
   admin: {
     user: Users.slug,
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    meta: {
+      titleSuffix: ' — johndennehy.dev',
+      icons: [{ url: '/favicon.ico' }],
+    },
   },
-  collections: [Users, Media, Technologies, Projects, ProjectFeedback],
+  collections: [Users, Media, Technologies, Projects, ProjectFeedback, WorkExperience, Education],
   editor: lexicalEditor(),
+  email: resendAdapter({
+    defaultFromAddress: 'noreply@johndennehy.dev',
+    defaultFromName: 'John Dennehy',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

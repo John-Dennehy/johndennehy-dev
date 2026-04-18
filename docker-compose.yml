@@ -1,8 +1,6 @@
-version: '3'
-
 services:
   payload:
-    image: node:20-alpine
+    image: node:22-alpine
     ports:
       - '3000:3000'
     volumes:
@@ -10,34 +8,28 @@ services:
       - node_modules:/home/node/app/node_modules
     working_dir: /home/node/app/
     command: sh -c "corepack enable && corepack prepare pnpm@latest --activate && pnpm install && pnpm dev"
-    depends_on:
-      - mongo
-      # - postgres
     env_file:
       - .env
+    # Note: This compose file is for local development only.
+    # The database is Neon Postgres (remote), so no local DB service is needed.
+    # If you want a local Postgres instance, uncomment the section below
+    # and update DATABASE_URL in .env to: postgresql://payload:payload@postgres:5432/payload
+    # depends_on:
+    #   - postgres
 
-  # Ensure your DATABASE_URL uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
-  mongo:
-    image: mongo:latest
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
-
-  # Uncomment the following to use postgres
+  # Uncomment for local Postgres development
   # postgres:
+  #   image: postgres:16-alpine
   #   restart: always
-  #   image: postgres:latest
+  #   ports:
+  #     - '5432:5432'
+  #   environment:
+  #     POSTGRES_USER: payload
+  #     POSTGRES_PASSWORD: payload
+  #     POSTGRES_DB: payload
   #   volumes:
   #     - pgdata:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
 
 volumes:
-  data:
-  # pgdata:
   node_modules:
+  # pgdata:

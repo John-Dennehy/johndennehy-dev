@@ -34,6 +34,8 @@ export default async function ProjectsPage() {
             id: t.id,
             name: t.name,
             slug: t.slug,
+            iconSlug: t.iconSlug ?? null,
+            iconVariant: t.iconVariant ?? null,
             logo:
               t.logo && typeof t.logo !== 'number'
                 ? { url: t.logo.url ?? null, alt: t.logo.alt }

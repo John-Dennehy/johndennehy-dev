@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useTransition } from 'react'
+import React, { useState, useTransition, useRef } from 'react'
 
 interface FeedbackItem {
   id: number
@@ -22,13 +22,30 @@ export default function FeedbackSection({
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isPending, startTransition] = useTransition()
+  const loadTimeRef = useRef(Date.now())
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
 
     if (!name.trim() || !message.trim()) {
       setError('Please fill in both fields.')
+      return
+    }
+
+    // Timing guard — reject submissions faster than 3 seconds (likely bots)
+    const elapsed = Date.now() - loadTimeRef.current
+    if (elapsed < 3000) {
+      setError('Please take a moment before submitting.')
+      return
+    }
+
+    // Honeypot check — the hidden field should be empty
+    const formData = new FormData(e.currentTarget)
+    const honeypot = formData.get('website')
+    if (honeypot && String(honeypot).trim().length > 0) {
+      // Silently pretend success to not tip off the bot
+      setSubmitted(true)
       return
     }
 
@@ -151,6 +168,29 @@ export default function FeedbackSection({
               rows={4}
               placeholder="What do you think? Any suggestions?"
               className="w-full rounded-lg border border-border bg-bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none"
+            />
+          </div>
+
+          {/* Honeypot field — visually hidden, traps bots */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              left: '-9999px',
+              top: '-9999px',
+              opacity: 0,
+              height: 0,
+              overflow: 'hidden',
+              tabIndex: -1,
+            }}
+          >
+            <label htmlFor="feedback-website">Website</label>
+            <input
+              id="feedback-website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
             />
           </div>
 

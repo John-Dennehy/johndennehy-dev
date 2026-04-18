@@ -16,6 +16,17 @@ export const ProjectFeedback: CollectionConfig = {
     update: ({ req: { user } }) => Boolean(user),
     delete: ({ req: { user } }) => Boolean(user),
   },
+  hooks: {
+    beforeValidate: [
+      ({ data }) => {
+        // Honeypot spam protection — reject if the hidden field is filled
+        if (data?.website && String(data.website).trim().length > 0) {
+          throw new Error('Spam detected.')
+        }
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'project',
@@ -42,6 +53,15 @@ export const ProjectFeedback: CollectionConfig = {
       maxLength: 1000,
       admin: {
         description: 'The feedback or suggestion',
+      },
+    },
+    {
+      // Honeypot field — hidden from real users, bots fill it in
+      name: 'website',
+      type: 'text',
+      admin: {
+        description: 'Honeypot field — should always be empty. Filled = spam.',
+        position: 'sidebar',
       },
     },
     {

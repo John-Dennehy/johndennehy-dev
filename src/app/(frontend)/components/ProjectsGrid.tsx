@@ -8,6 +8,8 @@ interface Technology {
   id: number
   name: string
   slug: string
+  iconSlug?: string | null
+  iconVariant?: string | null
   logo?: { url?: string | null; alt: string } | null
 }
 
@@ -67,30 +69,45 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
           >
             All
           </button>
-          {allTechs.map((tech) => (
-            <button
-              key={tech.slug}
-              onClick={() =>
-                setActiveTech(activeTech === tech.slug ? null : tech.slug)
-              }
-              className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
-                activeTech === tech.slug
-                  ? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
-                  : 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
-              }`}
-            >
-              {tech.logo?.url && (
-                <Image
-                  src={tech.logo.url}
-                  alt={tech.logo.alt}
-                  width={14}
-                  height={14}
-                  className="rounded-sm"
-                />
-              )}
-              {tech.name}
-            </button>
-          ))}
+          {allTechs.map((tech) => {
+            const iconUrl = tech.iconSlug
+              ? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
+              : null
+
+            return (
+              <button
+                key={tech.slug}
+                onClick={() =>
+                  setActiveTech(activeTech === tech.slug ? null : tech.slug)
+                }
+                className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
+                  activeTech === tech.slug
+                    ? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
+                    : 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+                }`}
+              >
+                {tech.logo?.url ? (
+                  <Image
+                    src={tech.logo.url}
+                    alt={tech.logo.alt}
+                    width={14}
+                    height={14}
+                    className="rounded-sm"
+                  />
+                ) : iconUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={iconUrl}
+                    alt={`${tech.name} icon`}
+                    width={14}
+                    height={14}
+                    loading="lazy"
+                  />
+                ) : null}
+                {tech.name}
+              </button>
+            )
+          })}
         </div>
       )}
 

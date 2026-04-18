@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 import FeedbackSection from '../../components/FeedbackSection'
+import TechIcon from '../../components/TechIcon'
 
 export async function generateMetadata({
   params,
@@ -176,15 +177,13 @@ export default async function ProjectDetailPage({
 
                 const inner = (
                   <span className="glass-card inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary">
-                    {logo?.url && (
-                      <Image
-                        src={logo.url}
-                        alt={logo.alt}
-                        width={18}
-                        height={18}
-                        className="rounded-sm"
-                      />
-                    )}
+                    <TechIcon
+                      name={tech.name}
+                      iconSlug={tech.iconSlug}
+                      iconVariant={tech.iconVariant}
+                      logo={logo ? { url: logo.url ?? null, alt: logo.alt } : null}
+                      size={18}
+                    />
                     {tech.name}
                     {tech.docsUrl && (
                       <svg
