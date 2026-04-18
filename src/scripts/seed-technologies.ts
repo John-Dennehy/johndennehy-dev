@@ -19,7 +19,13 @@ interface TechSeed {
   slug: string
   category: 'language' | 'framework' | 'library' | 'tool' | 'database' | 'platform' | 'other'
   iconSlug?: string
-  iconVariant?: string
+  iconVariant?:
+    | 'original'
+    | 'original-wordmark'
+    | 'plain'
+    | 'plain-wordmark'
+    | 'line'
+    | 'line-wordmark'
   docsUrl?: string
 }
 
