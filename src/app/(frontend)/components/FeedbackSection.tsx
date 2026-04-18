@@ -174,6 +174,7 @@ export default function FeedbackSection({
           {/* Honeypot field — visually hidden, traps bots */}
           <div
             aria-hidden="true"
+            tabIndex={-1}
             style={{
               position: 'absolute',
               left: '-9999px',
@@ -181,7 +182,6 @@ export default function FeedbackSection({
               opacity: 0,
               height: 0,
               overflow: 'hidden',
-              tabIndex: -1,
             }}
           >
             <label htmlFor="feedback-website">Website</label>
