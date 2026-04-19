@@ -1,5 +1,6 @@
 import React from 'react'
 import { Inter } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './styles.css'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
@@ -40,6 +41,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
           <main className="flex-1 pt-16">{children}</main>
           <Footer />
         </div>
+        <Analytics />
       </body>
     </html>
   )
