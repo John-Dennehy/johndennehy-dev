@@ -19,9 +19,8 @@ export const metadata = {
 
 export default async function RootLayout(props: {
 	children: React.ReactNode
-	modal: React.ReactNode
 }) {
-	const { children, modal } = props
+	const { children } = props
 
 	return (
 		<html lang="en" className={inter.variable}>
@@ -48,7 +47,6 @@ export default async function RootLayout(props: {
 				<div className="relative z-10 flex flex-col min-h-screen">
 					<Navigation />
 					<main className="flex-1 pt-16">{children}</main>
-					{modal}
 					<Footer />
 				</div>
 			</body>

@@ -2,10 +2,10 @@ import type { CollectionConfig } from 'payload'
 
 export const ContactMessages: CollectionConfig = {
 	slug: 'contact-messages',
+	defaultSort: '-createdAt',
 	admin: {
 		useAsTitle: 'subject',
 		defaultColumns: ['name', 'email', 'subject', 'status', 'createdAt'],
-		defaultSort: '-createdAt',
 		group: 'Content',
 	},
 	access: {
