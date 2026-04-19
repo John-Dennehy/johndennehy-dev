@@ -1,0 +1,429 @@
+
+> johndennehy.dev@1.0.0 lint /home/jd/Projects/johndennehy-dev
+> biome check . --max-diagnostics=100
+
+src/app/(frontend)/components/ProjectsGrid.tsx:97:10 lint/performance/noImgElement ━━━━━━━━━━
+
+  ! Don't use <img> element.
+  
+     95 │ 								) : iconUrl ? (
+     96 │ 									// eslint-disable-next-line @next/next/no-img-element
+   > 97 │ 									<img
+        │ 									^^^^
+   > 98 │ 										src={iconUrl}
+         ...
+  > 102 │ 										loading="lazy"
+  > 103 │ 									/>
+        │ 									^^
+    104 │ 								) : null}
+    105 │ 								{tech.name}
+  
+  i Using the <img> can lead to slower LCP and higher bandwidth. Consider using <Image /> from next/image to automatically optimize images.
+  
+
+src/app/(frontend)/components/TechIcon.tsx:48:4 lint/performance/noImgElement ━━━━━━━━━━
+
+  ! Don't use <img> element.
+  
+    46 │ 			// and we don't want to proxy them through Next.js image optimisation
+    47 │ 			// eslint-disable-next-line @next/next/no-img-element
+  > 48 │ 			<img
+       │ 			^^^^
+  > 49 │ 				src={cdnUrl}
+        ...
+  > 54 │ 				className={className}
+  > 55 │ 			/>
+       │ 			^^
+    56 │ 		)
+    57 │ 	}
+  
+  i Using the <img> can lead to slower LCP and higher bandwidth. Consider using <Image /> from next/image to automatically optimize images.
+  
+
+next-env.d.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    1 1 │   /// <reference types="next" />
+    2 2 │   /// <reference types="next/image-types/global" />
+    3   │ - import·"./.next/dev/types/routes.d.ts";
+      3 │ + import·'./.next/dev/types/routes.d.ts'
+    4 4 │   
+    5 5 │   // NOTE: This file should not be edited
+  
+
+next.config.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+
+  × The imports and exports are not sorted.
+  
+  > 1 │ import { withPayload } from '@payloadcms/next/withPayload'
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │ import type { NextConfig } from 'next'
+    3 │ import path from 'node:path'
+  
+  i Safe fix: Organize Imports (Biome)
+  
+     1    │ - import·{·withPayload·}·from·'@payloadcms/next/withPayload'
+     2    │ - import·type·{·NextConfig·}·from·'next'
+     3    │ - import·path·from·'node:path'
+     4    │ - import·{·fileURLToPath·}·from·'node:url'
+        1 │ + import·path·from·'node:path'
+        2 │ + import·{·fileURLToPath·}·from·'node:url'
+        3 │ + import·{·withPayload·}·from·'@payloadcms/next/withPayload'
+        4 │ + import·type·{·NextConfig·}·from·'next'
+     5  5 │   
+     6  6 │   const __filename = fileURLToPath(import.meta.url)
+  
+
+src/app/(frontend)/components/ContactForm.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    191 191 │           {isPending ? (
+    192 192 │             <>
+    193     │ - → → → → → → <svg·className="w-4·h-4·animate-spin"·fill="none"·viewBox="0·0·24·24"·role="img"·aria-labelledby="loading-icon-title">
+        193 │ + → → → → → → <svg
+        194 │ + → → → → → → → className="w-4·h-4·animate-spin"
+        195 │ + → → → → → → → fill="none"
+        196 │ + → → → → → → → viewBox="0·0·24·24"
+        197 │ + → → → → → → → role="img"
+        198 │ + → → → → → → → aria-labelledby="loading-icon-title"
+        199 │ + → → → → → → >
+    194 200 │                 <title id="loading-icon-title">Loading</title>
+    195 201 │                 <circle
+  
+
+src/app/(frontend)/components/FeedbackSection.tsx format ━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    198 198 │               {isPending ? (
+    199 199 │                 <>
+    200     │ - → → → → → → → → <svg·className="w-4·h-4·animate-spin"·fill="none"·viewBox="0·0·24·24"·role="img"·aria-labelledby="feedback-loading-title">
+        200 │ + → → → → → → → → <svg
+        201 │ + → → → → → → → → → className="w-4·h-4·animate-spin"
+        202 │ + → → → → → → → → → fill="none"
+        203 │ + → → → → → → → → → viewBox="0·0·24·24"
+        204 │ + → → → → → → → → → role="img"
+        205 │ + → → → → → → → → → aria-labelledby="feedback-loading-title"
+        206 │ + → → → → → → → → >
+    201 207 │                     <title id="feedback-loading-title">Loading</title>
+    202 208 │                     <circle
+  
+
+src/app/(frontend)/components/Footer.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+     1    │ - 
+     2  1 │   const socialLinks = [
+     3  2 │   	{
+  
+
+src/app/(frontend)/components/ProjectsGrid.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    250 250 │             {project.repoUrl && (
+    251 251 │               <span className="inline-flex items-center gap-1 text-xs text-text-muted group-hover:text-text-secondary transition-colors">
+    252     │ - → → → → → → → <svg·className="w-3.5·h-3.5"·fill="currentColor"·viewBox="0·0·24·24"·role="img"·aria-labelledby="repo-link-title">
+        252 │ + → → → → → → → <svg
+        253 │ + → → → → → → → → className="w-3.5·h-3.5"
+        254 │ + → → → → → → → → fill="currentColor"
+        255 │ + → → → → → → → → viewBox="0·0·24·24"
+        256 │ + → → → → → → → → role="img"
+        257 │ + → → → → → → → → aria-labelledby="repo-link-title"
+        258 │ + → → → → → → → >
+    253 259 │                   <title id="repo-link-title">GitHub Repository</title>
+    254 260 │                   <path
+  
+
+src/app/(frontend)/cv/page.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    74 74 │               className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+    75 75 │             >
+    76    │ - → → → → → → <svg·className="w-4·h-4"·fill="currentColor"·viewBox="0·0·24·24"·role="img"·aria-labelledby="linkedin-icon-title">
+       76 │ + → → → → → → <svg
+       77 │ + → → → → → → → className="w-4·h-4"
+       78 │ + → → → → → → → fill="currentColor"
+       79 │ + → → → → → → → viewBox="0·0·24·24"
+       80 │ + → → → → → → → role="img"
+       81 │ + → → → → → → → aria-labelledby="linkedin-icon-title"
+       82 │ + → → → → → → >
+    77 83 │                 <title id="linkedin-icon-title">LinkedIn</title>
+    78 84 │                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+  
+
+src/app/(frontend)/projects/[slug]/page.tsx:106:8 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    104 │ 							className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+    105 │ 						>
+  > 106 │ 							<svg
+        │ 							^^^^
+  > 107 │ 								className="w-4 h-4"
+         ...
+  > 111 │ 								strokeWidth={2}
+  > 112 │ 							>
+        │ 							^
+    113 │ 								<path
+    114 │ 									strokeLinecap="round"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/app/(frontend)/projects/[slug]/page.tsx:129:8 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    127 │ 							className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:border-border-hover hover:text-text-primary hover:bg-bg-elevated hover:-translate-y-0.5"
+    128 │ 						>
+  > 129 │ 							<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+        │ 							^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    130 │ 								<path
+    131 │ 									fillRule="evenodd"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/app/(frontend)/projects/[slug]/page.tsx:175:12 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    173 │ 										{tech.name}
+    174 │ 										{tech.docsUrl && (
+  > 175 │ 											<svg
+        │ 											^^^^
+  > 176 │ 												className="w-3 h-3 text-text-muted"
+         ...
+  > 180 │ 												strokeWidth={2}
+  > 181 │ 											>
+        │ 											^
+    182 │ 												<path
+    183 │ 													strokeLinecap="round"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/app/(frontend)/projects/[slug]/page.tsx:165:10 lint/correctness/useJsxKeyInIterable ━━━━━━━━━━
+
+  × Missing key property for this element in iterable.
+  
+    164 │ 								const inner = (
+  > 165 │ 									<span className="glass-card inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary">
+        │ 									^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    166 │ 										<TechIcon
+    167 │ 											name={tech.name}
+  
+  i The order of the items may change, and having a key can help React identify which item was moved.
+  
+  i Check the React documentation. 
+  
+
+src/app/(frontend)/styles.css:3:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Tailwind-specific syntax is disabled.
+  
+     1 │ @import "tailwindcss";
+     2 │ 
+   > 3 │ @theme {
+       │  ^^^^^^^
+   > 4 │   /* Colour palette */
+        ...
+  > 25 │   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+  > 26 │ }
+       │ ^
+    27 │ 
+    28 │ /* Keyframes */
+  
+  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  
+
+src/app/(frontend)/styles.css format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  
+
+src/app/(payload)/admin/importMap.js:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × The imports and exports are not sorted.
+  
+  > 1 │ import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │ import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+    3 │ import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+  
+  i Safe fix: Organize Imports (Biome)
+  
+     1    │ - import·{·RscEntryLexicalCell·as·RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     2    │ - import·{·RscEntryLexicalField·as·RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     3    │ - import·{·LexicalDiffComponent·as·LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     4    │ - import·{·InlineToolbarFeatureClient·as·InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     5    │ - import·{·HorizontalRuleFeatureClient·as·HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     6    │ - import·{·UploadFeatureClient·as·UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     7    │ - import·{·BlockquoteFeatureClient·as·BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     8    │ - import·{·RelationshipFeatureClient·as·RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     9    │ - import·{·LinkFeatureClient·as·LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    10    │ - import·{·ChecklistFeatureClient·as·ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    11    │ - import·{·OrderedListFeatureClient·as·OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    12    │ - import·{·UnorderedListFeatureClient·as·UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    13    │ - import·{·IndentFeatureClient·as·IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    14    │ - import·{·AlignFeatureClient·as·AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    15    │ - import·{·HeadingFeatureClient·as·HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    16    │ - import·{·ParagraphFeatureClient·as·ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    17    │ - import·{·InlineCodeFeatureClient·as·InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    18    │ - import·{·SuperscriptFeatureClient·as·SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    19    │ - import·{·SubscriptFeatureClient·as·SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    20    │ - import·{·StrikethroughFeatureClient·as·StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    21    │ - import·{·UnderlineFeatureClient·as·UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    22    │ - import·{·BoldFeatureClient·as·BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    23    │ - import·{·ItalicFeatureClient·as·ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    24    │ - import·{·CollectionCards·as·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1·}·from·'@payloadcms/next/rsc'
+        1 │ + import·{·CollectionCards·as·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1·}·from·'@payloadcms/next/rsc'
+        2 │ + import·{·AlignFeatureClient·as·AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·BlockquoteFeatureClient·as·BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·BoldFeatureClient·as·BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ChecklistFeatureClient·as·ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·HeadingFeatureClient·as·HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·HorizontalRuleFeatureClient·as·HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·IndentFeatureClient·as·IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·InlineCodeFeatureClient·as·InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·InlineToolbarFeatureClient·as·InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ItalicFeatureClient·as·ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·LinkFeatureClient·as·LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·OrderedListFeatureClient·as·OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ParagraphFeatureClient·as·ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·RelationshipFeatureClient·as·RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·StrikethroughFeatureClient·as·StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·SubscriptFeatureClient·as·SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·SuperscriptFeatureClient·as·SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UnderlineFeatureClient·as·UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UnorderedListFeatureClient·as·UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UploadFeatureClient·as·UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+        3 │ + import·{·LexicalDiffComponent·as·LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,·RscEntryLexicalCell·as·RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,·RscEntryLexicalField·as·RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+    25  4 │   
+    26  5 │   /** @type import('payload').ImportMap */
+  
+
+src/app/(payload)/admin/importMap.js format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Formatter would have printed the following content:
+  
+    26 26 │   /** @type import('payload').ImportMap */
+    27 27 │   export const importMap = {
+    28    │ - ··"@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell":·RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
+    29    │ - ··"@payloadcms/richtext-lexical/rsc#RscEntryLexicalField":·RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
+    30    │ - ··"@payloadcms/richtext-lexical/rsc#LexicalDiffComponent":·LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
+    31    │ - ··"@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient":·InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    32    │ - ··"@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient":·HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    33    │ - ··"@payloadcms/richtext-lexical/client#UploadFeatureClient":·UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    34    │ - ··"@payloadcms/richtext-lexical/client#BlockquoteFeatureClient":·BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    35    │ - ··"@payloadcms/richtext-lexical/client#RelationshipFeatureClient":·RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    36    │ - ··"@payloadcms/richtext-lexical/client#LinkFeatureClient":·LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    37    │ - ··"@payloadcms/richtext-lexical/client#ChecklistFeatureClient":·ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    38    │ - ··"@payloadcms/richtext-lexical/client#OrderedListFeatureClient":·OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    39    │ - ··"@payloadcms/richtext-lexical/client#UnorderedListFeatureClient":·UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    40    │ - ··"@payloadcms/richtext-lexical/client#IndentFeatureClient":·IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    41    │ - ··"@payloadcms/richtext-lexical/client#AlignFeatureClient":·AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    42    │ - ··"@payloadcms/richtext-lexical/client#HeadingFeatureClient":·HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    43    │ - ··"@payloadcms/richtext-lexical/client#ParagraphFeatureClient":·ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    44    │ - ··"@payloadcms/richtext-lexical/client#InlineCodeFeatureClient":·InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    45    │ - ··"@payloadcms/richtext-lexical/client#SuperscriptFeatureClient":·SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    46    │ - ··"@payloadcms/richtext-lexical/client#SubscriptFeatureClient":·SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    47    │ - ··"@payloadcms/richtext-lexical/client#StrikethroughFeatureClient":·StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    48    │ - ··"@payloadcms/richtext-lexical/client#UnderlineFeatureClient":·UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    49    │ - ··"@payloadcms/richtext-lexical/client#BoldFeatureClient":·BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    50    │ - ··"@payloadcms/richtext-lexical/client#ItalicFeatureClient":·ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+    51    │ - ··"@payloadcms/next/rsc#CollectionCards":·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
+       28 │ + → '@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell':
+       29 │ + → → RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
+       30 │ + → '@payloadcms/richtext-lexical/rsc#RscEntryLexicalField':
+       31 │ + → → RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e,
+       32 │ + → '@payloadcms/richtext-lexical/rsc#LexicalDiffComponent':
+       33 │ + → → LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,
+       34 │ + → '@payloadcms/richtext-lexical/client#InlineToolbarFeatureClient':
+       35 │ + → → InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       36 │ + → '@payloadcms/richtext-lexical/client#HorizontalRuleFeatureClient':
+       37 │ + → → HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       38 │ + → '@payloadcms/richtext-lexical/client#UploadFeatureClient':
+       39 │ + → → UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       40 │ + → '@payloadcms/richtext-lexical/client#BlockquoteFeatureClient':
+       41 │ + → → BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       42 │ + → '@payloadcms/richtext-lexical/client#RelationshipFeatureClient':
+       43 │ + → → RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       44 │ + → '@payloadcms/richtext-lexical/client#LinkFeatureClient':
+       45 │ + → → LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       46 │ + → '@payloadcms/richtext-lexical/client#ChecklistFeatureClient':
+       47 │ + → → ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       48 │ + → '@payloadcms/richtext-lexical/client#OrderedListFeatureClient':
+       49 │ + → → OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       50 │ + → '@payloadcms/richtext-lexical/client#UnorderedListFeatureClient':
+       51 │ + → → UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       52 │ + → '@payloadcms/richtext-lexical/client#IndentFeatureClient':
+       53 │ + → → IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       54 │ + → '@payloadcms/richtext-lexical/client#AlignFeatureClient':
+       55 │ + → → AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       56 │ + → '@payloadcms/richtext-lexical/client#HeadingFeatureClient':
+       57 │ + → → HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       58 │ + → '@payloadcms/richtext-lexical/client#ParagraphFeatureClient':
+       59 │ + → → ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       60 │ + → '@payloadcms/richtext-lexical/client#InlineCodeFeatureClient':
+       61 │ + → → InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       62 │ + → '@payloadcms/richtext-lexical/client#SuperscriptFeatureClient':
+       63 │ + → → SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       64 │ + → '@payloadcms/richtext-lexical/client#SubscriptFeatureClient':
+       65 │ + → → SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       66 │ + → '@payloadcms/richtext-lexical/client#StrikethroughFeatureClient':
+       67 │ + → → StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       68 │ + → '@payloadcms/richtext-lexical/client#UnderlineFeatureClient':
+       69 │ + → → UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       70 │ + → '@payloadcms/richtext-lexical/client#BoldFeatureClient':
+       71 │ + → → BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       72 │ + → '@payloadcms/richtext-lexical/client#ItalicFeatureClient':
+       73 │ + → → ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,
+       74 │ + → '@payloadcms/next/rsc#CollectionCards':·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1,
+    52 75 │   }
+    53 76 │   
+  
+
+src/app/not-found.tsx:64:11 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    62 │ 										className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+    63 │ 									>
+  > 64 │ 										<svg
+       │ 										^^^^
+  > 65 │ 											className="w-4 h-4"
+        ...
+  > 69 │ 											strokeWidth={2}
+  > 70 │ 										>
+       │ 										^
+    71 │ 											<path
+    72 │ 												strokeLinecap="round"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/payload.config.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━
+
+  × The imports and exports are not sorted.
+  
+  > 1 │ import { postgresAdapter } from '@payloadcms/db-postgres'
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │ import { resendAdapter } from '@payloadcms/email-resend'
+    3 │ import { lexicalEditor } from '@payloadcms/richtext-lexical'
+  
+  i Safe fix: Organize Imports (Biome)
+  
+     1    │ - import·{·postgresAdapter·}·from·'@payloadcms/db-postgres'
+     2    │ - import·{·resendAdapter·}·from·'@payloadcms/email-resend'
+     3    │ - import·{·lexicalEditor·}·from·'@payloadcms/richtext-lexical'
+     4    │ - import·path·from·'node:path'
+     5    │ - import·{·buildConfig·}·from·'payload'
+     6    │ - import·sharp·from·'sharp'
+     7    │ - import·{·fileURLToPath·}·from·'node:url'
+        1 │ + import·path·from·'node:path'
+        2 │ + import·{·fileURLToPath·}·from·'node:url'
+        3 │ + import·{·postgresAdapter·}·from·'@payloadcms/db-postgres'
+        4 │ + import·{·resendAdapter·}·from·'@payloadcms/email-resend'
+        5 │ + import·{·lexicalEditor·}·from·'@payloadcms/richtext-lexical'
+        6 │ + import·{·buildConfig·}·from·'payload'
+        7 │ + import·sharp·from·'sharp'
+     8  8 │   import { ContactMessages } from './collections/ContactMessages'
+     9  9 │   import { Education } from './collections/Education'
+  
+
+Checked 49 files in 82ms. No fixes applied.
+Found 17 errors.
+Found 2 warnings.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+ ELIFECYCLE  Command failed with exit code 1.

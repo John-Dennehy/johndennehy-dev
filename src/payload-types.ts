@@ -74,6 +74,7 @@ export interface Config {
     'project-feedback': ProjectFeedback;
     'work-experience': WorkExperience;
     education: Education;
+    'contact-messages': ContactMessage;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +89,7 @@ export interface Config {
     'project-feedback': ProjectFeedbackSelect<false> | ProjectFeedbackSelect<true>;
     'work-experience': WorkExperienceSelect<false> | WorkExperienceSelect<true>;
     education: EducationSelect<false> | EducationSelect<true>;
+    'contact-messages': ContactMessagesSelect<false> | ContactMessagesSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -403,6 +405,36 @@ export interface Education {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages".
+ */
+export interface ContactMessage {
+  id: number;
+  /**
+   * Name of the sender
+   */
+  name: string;
+  /**
+   * Email address of the sender
+   */
+  email: string;
+  /**
+   * Subject of the message
+   */
+  subject: string;
+  /**
+   * The message content
+   */
+  message: string;
+  /**
+   * Honeypot field — should always be empty. Filled = spam.
+   */
+  website?: string | null;
+  status?: ('unread' | 'read' | 'replied') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -452,6 +484,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'education';
         value: number | Education;
+      } | null)
+    | ({
+        relationTo: 'contact-messages';
+        value: number | ContactMessage;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -644,6 +680,20 @@ export interface EducationSelect<T extends boolean = true> {
   description?: T;
   techStack?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-messages_select".
+ */
+export interface ContactMessagesSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  subject?: T;
+  message?: T;
+  website?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
