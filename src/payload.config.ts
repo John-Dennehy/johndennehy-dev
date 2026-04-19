@@ -13,6 +13,7 @@ import { Projects } from './collections/Projects'
 import { ProjectFeedback } from './collections/ProjectFeedback'
 import { WorkExperience } from './collections/WorkExperience'
 import { Education } from './collections/Education'
+import { ContactMessages } from './collections/ContactMessages'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -29,7 +30,7 @@ export default buildConfig({
       icons: [{ url: '/favicon.ico' }],
     },
   },
-  collections: [Users, Media, Technologies, Projects, ProjectFeedback, WorkExperience, Education],
+  collections: [Users, Media, Technologies, Projects, ProjectFeedback, WorkExperience, Education, ContactMessages],
   editor: lexicalEditor(),
   email: resendAdapter({
     defaultFromAddress: 'noreply@johndennehy.dev',

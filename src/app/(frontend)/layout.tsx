@@ -17,8 +17,11 @@ export const metadata = {
     "John Dennehy — frontend and full-stack developer based in London. Portfolio, projects, and a bit about the journey from financial services to code.",
 };
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
-  const { children } = props;
+export default async function RootLayout(props: { 
+  children: React.ReactNode
+  modal: React.ReactNode 
+}) {
+  const { children, modal } = props;
 
   return (
     <html lang="en" className={inter.variable}>
@@ -49,6 +52,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
         <div className="relative z-10 flex flex-col min-h-screen">
           <Navigation />
           <main className="flex-1 pt-16">{children}</main>
+          {modal}
           <Footer />
         </div>
       </body>
