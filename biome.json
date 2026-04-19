@@ -1,7 +1,12 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"organizeImports": {
-		"enabled": true
+	"$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+	"files": {
+		"includes": [
+			"**",
+			"!**/.next",
+			"!**/src/payload-types.ts",
+			"!**/src/payload-generated-schema.ts"
+		]
 	},
 	"linter": {
 		"enabled": true,
@@ -16,8 +21,7 @@
 			"suspicious": {
 				"noExplicitAny": "warn"
 			}
-		},
-		"ignore": [".next", "src/payload-types.ts", "src/payload-generated-schema.ts"]
+		}
 	},
 	"formatter": {
 		"enabled": true,
@@ -38,6 +42,11 @@
 			"bracketSpacing": true,
 			"bracketSameLine": false,
 			"quoteStyle": "single"
+		}
+	},
+	"css": {
+		"parser": {
+			"tailwindDirectives": true
 		}
 	}
 }
