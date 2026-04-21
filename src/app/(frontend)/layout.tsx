@@ -1,15 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
-import { Inter } from 'next/font/google'
+import { geist, playfair } from '../fonts'
 import React from 'react'
 import './styles.css'
 import Footer from './components/Footer'
 import Navigation from './components/Navigation'
-
-const inter = Inter({
-	subsets: ['latin'],
-	variable: '--font-inter',
-	display: 'swap',
-})
 
 
 
@@ -25,10 +19,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 	return (
 		<html
 			lang="en"
-			className={`${inter.variable}`}
+			className={`${geist.variable} ${playfair.variable}`}
 		>
 			<body
-				className={`${inter.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
+				className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
 			>
 				<Analytics />
 

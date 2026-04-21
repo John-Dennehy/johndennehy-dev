@@ -1,14 +1,8 @@
-import { Inter } from 'next/font/google'
 import Link from 'next/link'
+import { geist, playfair } from './fonts'
 import './(frontend)/styles.css'
 import Footer from './(frontend)/components/Footer'
 import Navigation from './(frontend)/components/Navigation'
-
-const inter = Inter({
-	subsets: ['latin'],
-	variable: '--font-inter',
-	display: 'swap',
-})
 
 export const metadata = {
 	title: '404 — Page Not Found',
@@ -17,25 +11,9 @@ export const metadata = {
 
 export default function NotFound() {
 	return (
-		<html lang="en" className={inter.variable}>
-			<body className={`${inter.className} flex flex-col min-h-screen`}>
-				{/* Ambient background gradient mesh */}
-				<div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
-					<div
-						className="absolute -top-1/2 -left-1/4 h-[800px] w-[800px] rounded-full opacity-20 blur-[120px]"
-						style={{
-							background: 'radial-gradient(circle, var(--color-accent) 0%, transparent 70%)',
-						}}
-					/>
-					<div
-						className="absolute -bottom-1/3 -right-1/4 h-[600px] w-[600px] rounded-full opacity-15 blur-[120px]"
-						style={{
-							background:
-								'radial-gradient(circle, var(--color-accent-secondary) 0%, transparent 70%)',
-						}}
-					/>
-				</div>
-
+		<html lang="en" className={`${geist.variable} ${playfair.variable}`}>
+			<body className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}>
+				{/* Clean minimal background */}
 				<div className="relative z-10 flex flex-col min-h-screen">
 					<Navigation />
 					<main className="flex-1 pt-16">
@@ -47,11 +25,11 @@ export default function NotFound() {
 									404
 								</h1>
 
-								<h2 className="animate-slide-up stagger-1 text-2xl md:text-3xl font-bold text-text-primary mb-4">
+								<h2 className="animate-slide-up stagger-1 text-2xl md:text-3xl font-bold text-foreground mb-4">
 									Page not found
 								</h2>
 
-								<p className="animate-slide-up stagger-2 text-text-secondary mb-10 max-w-md mx-auto">
+								<p className="animate-slide-up stagger-2 text-muted-foreground mb-10 max-w-md mx-auto">
 									The page you&apos;re looking for doesn&apos;t exist or has been moved. Let&apos;s
 									get you back on track.
 								</p>
@@ -59,7 +37,7 @@ export default function NotFound() {
 								<div className="animate-slide-up stagger-3 flex flex-wrap justify-center gap-4">
 									<Link
 										href="/"
-										className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+										className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:opacity-90 hover:shadow-xl hover:-translate-y-0.5"
 									>
 										<svg
 											className="w-4 h-4"
@@ -81,7 +59,7 @@ export default function NotFound() {
 									</Link>
 									<Link
 										href="/projects"
-										className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:border-border-hover hover:text-text-primary hover:bg-bg-elevated hover:-translate-y-0.5"
+										className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-muted-foreground transition-all duration-300 hover:border-foreground hover:text-foreground hover:bg-secondary hover:-translate-y-0.5"
 									>
 										View Projects
 									</Link>
