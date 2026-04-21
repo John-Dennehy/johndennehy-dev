@@ -1,21 +1,17 @@
 import { Analytics } from '@vercel/analytics/next'
-import { Outfit, Space_Grotesk } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import React from 'react'
 import './styles.css'
 import Footer from './components/Footer'
 import Navigation from './components/Navigation'
 
-const outfit = Outfit({
+const inter = Inter({
 	subsets: ['latin'],
-	variable: '--font-outfit',
+	variable: '--font-inter',
 	display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
-	subsets: ['latin'],
-	variable: '--font-space-grotesk',
-	display: 'swap',
-})
+
 
 export const metadata = {
 	title: 'John Dennehy — Software Engineer',
@@ -29,11 +25,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 	return (
 		<html
 			lang="en"
-			className={`dark ${outfit.variable} ${spaceGrotesk.variable}`}
-			style={{ colorScheme: 'dark' }}
+			className={`${inter.variable}`}
 		>
 			<body
-				className={`${outfit.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
+				className={`${inter.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
 			>
 				<Analytics />
 

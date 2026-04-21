@@ -4,8 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-	--font-sans: var(--font-outfit), ui-sans-serif, system-ui, sans-serif;
-	--font-heading: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-heading: var(--font-playfair-display), ui-serif, Georgia, serif;
 
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
@@ -63,77 +63,75 @@
 	}
 }
 
-/* Base Theme - Vibrant Deep Midnight */
+/* Base Theme - Clean Editorial Premium */
 :root {
-	/* Light mode (off-white with purple/yellow accents) */
-	--background: #f8fafc;
-	--foreground: #0f172a;
+	/* Light mode */
+	--background: #ffffff;
+	--foreground: #111827;
 	--card: #ffffff;
-	--card-foreground: #0f172a;
+	--card-foreground: #111827;
 	--popover: #ffffff;
-	--popover-foreground: #0f172a;
+	--popover-foreground: #111827;
 
-	/* Purple */
-	--primary: #9333ea;
-	--primary-foreground: #ffffff;
+	/* Premium Yellow Primary */
+	--primary: #EAB308;
+	--primary-foreground: #111827;
 
-	/* Yellow */
-	--secondary: #eab308;
-	--secondary-foreground: #0f172a;
+	/* Muted/Secondary UI elements */
+	--secondary: #f3f4f6;
+	--secondary-foreground: #111827;
 
-	/* Cyan */
-	--tertiary: #06b6d4;
-	--tertiary-foreground: #ffffff;
+	--tertiary: #e5e7eb;
+	--tertiary-foreground: #111827;
 
-	--muted: #f1f5f9;
-	--muted-foreground: #64748b;
-	--accent: #f8fafc;
-	--accent-foreground: #0f172a;
+	--muted: #f3f4f6;
+	--muted-foreground: #6b7280;
+	--accent: #f9fafb;
+	--accent-foreground: #111827;
 	--destructive: #ef4444;
 	--destructive-foreground: #ffffff;
 
-	--border: #e2e8f0;
-	--input: #e2e8f0;
-	--ring: #9333ea;
+	--border: #e5e7eb;
+	--input: #e5e7eb;
+	--ring: #EAB308;
 
-	--radius: 0.5rem;
+	--radius: 0.5rem; /* slightly tighter radius for editorial feel */
 }
 
 .dark {
-	/* Deep Midnight background */
-	--background: #050511;
-	--foreground: #f8fafc;
+	/* Deep Charcoal/Slate */
+	--background: #0f1115;
+	--foreground: #f9fafb;
 
-	/* Slightly lighter midnight for cards */
-	--card: #0a0a1a;
-	--card-foreground: #f8fafc;
-	--popover: #0a0a1a;
-	--popover-foreground: #f8fafc;
+	/* Slightly lighter for cards */
+	--card: #16191f;
+	--card-foreground: #f9fafb;
+	--popover: #16191f;
+	--popover-foreground: #f9fafb;
 
-	/* Vibrant Yellow as Primary */
-	--primary: #eab308;
-	--primary-foreground: #050511;
+	/* Premium Yellow */
+	--primary: #EAB308;
+	--primary-foreground: #111827;
 
-	/* Neon Purple as Secondary */
-	--secondary: #9333ea;
-	--secondary-foreground: #ffffff;
+	/* Muted/Secondary */
+	--secondary: #1f232b;
+	--secondary-foreground: #f9fafb;
 
-	/* Electric Cyan as Tertiary */
-	--tertiary: #22d3ee;
-	--tertiary-foreground: #050511;
+	--tertiary: #272c36;
+	--tertiary-foreground: #f9fafb;
 
-	--muted: #1e1e2f;
-	--muted-foreground: #94a3b8;
+	--muted: #1f232b;
+	--muted-foreground: #9ca3af;
 
-	--accent: #1e1e2f;
-	--accent-foreground: #f8fafc;
+	--accent: #1f232b;
+	--accent-foreground: #f9fafb;
 
-	--destructive: #ef4444;
+	--destructive: #f87171;
 	--destructive-foreground: #ffffff;
 
-	--border: #2a2a40;
-	--input: #2a2a40;
-	--ring: #eab308;
+	--border: #272c36;
+	--input: #272c36;
+	--ring: #EAB308;
 }
 
 @layer utilities {
