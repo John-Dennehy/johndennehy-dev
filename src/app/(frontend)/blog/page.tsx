@@ -68,14 +68,7 @@ export default function BlogPage() {
 						</svg>
 						Back to Home
 					</Link>
-					<a
-						href="https://x.com/jdthegeek"
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
-					>
-						Follow on X for updates
-					</a>
+
 				</div>
 			</div>
 		</section>

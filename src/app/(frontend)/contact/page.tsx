@@ -44,14 +44,7 @@ export default function ContactPage() {
 							>
 								GitHub
 							</a>
-							<a
-								href="https://x.com/jdthegeek"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="block text-text-secondary hover:text-accent transition-colors"
-							>
-								X / Twitter
-							</a>
+
 						</div>
 					</div>
 					<div>
@@ -61,7 +54,7 @@ export default function ContactPage() {
 						<p className="text-text-secondary">
 							London, United Kingdom
 							<br />
-							Available for remote or local roles.
+							Available for London-based office roles.
 						</p>
 					</div>
 				</div>

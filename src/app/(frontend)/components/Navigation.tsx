@@ -9,6 +9,7 @@ const navLinks = [
 	{ href: '/projects', label: 'Projects' },
 	{ href: '/cv', label: 'CV' },
 	{ href: '/blog', label: 'Blog' },
+	{ href: '/contact', label: 'Contact Me' },
 ]
 
 export default function Navigation() {
@@ -30,7 +31,7 @@ export default function Navigation() {
 	return (
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-				scrolled ? 'nav-blur border-b border-border shadow-lg shadow-black/20' : 'bg-transparent'
+				scrolled ? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm' : 'bg-transparent'
 			}`}
 		>
 			<div className="mx-auto max-w-5xl px-6 md:px-8">
@@ -90,7 +91,7 @@ export default function Navigation() {
 					mobileOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
 				}`}
 			>
-				<div className="nav-blur border-t border-border px-6 py-4 space-y-3">
+				<div className="bg-background/90 backdrop-blur-md border-t border-border px-6 py-4 space-y-3">
 					{navLinks.map((link) => (
 						<Link
 							key={link.href}

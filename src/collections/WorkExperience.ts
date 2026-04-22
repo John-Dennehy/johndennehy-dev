@@ -38,7 +38,7 @@ export const WorkExperience: CollectionConfig = {
 			name: 'location',
 			type: 'text',
 			admin: {
-				description: 'e.g. "London, UK" or "Remote"',
+				description: 'e.g. "London, UK"',
 			},
 		},
 		{
