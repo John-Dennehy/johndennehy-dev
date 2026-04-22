@@ -21,7 +21,6 @@ const socialLinks = [
 			</svg>
 		),
 	},
-
 ]
 
 export default function Footer() {

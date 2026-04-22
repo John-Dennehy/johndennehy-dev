@@ -12,7 +12,9 @@ export const metadata = {
 export default function NotFound() {
 	return (
 		<html lang="en" className={`${geist.variable} ${playfair.variable}`}>
-			<body className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}>
+			<body
+				className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
+			>
 				{/* Clean minimal background */}
 				<div className="relative z-10 flex flex-col min-h-screen">
 					<Navigation />

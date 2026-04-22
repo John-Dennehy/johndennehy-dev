@@ -68,9 +68,7 @@ export default async function ProjectsPage() {
 			iconSlug: t.iconSlug ?? null,
 			iconVariant: t.iconVariant ?? null,
 			logo:
-				t.logo && typeof t.logo !== 'number'
-					? { url: t.logo.url ?? null, alt: t.logo.alt }
-					: null,
+				t.logo && typeof t.logo !== 'number' ? { url: t.logo.url ?? null, alt: t.logo.alt } : null,
 		}))
 		.sort((a, b) => a.name.localeCompare(b.name))
 

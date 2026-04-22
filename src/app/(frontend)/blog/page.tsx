@@ -68,7 +68,6 @@ export default function BlogPage() {
 						</svg>
 						Back to Home
 					</Link>
-
 				</div>
 			</div>
 		</section>

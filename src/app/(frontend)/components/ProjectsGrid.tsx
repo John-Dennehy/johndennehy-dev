@@ -58,7 +58,7 @@ export default function ProjectsGrid({
 
 	const toggleTech = (slug: string) => {
 		setActiveTechs((prev) =>
-			prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug]
+			prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug],
 		)
 	}
 
@@ -72,10 +72,11 @@ export default function ProjectsGrid({
 						<h3 className="text-sm font-bold uppercase tracking-widest text-text-muted">
 							Filter Projects
 						</h3>
-						
+
 						{activeTechs.length > 1 && (
 							<div className="flex items-center gap-1 text-xs font-medium bg-bg-surface p-1 rounded-lg border border-border">
 								<button
+									type="button"
 									onClick={() => setFilterMode('AND')}
 									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
 										filterMode === 'AND'
@@ -86,6 +87,7 @@ export default function ProjectsGrid({
 									Match All (AND)
 								</button>
 								<button
+									type="button"
 									onClick={() => setFilterMode('OR')}
 									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
 										filterMode === 'OR'
@@ -116,7 +118,9 @@ export default function ProjectsGrid({
 								? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
 								: null
 
-							const hasProjects = projects.some(p => p.techStack?.some(t => t.slug === tech.slug))
+							const hasProjects = projects.some((p) =>
+								p.techStack?.some((t) => t.slug === tech.slug),
+							)
 							const isActive = activeTechs.includes(tech.slug)
 
 							return (
@@ -128,8 +132,8 @@ export default function ProjectsGrid({
 										isActive
 											? 'bg-accent text-accent-foreground border-accent shadow-lg shadow-accent-glow'
 											: !hasProjects
-											? 'bg-bg-surface text-text-muted/40 border-border/50 grayscale opacity-60 hover:opacity-100 hover:text-text-muted'
-											: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+												? 'bg-bg-surface text-text-muted/40 border-border/50 grayscale opacity-60 hover:opacity-100 hover:text-text-muted'
+												: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
 									}`}
 									title={!hasProjects ? `No published ${tech.name} projects currently` : ''}
 								>

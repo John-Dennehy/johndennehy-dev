@@ -62,7 +62,12 @@
 		@apply bg-primary text-primary-foreground;
 	}
 
-	h1, h2, h3, h4, h5, h6 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
 		@apply font-heading;
 	}
 }
@@ -78,7 +83,7 @@
 	--popover-foreground: #111827;
 
 	/* Premium Yellow Primary */
-	--primary: #EAB308;
+	--primary: #eab308;
 	--primary-foreground: #111827;
 
 	/* Muted/Secondary UI elements */
@@ -97,7 +102,7 @@
 
 	--border: #e5e7eb;
 	--input: #e5e7eb;
-	--ring: #EAB308;
+	--ring: #eab308;
 
 	--radius: 0.5rem; /* slightly tighter radius for editorial feel */
 }
@@ -114,7 +119,7 @@
 	--popover-foreground: #f9fafb;
 
 	/* Premium Yellow */
-	--primary: #EAB308;
+	--primary: #eab308;
 	--primary-foreground: #111827;
 
 	/* Muted/Secondary */
@@ -135,7 +140,7 @@
 
 	--border: #272c36;
 	--input: #272c36;
-	--ring: #EAB308;
+	--ring: #eab308;
 }
 
 @layer utilities {

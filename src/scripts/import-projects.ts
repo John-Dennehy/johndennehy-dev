@@ -1,6 +1,7 @@
-import dotenv from 'dotenv'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import dotenv from 'dotenv'
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const rootDir = path.resolve(__dirname, '../../')
 
@@ -9,8 +10,8 @@ dotenv.config({ path: path.join(rootDir, '.env') })
 
 console.log('PAYLOAD_SECRET is loaded:', !!process.env.PAYLOAD_SECRET)
 
-import { getPayload } from 'payload'
 import fs from 'node:fs'
+import { getPayload } from 'payload'
 
 async function run() {
 	const { default: config } = await import('@payload-config')
@@ -25,7 +26,20 @@ async function run() {
 	}
 
 	const rawData = fs.readFileSync(importFilePath, 'utf-8')
-	let projectsToImport: any[]
+	interface ImportProject {
+		title: string
+		slug: string
+		summary: string
+		description?: string | string[]
+		status?: 'published' | 'draft'
+		liveUrl?: string
+		repoUrl?: string
+		featured?: boolean
+		techStackSlugs?: string[]
+		publishedDate?: string
+	}
+
+	let projectsToImport: ImportProject[]
 
 	try {
 		projectsToImport = JSON.parse(rawData)

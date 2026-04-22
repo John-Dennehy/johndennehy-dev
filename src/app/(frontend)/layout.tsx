@@ -1,11 +1,9 @@
 import { Analytics } from '@vercel/analytics/next'
-import { geist, playfair } from '../fonts'
 import React from 'react'
+import { geist, playfair } from '../fonts'
 import './styles.css'
 import Footer from './components/Footer'
 import Navigation from './components/Navigation'
-
-
 
 export const metadata = {
 	title: 'John Dennehy — Software Engineer',
@@ -17,10 +15,7 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 	const { children } = props
 
 	return (
-		<html
-			lang="en"
-			className={`${geist.variable} ${playfair.variable}`}
-		>
+		<html lang="en" className={`${geist.variable} ${playfair.variable}`}>
 			<body
 				className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
 			>

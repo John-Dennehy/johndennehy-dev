@@ -44,7 +44,6 @@ export default function ContactPage() {
 							>
 								GitHub
 							</a>
-
 						</div>
 					</div>
 					<div>
