@@ -21,6 +21,15 @@ export default async function ProjectsPage() {
 		limit: 50,
 	})
 
+	const { docs: allTechs } = await payload.find({
+		collection: 'technologies',
+		where: {
+			displayAsFilterOption: { not_equals: false },
+		},
+		limit: 100,
+		depth: 1,
+	})
+
 	// Serialize for client component
 	const serialised = projects.map((p) => ({
 		id: p.id,
@@ -51,6 +60,20 @@ export default async function ProjectsPage() {
 		featured: p.featured ?? false,
 	}))
 
+	const serialisedTechs = allTechs
+		.map((t) => ({
+			id: t.id,
+			name: t.name,
+			slug: t.slug,
+			iconSlug: t.iconSlug ?? null,
+			iconVariant: t.iconVariant ?? null,
+			logo:
+				t.logo && typeof t.logo !== 'number'
+					? { url: t.logo.url ?? null, alt: t.logo.alt }
+					: null,
+		}))
+		.sort((a, b) => a.name.localeCompare(b.name))
+
 	return (
 		<section className="px-6 md:px-8 pt-20 pb-24 md:pt-32 md:pb-32">
 			<div className="mx-auto max-w-5xl">
@@ -64,7 +87,7 @@ export default async function ProjectsPage() {
 					find what interests you.
 				</p>
 
-				<ProjectsGrid projects={serialised} />
+				<ProjectsGrid projects={serialised} filterOptions={serialisedTechs} />
 			</div>
 		</section>
 	)

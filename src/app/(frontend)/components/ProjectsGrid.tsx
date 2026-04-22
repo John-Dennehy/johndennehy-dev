@@ -25,87 +25,137 @@ interface Project {
 	featured?: boolean | null
 }
 
-export default function ProjectsGrid({ projects }: { projects: Project[] }) {
-	const [activeTech, setActiveTech] = useState<string | null>(null)
+export default function ProjectsGrid({
+	projects,
+	filterOptions = [],
+}: {
+	projects: Project[]
+	filterOptions?: Technology[]
+}) {
+	const [activeTechs, setActiveTechs] = useState<string[]>([])
+	const [filterMode, setFilterMode] = useState<'AND' | 'OR'>('AND')
 
-	// Aggregate all unique technologies across projects
-	const allTechs = useMemo(() => {
-		const techMap = new Map<string, Technology>()
-		projects.forEach((p) => {
-			p.techStack?.forEach((t) => {
-				if (!techMap.has(t.slug)) techMap.set(t.slug, t)
-			})
-		})
-		return Array.from(techMap.values()).sort((a, b) => a.name.localeCompare(b.name))
-	}, [projects])
+	// No need to derive allTechs from projects anymore since we receive them from CMS
+	// We'll use filterOptions instead.
 
 	// Split into matched / unmatched when a filter is active
 	const { matched, unmatched } = useMemo(() => {
-		if (!activeTech) return { matched: projects, unmatched: [] as Project[] }
+		if (activeTechs.length === 0) return { matched: projects, unmatched: [] as Project[] }
 		const m: Project[] = []
 		const u: Project[] = []
 		projects.forEach((p) => {
-			const hasMatch = p.techStack?.some((t) => t.slug === activeTech)
+			const projectTechSlugs = p.techStack?.map((t) => t.slug) || []
+			const hasMatch =
+				filterMode === 'AND'
+					? activeTechs.every((slug) => projectTechSlugs.includes(slug))
+					: activeTechs.some((slug) => projectTechSlugs.includes(slug))
+
 			if (hasMatch) m.push(p)
 			else u.push(p)
 		})
 		return { matched: m, unmatched: u }
-	}, [projects, activeTech])
+	}, [projects, activeTechs, filterMode])
+
+	const toggleTech = (slug: string) => {
+		setActiveTechs((prev) =>
+			prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug]
+		)
+	}
 
 	return (
 		<>
 			{/* Tech filter bar */}
-			{allTechs.length > 0 && (
-				<div className="mb-10 flex flex-wrap gap-2 animate-slide-up stagger-2">
-					<button
-						type="button"
-						onClick={() => setActiveTech(null)}
-						className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
-							activeTech === null
-								? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
-								: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
-						}`}
-					>
-						All
-					</button>
-					{allTechs.map((tech) => {
-						const iconUrl = tech.iconSlug
-							? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
-							: null
+			{/* Tech filter box */}
+			{filterOptions.length > 0 && (
+				<div className="glass-card p-6 mb-10 animate-slide-up stagger-2">
+					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+						<h3 className="text-sm font-bold uppercase tracking-widest text-text-muted">
+							Filter Projects
+						</h3>
+						
+						{activeTechs.length > 1 && (
+							<div className="flex items-center gap-1 text-xs font-medium bg-bg-surface p-1 rounded-lg border border-border">
+								<button
+									onClick={() => setFilterMode('AND')}
+									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
+										filterMode === 'AND'
+											? 'bg-accent text-accent-foreground shadow-sm'
+											: 'text-text-muted hover:text-text-secondary'
+									}`}
+								>
+									Match All (AND)
+								</button>
+								<button
+									onClick={() => setFilterMode('OR')}
+									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
+										filterMode === 'OR'
+											? 'bg-accent text-accent-foreground shadow-sm'
+											: 'text-text-muted hover:text-text-secondary'
+									}`}
+								>
+									Match Any (OR)
+								</button>
+							</div>
+						)}
+					</div>
 
-						return (
-							<button
-								type="button"
-								key={tech.slug}
-								onClick={() => setActiveTech(activeTech === tech.slug ? null : tech.slug)}
-								className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
-									activeTech === tech.slug
-										? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
-										: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
-								}`}
-							>
-								{tech.logo?.url ? (
-									<Image
-										src={tech.logo.url}
-										alt={tech.logo.alt}
-										width={14}
-										height={14}
-										className="rounded-sm"
-									/>
-								) : iconUrl ? (
-									// eslint-disable-next-line @next/next/no-img-element
-									<Image
-										src={iconUrl}
-										alt={`${tech.name} icon`}
-										width={14}
-										height={14}
-										unoptimized
-									/>
-								) : null}
-								{tech.name}
-							</button>
-						)
-					})}
+					<div className="flex flex-wrap gap-2">
+						<button
+							type="button"
+							onClick={() => setActiveTechs([])}
+							className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
+								activeTechs.length === 0
+									? 'bg-accent text-accent-foreground border-accent shadow-lg shadow-accent-glow'
+									: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+							}`}
+						>
+							All
+						</button>
+						{filterOptions.map((tech) => {
+							const iconUrl = tech.iconSlug
+								? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
+								: null
+
+							const hasProjects = projects.some(p => p.techStack?.some(t => t.slug === tech.slug))
+							const isActive = activeTechs.includes(tech.slug)
+
+							return (
+								<button
+									type="button"
+									key={tech.slug}
+									onClick={() => toggleTech(tech.slug)}
+									className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
+										isActive
+											? 'bg-accent text-accent-foreground border-accent shadow-lg shadow-accent-glow'
+											: !hasProjects
+											? 'bg-bg-surface text-text-muted/40 border-border/50 grayscale opacity-60 hover:opacity-100 hover:text-text-muted'
+											: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+									}`}
+									title={!hasProjects ? `No published ${tech.name} projects currently` : ''}
+								>
+									{tech.logo?.url ? (
+										<Image
+											src={tech.logo.url}
+											alt={tech.logo.alt}
+											width={14}
+											height={14}
+											className="rounded-sm"
+										/>
+									) : iconUrl ? (
+										// eslint-disable-next-line @next/next/no-img-element
+										<Image
+											src={iconUrl}
+											alt={`${tech.name} icon`}
+											width={14}
+											height={14}
+											unoptimized
+										/>
+									) : null}
+									{tech.name}
+								</button>
+							)
+						})}
+					</div>
 				</div>
 			)}
 
@@ -146,7 +196,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 							href="https://github.com/john-dennehy"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-accent hover:text-accent-hover transition-colors"
+							className="text-primary font-semibold hover:underline transition-colors"
 						>
 							GitHub
 						</a>{' '}
@@ -216,7 +266,7 @@ function ProjectCard({
 
 				{/* Featured badge */}
 				{project.featured && (
-					<div className="absolute top-3 right-3 rounded-full bg-accent/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg shadow-accent-glow">
+					<div className="absolute top-3 right-3 rounded-full bg-accent/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent-foreground shadow-lg shadow-accent-glow">
 						Featured
 					</div>
 				)}
