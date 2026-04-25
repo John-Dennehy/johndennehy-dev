@@ -8,14 +8,14 @@ export const metadata = {
 
 export default function CVPage() {
 	return (
-		<section className="px-6 md:px-8 pt-20 pb-24 md:pt-32 md:pb-32">
+		<section className="px-6 md:px-8 pt-20 pb-16 md:pt-24 md:pb-16">
 			<div className="mx-auto max-w-3xl text-center">
-				<div className="gradient-line mb-12 mx-auto max-w-xs animate-fade-in" />
+				<div className="mb-8 w-16 h-px bg-primary mx-auto" />
 
 				{/* Icon */}
-				<div className="animate-slide-up mb-8 inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-bg-surface border border-border">
+				<div className="mb-8 inline-flex h-20 w-20 items-center justify-center border border-border bg-muted">
 					<svg
-						className="w-9 h-9 text-accent"
+						className="w-9 h-9 text-foreground"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"
@@ -32,22 +32,22 @@ export default function CVPage() {
 					</svg>
 				</div>
 
-				<h1 className="animate-slide-up stagger-1 text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
+				<h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
 					CV
 				</h1>
 
-				<p className="animate-slide-up stagger-2 text-lg text-text-secondary mb-4 max-w-md mx-auto">
+				<p className="text-lg text-muted-foreground mb-4 max-w-md mx-auto leading-relaxed">
 					I&apos;m putting together a proper interactive CV for this site. It&apos;s on the way.
 				</p>
 
-				<p className="animate-slide-up stagger-3 text-text-muted mb-10 max-w-sm mx-auto">
+				<p className="text-muted-foreground/70 mb-10 max-w-sm mx-auto">
 					In the meantime, my full professional history is on LinkedIn.
 				</p>
 
-				<div className="animate-slide-up stagger-4 flex flex-wrap justify-center gap-4">
+				<div className="flex flex-wrap justify-center gap-4">
 					<Link
 						href="/"
-						className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:border-border-hover hover:text-text-primary hover:bg-bg-elevated hover:-translate-y-0.5"
+						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 					>
 						<svg
 							className="w-4 h-4"
@@ -71,7 +71,7 @@ export default function CVPage() {
 						href="https://linkedin.com/in/johnfdennehy"
 						target="_blank"
 						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+						className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
 					>
 						<svg
 							className="w-4 h-4"

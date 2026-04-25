@@ -75,11 +75,11 @@ export default function FeedbackSection({
 	}
 
 	return (
-		<div className="animate-slide-up stagger-5">
-			<div className="gradient-line mb-8 max-w-xs" />
+		<div>
+			<div className="mb-1 w-16 h-px bg-primary" />
 
-			<h2 className="text-2xl font-bold text-text-primary mb-2">Feedback &amp; Suggestions</h2>
-			<p className="text-text-secondary text-sm mb-8">
+			<h2 className="font-heading text-2xl font-bold text-foreground mt-6 mb-2">Feedback &amp; Suggestions</h2>
+			<p className="text-muted-foreground text-sm mb-8 leading-relaxed">
 				I genuinely value feedback and collaboration. If you have suggestions, spotted something
 				interesting, or just want to say hello — I&apos;d love to hear from you.
 			</p>
@@ -88,14 +88,14 @@ export default function FeedbackSection({
 			{feedback.length > 0 && (
 				<div className="space-y-4 mb-10">
 					{feedback.map((item) => (
-						<div key={item.id} className="glass-card p-5">
+						<div key={item.id} className="border border-border p-5">
 							<div className="flex items-center gap-3 mb-2">
-								<div className="flex h-8 w-8 items-center justify-center rounded-full bg-accent/10 text-accent text-xs font-bold">
+								<div className="flex h-8 w-8 items-center justify-center bg-primary text-primary-foreground text-xs font-bold">
 									{item.name.charAt(0).toUpperCase()}
 								</div>
 								<div>
-									<p className="text-sm font-semibold text-text-primary">{item.name}</p>
-									<p className="text-[11px] text-text-muted">
+									<p className="text-sm font-semibold text-foreground">{item.name}</p>
+									<p className="text-[11px] text-muted-foreground">
 										{new Date(item.createdAt).toLocaleDateString('en-GB', {
 											day: 'numeric',
 											month: 'short',
@@ -104,7 +104,7 @@ export default function FeedbackSection({
 									</p>
 								</div>
 							</div>
-							<p className="text-sm text-text-secondary leading-relaxed">{item.message}</p>
+							<p className="text-sm text-muted-foreground leading-relaxed">{item.message}</p>
 						</div>
 					))}
 				</div>
@@ -112,28 +112,28 @@ export default function FeedbackSection({
 
 			{/* Submission form */}
 			{submitted ? (
-				<div className="glass-card p-8 text-center">
-					<div className="mb-3 text-3xl">✨</div>
-					<h3 className="text-lg font-semibold text-text-primary mb-2">
+				<div className="border border-border p-8 text-center">
+					<div className="mb-3 text-3xl" aria-hidden="true">✨</div>
+					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">
 						Thanks for your feedback!
 					</h3>
-					<p className="text-sm text-text-secondary">
+					<p className="text-sm text-muted-foreground">
 						Your message will appear here once I&apos;ve reviewed it.
 					</p>
 					<button
 						type="button"
 						onClick={() => setSubmitted(false)}
-						className="mt-4 text-sm text-accent hover:text-accent-hover transition-colors"
+						className="mt-4 text-sm font-bold uppercase tracking-widest text-primary hover:text-foreground transition-colors"
 					>
 						Submit another
 					</button>
 				</div>
 			) : (
-				<form onSubmit={handleSubmit} className="glass-card p-6 space-y-4">
+				<form onSubmit={handleSubmit} className="border border-border p-6 space-y-4">
 					<div>
 						<label
 							htmlFor="feedback-name"
-							className="block text-sm font-medium text-text-secondary mb-1.5"
+							className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5"
 						>
 							Your Name
 						</label>
@@ -144,13 +144,13 @@ export default function FeedbackSection({
 							onChange={(e) => setName(e.target.value)}
 							maxLength={100}
 							placeholder="Jane Smith"
-							className="w-full rounded-lg border border-border bg-bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors"
+							className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors"
 						/>
 					</div>
 					<div>
 						<label
 							htmlFor="feedback-message"
-							className="block text-sm font-medium text-text-secondary mb-1.5"
+							className="block text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1.5"
 						>
 							Your Feedback
 						</label>
@@ -161,7 +161,7 @@ export default function FeedbackSection({
 							maxLength={1000}
 							rows={4}
 							placeholder="What do you think? Any suggestions?"
-							className="w-full rounded-lg border border-border bg-bg-surface px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-colors resize-none"
+							className="w-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors resize-none"
 						/>
 					</div>
 
@@ -188,12 +188,12 @@ export default function FeedbackSection({
 						/>
 					</div>
 
-					{error && <p className="text-sm text-red-400">{error}</p>}
+					{error && <p className="text-sm text-destructive">{error}</p>}
 
 					<button
 						type="submit"
 						disabled={isPending}
-						className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+						className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						{isPending ? (
 							<>

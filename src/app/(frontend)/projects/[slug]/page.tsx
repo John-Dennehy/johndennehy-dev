@@ -62,12 +62,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 		project.thumbnail && typeof project.thumbnail !== 'number' ? project.thumbnail : null
 
 	return (
-		<section className="px-6 md:px-8 pt-20 pb-24 md:pt-32 md:pb-32">
+		<section className="px-6 md:px-8 pt-20 pb-16 md:pt-24 md:pb-16">
 			<div className="mx-auto max-w-3xl">
 				{/* Back link */}
-				<Link
-					href="/projects"
-					className="inline-flex items-center gap-2 text-sm text-text-muted hover:text-text-primary transition-colors mb-8 animate-fade-in"
+			<Link
+				href="/projects"
+				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
 				>
 					<svg
 						className="w-4 h-4"
@@ -88,25 +88,24 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					Back to Projects
 				</Link>
 
-				{/* Header */}
-				<div className="gradient-line mb-8 max-w-xs animate-fade-in" />
+			{/* Header */}
+			<div className="mb-1 w-16 h-px bg-primary" />
 
-				<h1 className="animate-slide-up text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
-					{project.title}
-				</h1>
+			<h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mt-6 mb-4">
+				{project.title}
+			</h1>
 
-				<p className="animate-slide-up stagger-1 text-text-secondary text-lg mb-6">
-					{project.summary}
-				</p>
+			<p className="text-muted-foreground text-lg mb-6 leading-relaxed">
+				{project.summary}
+			</p>
 
-				{/* Action buttons */}
-				<div className="animate-slide-up stagger-2 flex flex-wrap gap-3 mb-10">
-					{project.liveUrl && (
-						<a
-							href={project.liveUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
+			<div className="flex flex-wrap gap-3 mb-10">
+				{project.liveUrl && (
+					<a
+						href={project.liveUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
 						>
 							<svg
 								className="w-4 h-4"
@@ -126,13 +125,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 							</svg>
 							View Live
 						</a>
-					)}
-					{project.repoUrl && (
-						<a
-							href={project.repoUrl}
-							target="_blank"
-							rel="noopener noreferrer"
-							className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:border-border-hover hover:text-text-primary hover:bg-bg-elevated hover:-translate-y-0.5"
+				)}
+				{project.repoUrl && (
+					<a
+						href={project.repoUrl}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 						>
 							<svg
 								className="w-4 h-4"
@@ -153,25 +152,23 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					)}
 				</div>
 
-				{/* Thumbnail */}
-				{thumbnail?.url && (
-					<div className="animate-slide-up stagger-2 mb-10 overflow-hidden rounded-2xl border border-border">
-						<Image
-							src={thumbnail.url}
-							alt={thumbnail.alt}
-							width={800}
-							height={450}
-							className="w-full object-cover"
-						/>
-					</div>
-				)}
+			{thumbnail?.url && (
+				<div className="mb-10 overflow-hidden border border-border">
+					<Image
+						src={thumbnail.url}
+						alt={thumbnail.alt}
+						width={800}
+						height={450}
+						className="w-full object-cover"
+					/>
+				</div>
+			)}
 
-				{/* Tech stack */}
-				{techStack.length > 0 && (
-					<div className="animate-slide-up stagger-3 mb-10">
-						<h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted mb-4">
-							Built With
-						</h2>
+			{techStack.length > 0 && (
+				<div className="mb-10">
+					<h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
+						Built With
+					</h2>
 						<div className="flex flex-wrap gap-3">
 							{techStack.map((tech) => {
 								const logo = tech.logo && typeof tech.logo !== 'number' ? tech.logo : null
@@ -188,7 +185,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 										{tech.name}
 										{tech.docsUrl && (
 											<svg
-												className="w-3 h-3 text-text-muted"
+												className="w-3 h-3 text-muted-foreground"
 												fill="none"
 												viewBox="0 0 24 24"
 												stroke="currentColor"
@@ -213,14 +210,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 										href={tech.docsUrl}
 										target="_blank"
 										rel="noopener noreferrer"
-										className="glass-card inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary"
+										className="inline-flex items-center gap-2 border border-border bg-muted px-4 py-2 text-sm font-medium text-foreground hover:border-foreground transition-colors"
 									>
 										{content}
 									</a>
 								) : (
 									<span
 										key={tech.id}
-										className="glass-card inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary"
+										className="inline-flex items-center gap-2 border border-border bg-muted px-4 py-2 text-sm font-medium text-foreground"
 									>
 										{content}
 									</span>
@@ -230,14 +227,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					</div>
 				)}
 
-				{/* Rich text body */}
-				{project.description && (
-					<div className="animate-slide-up stagger-4 prose prose-invert max-w-none mb-16 text-text-secondary prose-headings:text-text-primary prose-a:text-accent prose-a:no-underline hover:prose-a:text-accent-hover prose-strong:text-text-primary prose-code:text-accent-secondary prose-code:bg-bg-elevated prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm">
-						<RichText data={project.description} />
-					</div>
-				)}
+			{project.description && (
+				<div className="prose max-w-none mb-16 text-foreground prose-headings:font-heading prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm">
+					<RichText data={project.description} />
+				</div>
+			)}
 
-				{/* Feedback section */}
 				<FeedbackSection
 					projectId={project.id}
 					feedback={feedback.map((f) => ({
