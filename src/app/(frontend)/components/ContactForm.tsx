@@ -67,17 +67,17 @@ export default function ContactForm() {
 
 	if (submitted) {
 		return (
-			<div className="glass-card p-8 text-center animate-fade-in">
-				<div className="mb-4 text-4xl">✉️</div>
-				<h3 className="text-xl font-bold text-text-primary mb-3">Message Sent</h3>
-				<p className="text-text-secondary leading-relaxed max-w-sm mx-auto">
+			<div className="border border-border p-8 text-center">
+				<div className="mb-4 text-4xl" aria-hidden="true">✉️</div>
+				<h3 className="font-heading text-xl font-bold text-foreground mb-3">Message Sent</h3>
+				<p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
 					Thanks for reaching out, {name.split(' ')[0]}! I&apos;ve received your message and will
 					get back to you as soon as I can.
 				</p>
 				<button
 					type="button"
 					onClick={() => setSubmitted(false)}
-					className="mt-8 text-sm font-semibold text-accent hover:text-accent-hover transition-colors"
+					className="mt-8 text-sm font-bold uppercase tracking-widest text-primary hover:text-foreground transition-colors"
 				>
 					Send another message
 				</button>
@@ -86,12 +86,12 @@ export default function ContactForm() {
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="glass-card p-6 md:p-8 space-y-5 animate-slide-up">
+		<form onSubmit={handleSubmit} className="border border-border p-6 md:p-8 space-y-5">
 			<div className="grid gap-5 md:grid-cols-2">
 				<div className="space-y-1.5">
 					<label
 						htmlFor="contact-name"
-						className="block text-xs font-bold uppercase tracking-wider text-text-muted ml-1"
+						className="block text-xs font-bold uppercase tracking-widest text-muted-foreground"
 					>
 						Your Name
 					</label>
@@ -102,13 +102,13 @@ export default function ContactForm() {
 						value={name}
 						onChange={(e) => setName(e.target.value)}
 						placeholder="John Doe"
-						className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300"
+						className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
 					/>
 				</div>
 				<div className="space-y-1.5">
 					<label
 						htmlFor="contact-email"
-						className="block text-xs font-bold uppercase tracking-wider text-text-muted ml-1"
+						className="block text-xs font-bold uppercase tracking-widest text-muted-foreground"
 					>
 						Email Address
 					</label>
@@ -119,7 +119,7 @@ export default function ContactForm() {
 						value={email}
 						onChange={(e) => setEmail(e.target.value)}
 						placeholder="john@example.com"
-						className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300"
+						className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
 					/>
 				</div>
 			</div>
@@ -127,7 +127,7 @@ export default function ContactForm() {
 			<div className="space-y-1.5">
 				<label
 					htmlFor="contact-subject"
-					className="block text-xs font-bold uppercase tracking-wider text-text-muted ml-1"
+					className="block text-xs font-bold uppercase tracking-widest text-muted-foreground"
 				>
 					Subject
 				</label>
@@ -138,14 +138,14 @@ export default function ContactForm() {
 					value={subject}
 					onChange={(e) => setSubject(e.target.value)}
 					placeholder="Collaboration Inquiry"
-					className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300"
+					className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200"
 				/>
 			</div>
 
 			<div className="space-y-1.5">
 				<label
 					htmlFor="contact-message"
-					className="block text-xs font-bold uppercase tracking-wider text-text-muted ml-1"
+					className="block text-xs font-bold uppercase tracking-widest text-muted-foreground"
 				>
 					Message
 				</label>
@@ -156,7 +156,7 @@ export default function ContactForm() {
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 					placeholder="Tell me what's on your mind..."
-					className="w-full rounded-xl border border-border bg-bg-surface px-4 py-3 text-sm text-text-primary placeholder:text-text-muted/40 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all duration-300 resize-none"
+					className="w-full border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/40 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-200 resize-none"
 				/>
 			</div>
 
@@ -178,7 +178,7 @@ export default function ContactForm() {
 			</div>
 
 			{error && (
-				<div className="rounded-lg bg-red-500/10 border border-red-500/20 p-3 text-sm text-red-400">
+				<div className="border border-destructive/30 bg-destructive/10 p-3 text-sm text-destructive">
 					{error}
 				</div>
 			)}
@@ -186,7 +186,7 @@ export default function ContactForm() {
 			<button
 				type="submit"
 				disabled={isPending}
-				className="w-full md:w-auto inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-8 py-3.5 text-sm font-bold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
+				className="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-primary text-primary-foreground px-8 py-3.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed"
 			>
 				{isPending ? (
 					<>

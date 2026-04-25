@@ -60,7 +60,7 @@ export default function TechIcon({
 	return (
 		<span
 			role="img"
-			className={`inline-flex items-center justify-center rounded bg-accent/10 text-accent font-bold ${className}`}
+			className={`inline-flex items-center justify-center bg-primary text-primary-foreground font-bold ${className}`}
 			style={{ width: size, height: size, fontSize: size * 0.5 }}
 			aria-label={`${name} icon`}
 		>

@@ -18,7 +18,7 @@ export default function HomePage() {
 								Available for new roles
 							</div>
 
-							<h1 className="text-balance text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[0.9] uppercase">
+							<h1 className="font-heading text-balance text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[0.9]">
 								Crafting <br /> Digital <br /> Excellence.
 							</h1>
 
@@ -75,13 +75,13 @@ export default function HomePage() {
 			</section>
 
 			{/* ── What I Bring ──────────────────────────────────────────── */}
-			<section className="px-6 md:px-12 py-32 bg-background border-b border-border">
+			<section className="px-6 md:px-12 py-16 bg-background border-b border-border">
 				<div className="mx-auto max-w-7xl">
-					<div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-						<h2 className="text-balance text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground">
+					<div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+						<h2 className="font-heading text-balance text-4xl md:text-6xl font-bold tracking-tighter text-foreground">
 							My Skills
 						</h2>
-						<p className="text-lg font-bold uppercase tracking-widest text-muted-foreground max-w-xl">
+						<p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
 							Returning to development with a unique blend of technical expertise and a decade of
 							problem-solving experience.
 						</p>
@@ -89,7 +89,7 @@ export default function HomePage() {
 
 					<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 						{/* Card 1 — Frontend Development */}
-						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
@@ -108,8 +108,8 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
-									React & Next.js
+								<CardTitle className="font-heading font-bold text-2xl">
+									React &amp; Next.js
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
@@ -121,7 +121,7 @@ export default function HomePage() {
 						</Card>
 
 						{/* Card 2 — Full-Stack Capable */}
-						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
@@ -140,7 +140,7 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
+								<CardTitle className="font-heading font-bold text-2xl">
 									Full-Stack
 								</CardTitle>
 							</CardHeader>
@@ -153,7 +153,7 @@ export default function HomePage() {
 						</Card>
 
 						{/* Card 3 — Not Just Code */}
-						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
@@ -172,7 +172,7 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
+								<CardTitle className="font-heading font-bold text-2xl">
 									Communication
 								</CardTitle>
 							</CardHeader>
@@ -187,14 +187,14 @@ export default function HomePage() {
 				</div>
 			</section>
 
-			<section className="px-6 md:px-12 py-32 bg-background border-t border-border">
+			<section className="px-6 md:px-12 py-16 bg-background border-t border-border">
 				<div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12">
 					<div className="max-w-xl">
-						<h2 className="text-balance text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground mb-6">
-							Let’s Connect
+						<h2 className="font-heading text-balance text-4xl md:text-6xl font-bold tracking-tighter text-foreground mb-6">
+							Let's Connect
 						</h2>
-						<p className="text-lg font-bold uppercase tracking-widest text-muted-foreground">
-							I’m looking for frontend or full-stack roles and always happy to chat. Reach out on
+						<p className="text-lg text-muted-foreground leading-relaxed">
+							I'm looking for frontend or full-stack roles and always happy to chat. Reach out on
 							any of these platforms.
 						</p>
 					</div>

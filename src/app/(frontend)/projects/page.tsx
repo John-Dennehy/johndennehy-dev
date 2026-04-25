@@ -78,20 +78,20 @@ export default async function ProjectsPage() {
 		.sort((a, b) => a.name.localeCompare(b.name))
 
 	return (
-		<section className="px-6 md:px-8 pt-20 pb-24 md:pt-32 md:pb-32">
-			<div className="mx-auto max-w-5xl">
-				{/* Header */}
-				<div className="gradient-line mb-12 max-w-xs animate-fade-in" />
-				<h1 className="animate-slide-up text-4xl md:text-5xl font-extrabold tracking-tight text-text-primary mb-4">
-					Projects
-				</h1>
-				<p className="animate-slide-up stagger-1 text-text-secondary mb-12 max-w-xl">
-					Things I&apos;ve built, tinkered with, or am actively working on. Filter by technology to
-					find what interests you.
-				</p>
+	<section className="px-6 md:px-8 pt-20 pb-16 md:pt-24 md:pb-16">
+		<div className="mx-auto max-w-5xl">
+			{/* Header */}
+			<div className="mb-1 w-16 h-px bg-primary" />
+			<h1 className="font-heading animate-fade-in text-4xl md:text-5xl font-bold tracking-tight text-foreground mt-6 mb-4">
+				Projects
+			</h1>
+			<p className="animate-fade-in text-muted-foreground mb-12 max-w-xl leading-relaxed">
+				Things I&apos;ve built, tinkered with, or am actively working on. Filter by technology to
+				find what interests you.
+			</p>
 
-				<ProjectsGrid projects={serialised} filterOptions={serialisedTechs} />
-			</div>
-		</section>
+			<ProjectsGrid projects={serialised} filterOptions={serialisedTechs} />
+		</div>
+	</section>
 	)
 }
