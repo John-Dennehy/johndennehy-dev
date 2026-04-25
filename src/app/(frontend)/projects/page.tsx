@@ -2,6 +2,11 @@ import config from '@payload-config'
 import { getPayload } from 'payload'
 import ProjectsGrid from '../components/ProjectsGrid'
 
+// Force dynamic rendering — the DB schema (e.g. `featured` column) is applied
+// at server startup via Payload's push, not at build time, so static pre-rendering
+// would fail with "column does not exist" against the production database.
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
 	title: 'Projects — John Dennehy',
 	description:
