@@ -197,6 +197,10 @@ export interface Media {
  */
 export interface Technology {
   id: number;
+  /**
+   * Display this technology as a filter option on the projects page
+   */
+  displayAsFilterOption?: boolean | null;
   name: string;
   /**
    * URL-friendly identifier (e.g. "react", "typescript")
@@ -331,7 +335,7 @@ export interface WorkExperience {
    */
   companyUrl?: string | null;
   /**
-   * e.g. "London, UK" or "Remote"
+   * e.g. "London, UK"
    */
   location?: string | null;
   startDate: string;
@@ -600,6 +604,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "technologies_select".
  */
 export interface TechnologiesSelect<T extends boolean = true> {
+  displayAsFilterOption?: T;
   name?: T;
   slug?: T;
   iconSlug?: T;

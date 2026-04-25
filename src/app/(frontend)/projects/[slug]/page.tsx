@@ -7,6 +7,11 @@ import { getPayload } from 'payload'
 import FeedbackSection from '../../components/FeedbackSection'
 import TechIcon from '../../components/TechIcon'
 
+// Force dynamic rendering — Payload's schema push runs at server startup,
+// not during `next build`, so build-time pre-rendering would fail if the DB
+// schema hasn't yet been updated (e.g. new columns like `featured`).
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
 	const { slug } = await params
 	const payload = await getPayload({ config })

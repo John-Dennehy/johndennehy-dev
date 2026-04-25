@@ -1,250 +1,60 @@
 
 > johndennehy.dev@1.0.0 lint /home/jd/Projects/johndennehy-dev
-> biome check . --max-diagnostics=100
+> biome check .
 
-src/app/(frontend)/components/ProjectsGrid.tsx:97:10 lint/performance/noImgElement ━━━━━━━━━━
+src/scripts/import-projects.ts:29:24 lint/suspicious/noExplicitAny ━━━━━━━━━━━━━
 
-  ! Don't use <img> element.
+  ! Unexpected any. Specify a different type.
   
-     95 │ 								) : iconUrl ? (
-     96 │ 									// eslint-disable-next-line @next/next/no-img-element
-   > 97 │ 									<img
-        │ 									^^^^
-   > 98 │ 										src={iconUrl}
-         ...
-  > 102 │ 										loading="lazy"
-  > 103 │ 									/>
-        │ 									^^
-    104 │ 								) : null}
-    105 │ 								{tech.name}
+    28 │ 	const rawData = fs.readFileSync(importFilePath, 'utf-8')
+  > 29 │ 	let projectsToImport: any[]
+       │ 	                      ^^^
+    30 │ 
+    31 │ 	try {
   
-  i Using the <img> can lead to slower LCP and higher bandwidth. Consider using <Image /> from next/image to automatically optimize images.
+  i any disables many type checking rules. Its use should be avoided.
   
 
-src/app/(frontend)/components/TechIcon.tsx:48:4 lint/performance/noImgElement ━━━━━━━━━━
+src/app/(frontend)/components/ProjectsGrid.tsx:78:9 lint/a11y/useButtonType ━━━━━━━━━━
 
-  ! Don't use <img> element.
+  × Provide an explicit type prop for the button element.
   
-    46 │ 			// and we don't want to proxy them through Next.js image optimisation
-    47 │ 			// eslint-disable-next-line @next/next/no-img-element
-  > 48 │ 			<img
-       │ 			^^^^
-  > 49 │ 				src={cdnUrl}
+    76 │ 						{activeTechs.length > 1 && (
+    77 │ 							<div className="flex items-center gap-1 text-xs font-medium bg-bg-surface p-1 rounded-lg border border-border">
+  > 78 │ 								<button
+       │ 								^^^^^^^
+  > 79 │ 									onClick={() => setFilterMode('AND')}
         ...
-  > 54 │ 				className={className}
-  > 55 │ 			/>
-       │ 			^^
-    56 │ 		)
-    57 │ 	}
+  > 84 │ 									}`}
+  > 85 │ 								>
+       │ 								^
+    86 │ 									Match All (AND)
+    87 │ 								</button>
   
-  i Using the <img> can lead to slower LCP and higher bandwidth. Consider using <Image /> from next/image to automatically optimize images.
+  i The default type of a button is submit, which causes the submission of a form when placed inside a `form` element. This is likely not the behaviour that you want inside a React application.
   
-
-next-env.d.ts format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-    1 1 │   /// <reference types="next" />
-    2 2 │   /// <reference types="next/image-types/global" />
-    3   │ - import·"./.next/dev/types/routes.d.ts";
-      3 │ + import·'./.next/dev/types/routes.d.ts'
-    4 4 │   
-    5 5 │   // NOTE: This file should not be edited
+  i Allowed button types are: submit, button or reset
   
 
-next.config.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━━━━━━━━
+src/app/(frontend)/components/ProjectsGrid.tsx:88:9 lint/a11y/useButtonType ━━━━━━━━━━
 
-  × The imports and exports are not sorted.
+  × Provide an explicit type prop for the button element.
   
-  > 1 │ import { withPayload } from '@payloadcms/next/withPayload'
-      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    2 │ import type { NextConfig } from 'next'
-    3 │ import path from 'node:path'
-  
-  i Safe fix: Organize Imports (Biome)
-  
-     1    │ - import·{·withPayload·}·from·'@payloadcms/next/withPayload'
-     2    │ - import·type·{·NextConfig·}·from·'next'
-     3    │ - import·path·from·'node:path'
-     4    │ - import·{·fileURLToPath·}·from·'node:url'
-        1 │ + import·path·from·'node:path'
-        2 │ + import·{·fileURLToPath·}·from·'node:url'
-        3 │ + import·{·withPayload·}·from·'@payloadcms/next/withPayload'
-        4 │ + import·type·{·NextConfig·}·from·'next'
-     5  5 │   
-     6  6 │   const __filename = fileURLToPath(import.meta.url)
-  
-
-src/app/(frontend)/components/ContactForm.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-    191 191 │           {isPending ? (
-    192 192 │             <>
-    193     │ - → → → → → → <svg·className="w-4·h-4·animate-spin"·fill="none"·viewBox="0·0·24·24"·role="img"·aria-labelledby="loading-icon-title">
-        193 │ + → → → → → → <svg
-        194 │ + → → → → → → → className="w-4·h-4·animate-spin"
-        195 │ + → → → → → → → fill="none"
-        196 │ + → → → → → → → viewBox="0·0·24·24"
-        197 │ + → → → → → → → role="img"
-        198 │ + → → → → → → → aria-labelledby="loading-icon-title"
-        199 │ + → → → → → → >
-    194 200 │                 <title id="loading-icon-title">Loading</title>
-    195 201 │                 <circle
-  
-
-src/app/(frontend)/components/FeedbackSection.tsx format ━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-    198 198 │               {isPending ? (
-    199 199 │                 <>
-    200     │ - → → → → → → → → <svg·className="w-4·h-4·animate-spin"·fill="none"·viewBox="0·0·24·24"·role="img"·aria-labelledby="feedback-loading-title">
-        200 │ + → → → → → → → → <svg
-        201 │ + → → → → → → → → → className="w-4·h-4·animate-spin"
-        202 │ + → → → → → → → → → fill="none"
-        203 │ + → → → → → → → → → viewBox="0·0·24·24"
-        204 │ + → → → → → → → → → role="img"
-        205 │ + → → → → → → → → → aria-labelledby="feedback-loading-title"
-        206 │ + → → → → → → → → >
-    201 207 │                     <title id="feedback-loading-title">Loading</title>
-    202 208 │                     <circle
-  
-
-src/app/(frontend)/components/Footer.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-     1    │ - 
-     2  1 │   const socialLinks = [
-     3  2 │   	{
-  
-
-src/app/(frontend)/components/ProjectsGrid.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-    250 250 │             {project.repoUrl && (
-    251 251 │               <span className="inline-flex items-center gap-1 text-xs text-text-muted group-hover:text-text-secondary transition-colors">
-    252     │ - → → → → → → → <svg·className="w-3.5·h-3.5"·fill="currentColor"·viewBox="0·0·24·24"·role="img"·aria-labelledby="repo-link-title">
-        252 │ + → → → → → → → <svg
-        253 │ + → → → → → → → → className="w-3.5·h-3.5"
-        254 │ + → → → → → → → → fill="currentColor"
-        255 │ + → → → → → → → → viewBox="0·0·24·24"
-        256 │ + → → → → → → → → role="img"
-        257 │ + → → → → → → → → aria-labelledby="repo-link-title"
-        258 │ + → → → → → → → >
-    253 259 │                   <title id="repo-link-title">GitHub Repository</title>
-    254 260 │                   <path
-  
-
-src/app/(frontend)/cv/page.tsx format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Formatter would have printed the following content:
-  
-    74 74 │               className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
-    75 75 │             >
-    76    │ - → → → → → → <svg·className="w-4·h-4"·fill="currentColor"·viewBox="0·0·24·24"·role="img"·aria-labelledby="linkedin-icon-title">
-       76 │ + → → → → → → <svg
-       77 │ + → → → → → → → className="w-4·h-4"
-       78 │ + → → → → → → → fill="currentColor"
-       79 │ + → → → → → → → viewBox="0·0·24·24"
-       80 │ + → → → → → → → role="img"
-       81 │ + → → → → → → → aria-labelledby="linkedin-icon-title"
-       82 │ + → → → → → → >
-    77 83 │                 <title id="linkedin-icon-title">LinkedIn</title>
-    78 84 │                 <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  
-
-src/app/(frontend)/projects/[slug]/page.tsx:106:8 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
-
-  × Alternative text title element cannot be empty
-  
-    104 │ 							className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
-    105 │ 						>
-  > 106 │ 							<svg
-        │ 							^^^^
-  > 107 │ 								className="w-4 h-4"
-         ...
-  > 111 │ 								strokeWidth={2}
-  > 112 │ 							>
-        │ 							^
-    113 │ 								<path
-    114 │ 									strokeLinecap="round"
-  
-  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
-  
-
-src/app/(frontend)/projects/[slug]/page.tsx:129:8 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
-
-  × Alternative text title element cannot be empty
-  
-    127 │ 							className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-semibold text-text-secondary transition-all duration-300 hover:border-border-hover hover:text-text-primary hover:bg-bg-elevated hover:-translate-y-0.5"
-    128 │ 						>
-  > 129 │ 							<svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-        │ 							^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    130 │ 								<path
-    131 │ 									fillRule="evenodd"
-  
-  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
-  
-
-src/app/(frontend)/projects/[slug]/page.tsx:175:12 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
-
-  × Alternative text title element cannot be empty
-  
-    173 │ 										{tech.name}
-    174 │ 										{tech.docsUrl && (
-  > 175 │ 											<svg
-        │ 											^^^^
-  > 176 │ 												className="w-3 h-3 text-text-muted"
-         ...
-  > 180 │ 												strokeWidth={2}
-  > 181 │ 											>
-        │ 											^
-    182 │ 												<path
-    183 │ 													strokeLinecap="round"
-  
-  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
-  
-
-src/app/(frontend)/projects/[slug]/page.tsx:165:10 lint/correctness/useJsxKeyInIterable ━━━━━━━━━━
-
-  × Missing key property for this element in iterable.
-  
-    164 │ 								const inner = (
-  > 165 │ 									<span className="glass-card inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-text-secondary">
-        │ 									^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    166 │ 										<TechIcon
-    167 │ 											name={tech.name}
-  
-  i The order of the items may change, and having a key can help React identify which item was moved.
-  
-  i Check the React documentation. 
-  
-
-src/app/(frontend)/styles.css:3:2 parse ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Tailwind-specific syntax is disabled.
-  
-     1 │ @import "tailwindcss";
-     2 │ 
-   > 3 │ @theme {
-       │  ^^^^^^^
-   > 4 │   /* Colour palette */
+    86 │ 									Match All (AND)
+    87 │ 								</button>
+  > 88 │ 								<button
+       │ 								^^^^^^^
+  > 89 │ 									onClick={() => setFilterMode('OR')}
         ...
-  > 25 │   --animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
-  > 26 │ }
-       │ ^
-    27 │ 
-    28 │ /* Keyframes */
+  > 94 │ 									}`}
+  > 95 │ 								>
+       │ 								^
+    96 │ 									Match Any (OR)
+    97 │ 								</button>
   
-  i Enable `tailwindDirectives` in the css parser options, or remove this if you are not using Tailwind CSS.
+  i The default type of a button is submit, which causes the submission of a form when placed inside a `form` element. This is likely not the behaviour that you want inside a React application.
   
-
-src/app/(frontend)/styles.css format ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Code formatting aborted due to parsing errors. To format code with errors, enable the 'formatter.formatWithErrors' option.
+  i Allowed button types are: submit, button or reset
   
 
 src/app/(payload)/admin/importMap.js:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
@@ -370,57 +180,9 @@ src/app/(payload)/admin/importMap.js format ━━━━━━━━━━━━
     53 76 │   
   
 
-src/app/not-found.tsx:64:11 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━━━━━━━━━━━━━━━
-
-  × Alternative text title element cannot be empty
-  
-    62 │ 										className="inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent-glow transition-all duration-300 hover:bg-accent-hover hover:shadow-xl hover:shadow-accent-glow hover:-translate-y-0.5"
-    63 │ 									>
-  > 64 │ 										<svg
-       │ 										^^^^
-  > 65 │ 											className="w-4 h-4"
-        ...
-  > 69 │ 											strokeWidth={2}
-  > 70 │ 										>
-       │ 										^
-    71 │ 											<path
-    72 │ 												strokeLinecap="round"
-  
-  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
-  
-
-src/payload.config.ts:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━━━━━
-
-  × The imports and exports are not sorted.
-  
-  > 1 │ import { postgresAdapter } from '@payloadcms/db-postgres'
-      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-    2 │ import { resendAdapter } from '@payloadcms/email-resend'
-    3 │ import { lexicalEditor } from '@payloadcms/richtext-lexical'
-  
-  i Safe fix: Organize Imports (Biome)
-  
-     1    │ - import·{·postgresAdapter·}·from·'@payloadcms/db-postgres'
-     2    │ - import·{·resendAdapter·}·from·'@payloadcms/email-resend'
-     3    │ - import·{·lexicalEditor·}·from·'@payloadcms/richtext-lexical'
-     4    │ - import·path·from·'node:path'
-     5    │ - import·{·buildConfig·}·from·'payload'
-     6    │ - import·sharp·from·'sharp'
-     7    │ - import·{·fileURLToPath·}·from·'node:url'
-        1 │ + import·path·from·'node:path'
-        2 │ + import·{·fileURLToPath·}·from·'node:url'
-        3 │ + import·{·postgresAdapter·}·from·'@payloadcms/db-postgres'
-        4 │ + import·{·resendAdapter·}·from·'@payloadcms/email-resend'
-        5 │ + import·{·lexicalEditor·}·from·'@payloadcms/richtext-lexical'
-        6 │ + import·{·buildConfig·}·from·'payload'
-        7 │ + import·sharp·from·'sharp'
-     8  8 │   import { ContactMessages } from './collections/ContactMessages'
-     9  9 │   import { Education } from './collections/Education'
-  
-
-Checked 49 files in 82ms. No fixes applied.
-Found 17 errors.
-Found 2 warnings.
+Checked 58 files in 90ms. No fixes applied.
+Found 4 errors.
+Found 1 warning.
 check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
   × Some errors were emitted while running checks.

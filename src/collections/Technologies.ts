@@ -12,6 +12,15 @@ export const Technologies: CollectionConfig = {
 	},
 	fields: [
 		{
+			name: 'displayAsFilterOption',
+			type: 'checkbox',
+			defaultValue: true,
+			admin: {
+				description: 'Display this technology as a filter option on the projects page',
+				position: 'sidebar',
+			},
+		},
+		{
 			name: 'name',
 			type: 'text',
 			required: true,

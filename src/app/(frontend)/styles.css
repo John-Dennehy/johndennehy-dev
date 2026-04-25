@@ -1,77 +1,44 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
 
-@theme {
-	/* Colour palette */
-	--color-bg-primary: #0a0a0f;
-	--color-bg-surface: #111119;
-	--color-bg-elevated: #1a1a24;
-	--color-border: rgba(255, 255, 255, 0.05);
-	--color-border-hover: rgba(255, 255, 255, 0.1);
-	--color-text-primary: #f0f0f5;
-	--color-text-secondary: #a0a0b8;
-	--color-text-muted: #5a5a72;
-	--color-accent: #6366f1;
-	--color-accent-hover: #818cf8;
-	--color-accent-glow: rgba(99, 102, 241, 0.25);
-	--color-accent-secondary: #22d3ee;
-	--color-accent-secondary-glow: rgba(34, 211, 238, 0.2);
+@custom-variant dark (&:is(.dark *));
 
-	/* Font family */
-	--font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+@theme inline {
+	--font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+	--font-heading: var(--font-noto-serif), ui-serif, Georgia, serif;
 
-	/* Animation */
-	--animate-fade-in: fade-in 0.6s ease-out both;
-	--animate-slide-up: slide-up 0.6s ease-out both;
-	--animate-glow-pulse: glow-pulse 3s ease-in-out infinite;
+	--color-background: var(--background);
+	--color-foreground: var(--foreground);
+	--color-card: var(--card);
+	--color-card-foreground: var(--card-foreground);
+	--color-popover: var(--popover);
+	--color-popover-foreground: var(--popover-foreground);
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
+	--color-tertiary: var(--tertiary);
+	--color-tertiary-foreground: var(--tertiary-foreground);
+	--color-muted: var(--muted);
+	--color-muted-foreground: var(--muted-foreground);
+	--color-accent: var(--accent);
+	--color-accent-foreground: var(--accent-foreground);
+	--color-destructive: var(--destructive);
+	--color-destructive-foreground: var(--destructive-foreground);
+	--color-border: var(--border);
+	--color-input: var(--input);
+	--color-ring: var(--ring);
+
+	--radius-sm: 0px;
+	--radius-md: 0px;
+	--radius-lg: 0px;
+	--radius-xl: 0px;
 }
 
-/* Keyframes */
-@keyframes fade-in {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
-@keyframes slide-up {
-	from {
-		opacity: 0;
-		transform: translateY(24px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
-
-@keyframes glow-pulse {
-	0%,
-	100% {
-		opacity: 0.4;
-	}
-	50% {
-		opacity: 0.8;
-	}
-}
-
-@keyframes gradient-shift {
-	0% {
-		background-position: 0% 50%;
-	}
-	50% {
-		background-position: 100% 50%;
-	}
-	100% {
-		background-position: 0% 50%;
-	}
-}
-
-/* Base layer */
 @layer base {
 	* {
 		box-sizing: border-box;
+		@apply border-border outline-ring/50;
 	}
 
 	html {
@@ -87,119 +54,97 @@
 	}
 
 	body {
-		font-family: var(--font-sans);
-		background-color: var(--color-bg-primary);
-		color: var(--color-text-secondary);
-		line-height: 1.7;
+		@apply bg-background text-foreground font-sans;
+		line-height: 1.5;
 	}
 
 	::selection {
-		background-color: var(--color-accent);
-		color: white;
+		@apply bg-primary text-primary-foreground;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		@apply font-heading tracking-tight;
+		line-height: 1.1;
 	}
 }
 
-/* Utility classes */
+/* Base Theme - Editorial Minimalist */
+:root {
+	/* Light mode */
+	--background: #fbf9f9;
+	--foreground: #1b1c1c;
+	--card: #ffffff;
+	--card-foreground: #1b1c1c;
+	--popover: #ffffff;
+	--popover-foreground: #1b1c1c;
+
+	/* Golden Yellow Primary */
+	--primary: #ffd700;
+	--primary-foreground: #1b1c1c;
+
+	/* Muted/Secondary UI elements */
+	--secondary: #efeded;
+	--secondary-foreground: #1b1c1c;
+
+	--tertiary: #e3e2e2;
+	--tertiary-foreground: #1b1c1c;
+
+	--muted: #f5f3f3;
+	--muted-foreground: #4d4732;
+	--accent: #fbf9f9;
+	--accent-foreground: #1b1c1c;
+	--destructive: #ba1a1a;
+	--destructive-foreground: #ffffff;
+
+	--border: #e3e2e2;
+	--input: #e3e2e2;
+	--ring: #705d00;
+
+	--radius: 0px;
+}
+
+.dark {
+	/* Deep Editorial Dark */
+	--background: #1b1c1c;
+	--foreground: #f2f0f0;
+
+	--card: #1b1c1c;
+	--card-foreground: #f2f0f0;
+	--popover: #1b1c1c;
+	--popover-foreground: #f2f0f0;
+
+	/* Golden Yellow */
+	--primary: #ffd700;
+	--primary-foreground: #1b1c1c;
+
+	/* Muted/Secondary */
+	--secondary: #303031;
+	--secondary-foreground: #f2f0f0;
+
+	--tertiary: #454747;
+	--tertiary-foreground: #f2f0f0;
+
+	--muted: #272c36;
+	--muted-foreground: #dbdad9;
+
+	--accent: #303031;
+	--accent-foreground: #f2f0f0;
+
+	--destructive: #ffdad6;
+	--destructive-foreground: #93000a;
+
+	--border: #303031;
+	--input: #303031;
+	--ring: #ffd700;
+}
+
 @layer utilities {
-	.glass-card {
-		background: rgba(17, 17, 25, 0.6);
-		backdrop-filter: blur(16px);
-		-webkit-backdrop-filter: blur(16px);
-		border: 1px solid var(--color-border);
-		border-radius: 16px;
-		transition: all 0.3s ease;
-	}
-
-	.glass-card:hover {
-		border-color: var(--color-border-hover);
-		background: rgba(26, 26, 36, 0.6);
-	}
-
-	.gradient-text {
-		background: linear-gradient(135deg, var(--color-accent), var(--color-accent-secondary));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.gradient-line {
-		height: 2px;
-		background: linear-gradient(
-			90deg,
-			transparent,
-			var(--color-accent),
-			var(--color-accent-secondary),
-			transparent
-		);
-		background-size: 200% 100%;
-		animation: gradient-shift 4s ease infinite;
-	}
-
-	.glow-border {
-		box-shadow:
-			0 0 20px var(--color-accent-glow),
-			inset 0 0 20px rgba(99, 102, 241, 0.05);
-	}
-
-	.nav-blur {
-		background: rgba(10, 10, 15, 0.8);
-		backdrop-filter: blur(12px);
-		-webkit-backdrop-filter: blur(12px);
-	}
-
-	.link-hover {
-		position: relative;
-		text-decoration: none;
-		transition: color 0.2s ease;
-	}
-
-	.link-hover::after {
-		content: "";
-		position: absolute;
-		bottom: -2px;
-		left: 0;
-		width: 0;
-		height: 1px;
-		background: var(--color-accent);
-		transition: width 0.3s ease;
-	}
-
-	.link-hover:hover::after {
-		width: 100%;
-	}
-
-	.link-hover:hover {
-		color: var(--color-text-primary);
-	}
-
-	.stagger-1 {
-		animation-delay: 0.1s;
-	}
-	.stagger-2 {
-		animation-delay: 0.2s;
-	}
-	.stagger-3 {
-		animation-delay: 0.3s;
-	}
-	.stagger-4 {
-		animation-delay: 0.4s;
-	}
-	.stagger-5 {
-		animation-delay: 0.5s;
-	}
-	.stagger-6 {
-		animation-delay: 0.6s;
-	}
-
-	.nav-link-active::after {
-		width: 100%;
-		background: var(--color-accent);
-	}
-
-	.line-clamp-2 {
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
+	.text-balance {
+		text-wrap: balance;
 	}
 }

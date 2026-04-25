@@ -25,94 +25,148 @@ interface Project {
 	featured?: boolean | null
 }
 
-export default function ProjectsGrid({ projects }: { projects: Project[] }) {
-	const [activeTech, setActiveTech] = useState<string | null>(null)
+export default function ProjectsGrid({
+	projects,
+	filterOptions = [],
+}: {
+	projects: Project[]
+	filterOptions?: Technology[]
+}) {
+	const [activeTechs, setActiveTechs] = useState<string[]>([])
+	const [filterMode, setFilterMode] = useState<'AND' | 'OR'>('AND')
 
-	// Aggregate all unique technologies across projects
-	const allTechs = useMemo(() => {
-		const techMap = new Map<string, Technology>()
-		projects.forEach((p) => {
-			p.techStack?.forEach((t) => {
-				if (!techMap.has(t.slug)) techMap.set(t.slug, t)
-			})
-		})
-		return Array.from(techMap.values()).sort((a, b) => a.name.localeCompare(b.name))
-	}, [projects])
+	// No need to derive allTechs from projects anymore since we receive them from CMS
+	// We'll use filterOptions instead.
 
 	// Split into matched / unmatched when a filter is active
 	const { matched, unmatched } = useMemo(() => {
-		if (!activeTech) return { matched: projects, unmatched: [] as Project[] }
+		if (activeTechs.length === 0) return { matched: projects, unmatched: [] as Project[] }
 		const m: Project[] = []
 		const u: Project[] = []
 		projects.forEach((p) => {
-			const hasMatch = p.techStack?.some((t) => t.slug === activeTech)
+			const projectTechSlugs = p.techStack?.map((t) => t.slug) || []
+			const hasMatch =
+				filterMode === 'AND'
+					? activeTechs.every((slug) => projectTechSlugs.includes(slug))
+					: activeTechs.some((slug) => projectTechSlugs.includes(slug))
+
 			if (hasMatch) m.push(p)
 			else u.push(p)
 		})
 		return { matched: m, unmatched: u }
-	}, [projects, activeTech])
+	}, [projects, activeTechs, filterMode])
+
+	const toggleTech = (slug: string) => {
+		setActiveTechs((prev) =>
+			prev.includes(slug) ? prev.filter((t) => t !== slug) : [...prev, slug],
+		)
+	}
 
 	return (
 		<>
 			{/* Tech filter bar */}
-			{allTechs.length > 0 && (
-				<div className="mb-10 flex flex-wrap gap-2 animate-slide-up stagger-2">
-					<button
-						type="button"
-						onClick={() => setActiveTech(null)}
-						className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
-							activeTech === null
-								? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
-								: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
-						}`}
-					>
-						All
-					</button>
-					{allTechs.map((tech) => {
-						const iconUrl = tech.iconSlug
-							? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
-							: null
+			{/* Tech filter box */}
+			{filterOptions.length > 0 && (
+				<div className="border border-border p-6 mb-10">
+					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+						<h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
+							Filter Projects
+						</h3>
 
-						return (
-							<button
-								type="button"
-								key={tech.slug}
-								onClick={() => setActiveTech(activeTech === tech.slug ? null : tech.slug)}
-								className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
-									activeTech === tech.slug
-										? 'bg-accent text-white border-accent shadow-lg shadow-accent-glow'
-										: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
-								}`}
-							>
-								{tech.logo?.url ? (
-									<Image
-										src={tech.logo.url}
-										alt={tech.logo.alt}
-										width={14}
-										height={14}
-										className="rounded-sm"
-									/>
-								) : iconUrl ? (
-									// eslint-disable-next-line @next/next/no-img-element
-									<Image
-										src={iconUrl}
-										alt={`${tech.name} icon`}
-										width={14}
-										height={14}
-										unoptimized
-									/>
-								) : null}
-								{tech.name}
-							</button>
-						)
-					})}
+						{activeTechs.length > 1 && (
+							<div className="flex items-center gap-px bg-border p-px border border-border">
+								<button
+									type="button"
+									onClick={() => setFilterMode('AND')}
+									className={`px-3 py-1.5 transition-all duration-300 rounded-none ${
+										filterMode === 'AND'
+											? 'bg-primary text-primary-foreground'
+											: 'bg-background text-muted-foreground hover:text-foreground'
+									}`}
+								>
+									Match All (AND)
+								</button>
+								<button
+									type="button"
+									onClick={() => setFilterMode('OR')}
+									className={`px-3 py-1.5 transition-all duration-300 rounded-none ${
+										filterMode === 'OR'
+											? 'bg-primary text-primary-foreground'
+											: 'bg-background text-muted-foreground hover:text-foreground'
+									}`}
+								>
+									Match Any (OR)
+								</button>
+							</div>
+						)}
+					</div>
+
+					<div className="flex flex-wrap gap-2">
+						<button
+							type="button"
+							onClick={() => setActiveTechs([])}
+							className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 border rounded-none ${
+								activeTechs.length === 0
+									? 'bg-primary text-primary-foreground border-primary'
+									: 'bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+							}`}
+						>
+							All
+						</button>
+						{filterOptions.map((tech) => {
+							const iconUrl = tech.iconSlug
+								? `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${tech.iconSlug}/${tech.iconSlug}-${tech.iconVariant || 'original'}.svg`
+								: null
+
+							const hasProjects = projects.some((p) =>
+								p.techStack?.some((t) => t.slug === tech.slug),
+							)
+							const isActive = activeTechs.includes(tech.slug)
+
+							return (
+								<button
+									type="button"
+									key={tech.slug}
+									onClick={() => toggleTech(tech.slug)}
+									className={`inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 border rounded-none ${
+										isActive
+											? 'bg-primary text-primary-foreground border-primary'
+											: !hasProjects
+												? 'bg-transparent text-muted-foreground/40 border-border opacity-60'
+												: 'bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground'
+									}`}
+									title={!hasProjects ? `No published ${tech.name} projects currently` : ''}
+								>
+									{tech.logo?.url ? (
+										<Image
+											src={tech.logo.url}
+											alt={tech.logo.alt}
+											width={14}
+											height={14}
+											className="rounded-none"
+										/>
+									) : iconUrl ? (
+										// eslint-disable-next-line @next/next/no-img-element
+										<Image
+											src={iconUrl}
+											alt={`${tech.name} icon`}
+											width={14}
+											height={14}
+											unoptimized
+										/>
+									) : null}
+									{tech.name}
+								</button>
+							)
+						})}
+					</div>
 				</div>
 			)}
 
 			{/* Matched projects */}
 			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{matched.map((project, i) => (
-					<ProjectCard key={project.id} project={project} index={i} dimmed={false} />
+				{matched.map((project) => (
+					<ProjectCard key={project.id} project={project} dimmed={false} />
 				))}
 			</div>
 
@@ -127,8 +181,8 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 						<div className="h-px flex-1 bg-border" />
 					</div>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-						{unmatched.map((project, i) => (
-							<ProjectCard key={project.id} project={project} index={i} dimmed={true} />
+						{unmatched.map((project) => (
+							<ProjectCard key={project.id} project={project} dimmed={true} />
 						))}
 					</div>
 				</>
@@ -146,7 +200,7 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 							href="https://github.com/john-dennehy"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-accent hover:text-accent-hover transition-colors"
+							className="text-primary font-semibold hover:underline transition-colors"
 						>
 							GitHub
 						</a>{' '}
@@ -160,20 +214,15 @@ export default function ProjectsGrid({ projects }: { projects: Project[] }) {
 
 function ProjectCard({
 	project,
-	index,
 	dimmed,
 }: {
 	project: Project
-	index: number
 	dimmed: boolean
 }) {
-	// Stagger classes cycle through stagger-1 to stagger-6
-	const staggerClass = `stagger-${(index % 6) + 1}`
-
 	return (
 		<Link
 			href={`/projects/${project.slug}`}
-			className={`glass-card group block overflow-hidden transition-all duration-500 animate-slide-up ${staggerClass} ${
+			className={`group block overflow-hidden transition-all duration-500 border border-border rounded-none ${
 				dimmed ? 'opacity-40 hover:opacity-70' : 'opacity-100'
 			}`}
 		>
@@ -216,7 +265,7 @@ function ProjectCard({
 
 				{/* Featured badge */}
 				{project.featured && (
-					<div className="absolute top-3 right-3 rounded-full bg-accent/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white shadow-lg shadow-accent-glow">
+					<div className="absolute top-0 right-0 bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
 						Featured
 					</div>
 				)}
@@ -224,10 +273,10 @@ function ProjectCard({
 
 			{/* Card body */}
 			<div className="p-5">
-				<h3 className="text-base font-semibold text-text-primary mb-2 group-hover:text-accent transition-colors">
+				<h3 className="text-base font-bold uppercase tracking-widest text-foreground mb-2 group-hover:text-primary transition-colors">
 					{project.title}
 				</h3>
-				<p className="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
+				<p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">
 					{project.summary}
 				</p>
 
@@ -237,7 +286,7 @@ function ProjectCard({
 						{project.techStack.map((tech) => (
 							<span
 								key={tech.id}
-								className="rounded-full bg-bg-elevated px-2.5 py-0.5 text-[11px] font-medium text-text-muted border border-border"
+								className="rounded-none bg-muted px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground border border-border"
 							>
 								{tech.name}
 							</span>

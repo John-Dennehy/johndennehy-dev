@@ -2,6 +2,11 @@ import config from '@payload-config'
 import { getPayload } from 'payload'
 import ProjectsGrid from '../components/ProjectsGrid'
 
+// Force dynamic rendering — the DB schema (e.g. `featured` column) is applied
+// at server startup via Payload's push, not at build time, so static pre-rendering
+// would fail with "column does not exist" against the production database.
+export const dynamic = 'force-dynamic'
+
 export const metadata = {
 	title: 'Projects — John Dennehy',
 	description:
@@ -19,6 +24,15 @@ export default async function ProjectsPage() {
 		sort: '-featured,-publishedDate',
 		depth: 2, // Populate techStack → Technologies and thumbnail → Media
 		limit: 50,
+	})
+
+	const { docs: allTechs } = await payload.find({
+		collection: 'technologies',
+		where: {
+			displayAsFilterOption: { not_equals: false },
+		},
+		limit: 100,
+		depth: 1,
 	})
 
 	// Serialize for client component
@@ -51,6 +65,18 @@ export default async function ProjectsPage() {
 		featured: p.featured ?? false,
 	}))
 
+	const serialisedTechs = allTechs
+		.map((t) => ({
+			id: t.id,
+			name: t.name,
+			slug: t.slug,
+			iconSlug: t.iconSlug ?? null,
+			iconVariant: t.iconVariant ?? null,
+			logo:
+				t.logo && typeof t.logo !== 'number' ? { url: t.logo.url ?? null, alt: t.logo.alt } : null,
+		}))
+		.sort((a, b) => a.name.localeCompare(b.name))
+
 	return (
 		<section className="px-6 md:px-8 pt-20 pb-24 md:pt-32 md:pb-32">
 			<div className="mx-auto max-w-5xl">
@@ -64,7 +90,7 @@ export default async function ProjectsPage() {
 					find what interests you.
 				</p>
 
-				<ProjectsGrid projects={serialised} />
+				<ProjectsGrid projects={serialised} filterOptions={serialisedTechs} />
 			</div>
 		</section>
 	)
