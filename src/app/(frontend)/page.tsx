@@ -8,23 +8,23 @@ export default function HomePage() {
 	return (
 		<div className="flex flex-col min-h-screen bg-background">
 			{/* ── Hero Section ─────────────────────────────────────────── */}
-			<section className="relative overflow-hidden md:overflow-visible w-full min-h-[90vh] flex items-center bg-background border-b border-border">
-				<div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-12 pt-24 pb-16 md:py-16">
+			<section className="relative w-full min-h-[90vh] flex items-center bg-background border-b border-border">
+				<div className="mx-auto w-full max-w-7xl px-6 md:px-12 flex flex-col md:flex-row items-center gap-12 pt-24 pb-16 md:py-16">
 					{/* Left Column: Typography */}
-					<div className="flex-1 max-w-3xl space-y-8 animate-fade-in [animation-duration:1s]">
+					<div className="flex-1 min-w-0 space-y-8 animate-fade-in [animation-duration:1s]">
 						<div className="space-y-6">
 							<div className="inline-flex items-center rounded-none border border-primary bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary">
 								<span className="flex h-2 w-2 bg-primary mr-2"></span>
 								Available for new roles
 							</div>
 
-							<h1 className="text-balance text-6xl sm:text-7xl lg:text-9xl font-bold tracking-tighter text-foreground leading-[0.9] uppercase">
+							<h1 className="text-balance text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tighter text-foreground leading-[0.9] uppercase">
 								Crafting <br /> Digital <br /> Excellence.
 							</h1>
 
-							<p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-xl leading-relaxed">
+							<p className="text-lg md:text-xl text-muted-foreground font-medium max-w-md leading-relaxed">
 								I build exceptional web experiences with precision and artistry. A Full-Stack
-								Developer specializing in high-performance applications.
+								Developer specialising in high-performance applications.
 							</p>
 						</div>
 
@@ -51,17 +51,23 @@ export default function HomePage() {
 						</div>
 					</div>
 
-					{/* Right Column: Integrated Portrait */}
-					<div className="flex-1 w-full flex justify-center md:justify-end animate-fade-in [animation-duration:1.5s]">
-						<div className="relative w-full max-w-[500px] pointer-events-none flex items-end border border-border bg-muted/30">
+					{/* Right Column: Integrated Portrait — gradient fade at the bottom */}
+					<div className="flex-1 min-w-0 w-full flex justify-center md:justify-end animate-fade-in [animation-duration:1.5s]">
+						<div className="relative w-full max-w-sm md:max-w-md">
 							<Image
 								src="/images/hero.png"
 								alt="John Dennehy"
 								width={800}
 								height={1200}
 								priority
-								className="w-full h-auto max-h-[70vh] object-cover object-top z-10 block grayscale hover:grayscale-0 transition-all duration-700"
-								sizes="(max-width: 768px) 100vw, 50vw"
+								className="w-full h-auto object-contain grayscale hover:grayscale-0 transition-all duration-700"
+								sizes="(max-width: 768px) 80vw, 40vw"
+							/>
+							{/* Dissolve the bottom of the portrait into the page background */}
+							<div
+								className="absolute inset-x-0 bottom-0 h-1/3 pointer-events-none"
+								style={{ background: 'linear-gradient(to bottom, transparent, var(--background))' }}
+								aria-hidden="true"
 							/>
 						</div>
 					</div>
