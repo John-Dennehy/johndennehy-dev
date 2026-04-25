@@ -1,0 +1,91 @@
+biome.json:2:13 deserialize ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  i The configuration schema version does not match the CLI version 2.4.13
+  
+    1 │ {
+  > 2 │ 	"$schema": "https://biomejs.dev/schemas/2.4.12/schema.json",
+      │ 	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    3 │ 	"files": {
+    4 │ 		"includes": [
+  
+  i   Expected:                     2.4.13
+      Found:                        2.4.12
+  
+  
+  i Run the command biome migrate to migrate the configuration file.
+  
+
+src/app/(frontend)/components/ProjectsGrid.tsx:225:8 lint/correctness/noUnusedVariables  FIXABLE  ━━━━━━━━━━
+
+  ! This variable staggerClass is unused.
+  
+    223 │ }) {
+    224 │ 	// Stagger classes cycle through stagger-1 to stagger-6
+  > 225 │ 	const staggerClass = `stagger-${(index % 6) + 1}`
+        │ 	      ^^^^^^^^^^^^
+    226 │ 
+    227 │ 	return (
+  
+  i Unused variables are often the result of typos, incomplete refactors, or other sources of bugs.
+  
+  i Unsafe fix: If this is intentional, prepend staggerClass with an underscore.
+  
+    223 223 │   }) {
+    224 224 │     // Stagger classes cycle through stagger-1 to stagger-6
+    225     │ - → const·staggerClass·=·`stagger-${(index·%·6)·+·1}`
+        225 │ + → const·_staggerClass·=·`stagger-${(index·%·6)·+·1}`
+    226 226 │   
+    227 227 │     return (
+  
+
+src/app/(payload)/admin/importMap.js:1:1 assist/source/organizeImports  FIXABLE  ━━━━━━━━━━
+
+  × The imports and exports are not sorted.
+  
+  > 1 │ import { RscEntryLexicalCell as RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+      │ ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    2 │ import { RscEntryLexicalField as RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+    3 │ import { LexicalDiffComponent as LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e } from '@payloadcms/richtext-lexical/rsc'
+  
+  i Safe fix: Organize Imports (Biome)
+  
+     1    │ - import·{·RscEntryLexicalCell·as·RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     2    │ - import·{·RscEntryLexicalField·as·RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     3    │ - import·{·LexicalDiffComponent·as·LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+     4    │ - import·{·InlineToolbarFeatureClient·as·InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     5    │ - import·{·HorizontalRuleFeatureClient·as·HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     6    │ - import·{·UploadFeatureClient·as·UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     7    │ - import·{·BlockquoteFeatureClient·as·BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     8    │ - import·{·RelationshipFeatureClient·as·RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+     9    │ - import·{·LinkFeatureClient·as·LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    10    │ - import·{·ChecklistFeatureClient·as·ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    11    │ - import·{·OrderedListFeatureClient·as·OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    12    │ - import·{·UnorderedListFeatureClient·as·UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    13    │ - import·{·IndentFeatureClient·as·IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    14    │ - import·{·AlignFeatureClient·as·AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    15    │ - import·{·HeadingFeatureClient·as·HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    16    │ - import·{·ParagraphFeatureClient·as·ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    17    │ - import·{·InlineCodeFeatureClient·as·InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    18    │ - import·{·SuperscriptFeatureClient·as·SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    19    │ - import·{·SubscriptFeatureClient·as·SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    20    │ - import·{·StrikethroughFeatureClient·as·StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    21    │ - import·{·UnderlineFeatureClient·as·UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    22    │ - import·{·BoldFeatureClient·as·BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    23    │ - import·{·ItalicFeatureClient·as·ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+    24    │ - import·{·CollectionCards·as·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1·}·from·'@payloadcms/next/rsc'
+        1 │ + import·{·CollectionCards·as·CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1·}·from·'@payloadcms/next/rsc'
+        2 │ + import·{·AlignFeatureClient·as·AlignFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·BlockquoteFeatureClient·as·BlockquoteFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·BoldFeatureClient·as·BoldFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ChecklistFeatureClient·as·ChecklistFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·HeadingFeatureClient·as·HeadingFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·HorizontalRuleFeatureClient·as·HorizontalRuleFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·IndentFeatureClient·as·IndentFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·InlineCodeFeatureClient·as·InlineCodeFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·InlineToolbarFeatureClient·as·InlineToolbarFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ItalicFeatureClient·as·ItalicFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·LinkFeatureClient·as·LinkFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·OrderedListFeatureClient·as·OrderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·ParagraphFeatureClient·as·ParagraphFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·RelationshipFeatureClient·as·RelationshipFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·StrikethroughFeatureClient·as·StrikethroughFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·SubscriptFeatureClient·as·SubscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·SuperscriptFeatureClient·as·SuperscriptFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UnderlineFeatureClient·as·UnderlineFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UnorderedListFeatureClient·as·UnorderedListFeatureClient_e70f5e05f09f93e00b997edb1ef0c864,·UploadFeatureClient·as·UploadFeatureClient_e70f5e05f09f93e00b997edb1ef0c864·}·from·'@payloadcms/richtext-lexical/client'
+        3 │ + import·{·LexicalDiffComponent·as·LexicalDiffComponent_44fe37237e0ebf4470c9990d8cb7b07e,·RscEntryLexicalCell·as·RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,·RscEntryLexicalField·as·RscEntryLexicalField_44fe37237e0ebf4470c9990d8cb7b07e·}·from·'@payloadcms/richtext-lexical/rsc'
+    25  4 │   
+    26  5 │   /** @type import('payload').ImportMap */
+  
+
+Checked 57 files in 100ms. No fixes applied.
+Found 1 error.
+Found 1 warning.
+Found 1 info.
+check ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+

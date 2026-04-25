@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { geist, playfair } from './fonts'
+import { inter, notoSerif } from './fonts'
 import './(frontend)/styles.css'
 import Footer from './(frontend)/components/Footer'
 import Navigation from './(frontend)/components/Navigation'
@@ -11,9 +11,9 @@ export const metadata = {
 
 export default function NotFound() {
 	return (
-		<html lang="en" className={`${geist.variable} ${playfair.variable}`}>
+	<html lang="en" className={`${inter.variable} ${notoSerif.variable}`}>
 			<body
-				className={`${geist.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
+				className={`${inter.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
 			>
 				{/* Clean minimal background */}
 				<div className="relative z-10 flex flex-col min-h-screen">

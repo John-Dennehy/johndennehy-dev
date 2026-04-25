@@ -6,26 +6,23 @@ import { cn } from '@/lib/utils'
 
 export default function HomePage() {
 	return (
-		<div className="flex flex-col min-h-screen bg-background transition-colors duration-500">
+		<div className="flex flex-col min-h-screen bg-background">
 			{/* ── Hero Section ─────────────────────────────────────────── */}
-			<section className="relative overflow-hidden md:overflow-visible w-full min-h-[90vh] flex items-center bg-background border-b border-border/50">
-				{/* Background styling for light/dark mode depth (optional) */}
-				<div className="absolute inset-0 z-0 bg-gradient-to-br from-background via-background to-muted/20 opacity-50 pointer-events-none"></div>
-
+			<section className="relative overflow-hidden md:overflow-visible w-full min-h-[90vh] flex items-center bg-background border-b border-border">
 				<div className="relative z-10 mx-auto w-full max-w-7xl px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-12 pt-24 pb-16 md:py-16">
 					{/* Left Column: Typography */}
 					<div className="flex-1 max-w-3xl space-y-8 animate-fade-in [animation-duration:1s]">
 						<div className="space-y-6">
-							<div className="inline-flex items-center rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-sm font-medium text-primary">
-								<span className="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
+							<div className="inline-flex items-center rounded-none border border-primary bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary">
+								<span className="flex h-2 w-2 bg-primary mr-2"></span>
 								Available for new roles
 							</div>
 
-							<h1 className="text-balance text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-foreground leading-[1.05]">
-								Crafting Digital <br className="hidden sm:block" /> Excellence.
+							<h1 className="text-balance text-6xl sm:text-7xl lg:text-9xl font-bold tracking-tighter text-foreground leading-[0.9] uppercase">
+								Crafting <br /> Digital <br /> Excellence.
 							</h1>
 
-							<p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-2xl leading-relaxed">
+							<p className="text-xl md:text-2xl text-muted-foreground font-medium max-w-xl leading-relaxed">
 								I build exceptional web experiences with precision and artistry. A Full-Stack
 								Developer specializing in high-performance applications.
 							</p>
@@ -37,7 +34,7 @@ export default function HomePage() {
 								href="/projects"
 								className={cn(
 									buttonVariants({ size: 'lg' }),
-									'rounded-md px-8 font-medium hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/20 transition duration-300 bg-primary text-primary-foreground',
+									'px-10 font-bold uppercase tracking-widest',
 								)}
 							>
 								View Portfolio
@@ -46,7 +43,7 @@ export default function HomePage() {
 								href="/contact"
 								className={cn(
 									buttonVariants({ variant: 'outline', size: 'lg' }),
-									'rounded-md px-8 font-medium border-border hover:bg-secondary hover:text-secondary-foreground transition-colors duration-300',
+									'px-10 font-bold uppercase tracking-widest',
 								)}
 							>
 								Contact Me
@@ -56,33 +53,29 @@ export default function HomePage() {
 
 					{/* Right Column: Integrated Portrait */}
 					<div className="flex-1 w-full flex justify-center md:justify-end animate-fade-in [animation-duration:1.5s]">
-						<div className="relative w-full max-w-[500px] pointer-events-none flex items-end">
-							{/* Subtle radial glow behind the image for depth */}
-							<div className="absolute inset-0 bg-primary/10 blur-[100px] rounded-full top-1/4 bottom-1/4 left-1/4 right-1/4 -z-10"></div>
+						<div className="relative w-full max-w-[500px] pointer-events-none flex items-end border border-border bg-muted/30">
 							<Image
 								src="/images/hero.png"
 								alt="John Dennehy"
 								width={800}
 								height={1200}
 								priority
-								className="w-full h-auto max-h-[65vh] object-cover object-top z-10 block"
+								className="w-full h-auto max-h-[70vh] object-cover object-top z-10 block grayscale hover:grayscale-0 transition-all duration-700"
 								sizes="(max-width: 768px) 100vw, 50vw"
 							/>
-							{/* Soft gradient fade at the bottom to blend seamlessly into the background */}
-							<div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-20"></div>
 						</div>
 					</div>
 				</div>
 			</section>
 
 			{/* ── What I Bring ──────────────────────────────────────────── */}
-			<section className="px-6 md:px-12 py-32 bg-background">
+			<section className="px-6 md:px-12 py-32 bg-background border-b border-border">
 				<div className="mx-auto max-w-7xl">
 					<div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-						<h2 className="text-balance text-4xl md:text-5xl font-bold text-foreground">
+						<h2 className="text-balance text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground">
 							My Skills
 						</h2>
-						<p className="text-lg text-muted-foreground max-w-xl">
+						<p className="text-lg font-bold uppercase tracking-widest text-muted-foreground max-w-xl">
 							Returning to development with a unique blend of technical expertise and a decade of
 							problem-solving experience.
 						</p>
@@ -90,15 +83,15 @@ export default function HomePage() {
 
 					<div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 						{/* Card 1 — Frontend Development */}
-						<Card className="rounded-md border border-border hover:border-primary bg-transparent shadow-sm hover:shadow-md transition duration-300 group pt-6">
-							<CardHeader className="px-6 pb-2">
-								<div className="mb-6 flex h-12 w-12 items-center justify-center bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+							<CardHeader className="px-8 pb-2">
+								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
-										className="w-6 h-6"
+										className="w-8 h-8"
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
-										strokeWidth={2}
+										strokeWidth={1.5}
 										role="img"
 										aria-hidden="true"
 									>
@@ -109,7 +102,9 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold text-2xl">React & Next.js</CardTitle>
+								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
+									React & Next.js
+								</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
 								<CardDescription className="text-base text-muted-foreground leading-relaxed">
@@ -120,15 +115,15 @@ export default function HomePage() {
 						</Card>
 
 						{/* Card 2 — Full-Stack Capable */}
-						<Card className="rounded-md border border-border hover:border-primary bg-transparent shadow-sm hover:shadow-md transition duration-300 group pt-6">
-							<CardHeader className="px-6 pb-2">
-								<div className="mb-6 flex h-12 w-12 items-center justify-center bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+							<CardHeader className="px-8 pb-2">
+								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
-										className="w-6 h-6"
+										className="w-8 h-8"
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
-										strokeWidth={2}
+										strokeWidth={1.5}
 										role="img"
 										aria-hidden="true"
 									>
@@ -139,7 +134,9 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold text-2xl">Full-Stack</CardTitle>
+								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
+									Full-Stack
+								</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
 								<CardDescription className="text-base text-muted-foreground leading-relaxed">
@@ -150,15 +147,15 @@ export default function HomePage() {
 						</Card>
 
 						{/* Card 3 — Not Just Code */}
-						<Card className="rounded-md border border-border hover:border-primary bg-transparent shadow-sm hover:shadow-md transition duration-300 group pt-6">
-							<CardHeader className="px-6 pb-2">
-								<div className="mb-6 flex h-12 w-12 items-center justify-center bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10">
+							<CardHeader className="px-8 pb-2">
+								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
 									<svg
-										className="w-6 h-6"
+										className="w-8 h-8"
 										fill="none"
 										viewBox="0 0 24 24"
 										stroke="currentColor"
-										strokeWidth={2}
+										strokeWidth={1.5}
 										role="img"
 										aria-hidden="true"
 									>
@@ -169,7 +166,9 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-bold text-2xl">Communication</CardTitle>
+								<CardTitle className="font-bold uppercase tracking-widest text-2xl">
+									Communication
+								</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
 								<CardDescription className="text-base text-muted-foreground leading-relaxed">
@@ -182,14 +181,13 @@ export default function HomePage() {
 				</div>
 			</section>
 
-			{/* ── Connect Section ──────────────────────────────────────── */}
-			<section className="px-6 md:px-12 py-32 bg-muted/20 border-t border-border/50">
+			<section className="px-6 md:px-12 py-32 bg-background border-t border-border">
 				<div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-12">
 					<div className="max-w-xl">
-						<h2 className="text-balance text-4xl md:text-5xl font-bold text-foreground mb-6">
+						<h2 className="text-balance text-4xl md:text-6xl font-bold uppercase tracking-tighter text-foreground mb-6">
 							Let’s Connect
 						</h2>
-						<p className="text-lg text-muted-foreground">
+						<p className="text-lg font-bold uppercase tracking-widest text-muted-foreground">
 							I’m looking for frontend or full-stack roles and always happy to chat. Reach out on
 							any of these platforms.
 						</p>
@@ -200,11 +198,11 @@ export default function HomePage() {
 							href="https://github.com/john-dennehy"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="group flex items-center justify-between gap-8 p-6 md:w-96 rounded-md border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+							className="group flex items-center justify-between gap-8 p-8 md:w-96 rounded-none border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 						>
 							<div className="flex items-center gap-4">
 								<svg
-									className="w-6 h-6 text-foreground/80 group-hover:text-primary transition-colors"
+									className="w-8 h-8 text-foreground group-hover:text-primary transition-colors"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 									role="img"
@@ -216,10 +214,10 @@ export default function HomePage() {
 										clipRule="evenodd"
 									/>
 								</svg>
-								<p className="text-base font-bold">GitHub</p>
+								<p className="text-lg font-bold uppercase tracking-widest">GitHub</p>
 							</div>
 							<svg
-								className="w-5 h-5 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
+								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -239,11 +237,11 @@ export default function HomePage() {
 							href="https://linkedin.com/in/johnfdennehy"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="group flex items-center justify-between gap-8 p-6 md:w-96 rounded-md border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
+							className="group flex items-center justify-between gap-8 p-8 md:w-96 rounded-none border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 						>
 							<div className="flex items-center gap-4">
 								<svg
-									className="w-6 h-6 text-foreground/80 group-hover:text-primary transition-colors"
+									className="w-8 h-8 text-foreground group-hover:text-primary transition-colors"
 									fill="currentColor"
 									viewBox="0 0 24 24"
 									role="img"
@@ -251,10 +249,10 @@ export default function HomePage() {
 								>
 									<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
 								</svg>
-								<p className="text-base font-bold">LinkedIn</p>
+								<p className="text-lg font-bold uppercase tracking-widest">LinkedIn</p>
 							</div>
 							<svg
-								className="w-5 h-5 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
+								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
 								fill="none"
 								viewBox="0 0 24 24"
 								stroke="currentColor"

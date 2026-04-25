@@ -1,13 +1,13 @@
-import { Geist, Playfair_Display } from 'next/font/google'
+import { Inter, Noto_Serif } from 'next/font/google'
 
-export const geist = Geist({
+export const inter = Inter({
 	subsets: ['latin'],
-	variable: '--font-geist',
+	variable: '--font-inter',
 	display: 'swap',
 })
 
-export const playfair = Playfair_Display({
+export const notoSerif = Noto_Serif({
 	subsets: ['latin'],
-	variable: '--font-playfair',
+	variable: '--font-noto-serif',
 	display: 'swap',
 })

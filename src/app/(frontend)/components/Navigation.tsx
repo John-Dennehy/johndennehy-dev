@@ -30,19 +30,17 @@ export default function Navigation() {
 	return (
 		<nav
 			className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-				scrolled
-					? 'bg-background/80 backdrop-blur-md border-b border-border shadow-sm'
-					: 'bg-transparent'
+				scrolled ? 'bg-background/95 border-b border-border' : 'bg-transparent'
 			}`}
 		>
-			<div className="mx-auto max-w-5xl px-6 md:px-8">
+			<div className="mx-auto max-w-7xl px-6 md:px-12">
 				<div className="flex h-16 items-center justify-between">
 					{/* Logo / Name */}
 					<Link
 						href="/"
-						className="text-lg font-bold tracking-tight text-text-primary transition-colors hover:text-accent"
+						className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-primary"
 					>
-						<span className="gradient-text">JD</span>
+						JD
 					</Link>
 
 					{/* Desktop nav links */}
@@ -51,8 +49,10 @@ export default function Navigation() {
 							<Link
 								key={link.href}
 								href={link.href}
-								className={`link-hover text-sm font-medium transition-colors ${
-									isActive(link.href) ? 'text-text-primary nav-link-active' : 'text-text-muted'
+								className={`text-sm font-bold transition-colors uppercase tracking-widest ${
+									isActive(link.href)
+										? 'text-primary'
+										: 'text-muted-foreground hover:text-foreground'
 								}`}
 							>
 								{link.label}
@@ -64,7 +64,7 @@ export default function Navigation() {
 					<button
 						type="button"
 						onClick={() => setMobileOpen(!mobileOpen)}
-						className="md:hidden flex flex-col gap-1.5 p-2 text-text-secondary"
+						className="md:hidden flex flex-col gap-1.5 p-2 text-foreground"
 						aria-label="Toggle menu"
 					>
 						<span
@@ -89,17 +89,17 @@ export default function Navigation() {
 			{/* Mobile menu */}
 			<div
 				className={`md:hidden overflow-hidden transition-all duration-300 ${
-					mobileOpen ? 'max-h-64 opacity-100' : 'max-h-0 opacity-0'
+					mobileOpen ? 'max-h-64 opacity-100 border-b border-border' : 'max-h-0 opacity-0'
 				}`}
 			>
-				<div className="bg-background/90 backdrop-blur-md border-t border-border px-6 py-4 space-y-3">
+				<div className="bg-background px-6 py-4 space-y-3">
 					{navLinks.map((link) => (
 						<Link
 							key={link.href}
 							href={link.href}
 							onClick={() => setMobileOpen(false)}
-							className={`block text-sm font-medium transition-colors py-1 ${
-								isActive(link.href) ? 'text-accent' : 'text-text-muted hover:text-text-primary'
+							className={`block text-sm font-bold uppercase tracking-widest transition-colors py-1 ${
+								isActive(link.href) ? 'text-primary' : 'text-muted-foreground hover:text-foreground'
 							}`}
 						>
 							{link.label}

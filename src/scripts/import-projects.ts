@@ -87,8 +87,7 @@ async function run() {
 			}
 		}
 
-		// Process description into Lexical format
-		let lexicalDescription = null
+		let lexicalDescription: Record<string, unknown> | null = null
 		if (projectData.description) {
 			const paragraphs = Array.isArray(projectData.description)
 				? projectData.description
@@ -97,14 +96,16 @@ async function run() {
 			lexicalDescription = {
 				root: {
 					type: 'root',
-					format: '',
+					format: '' as const,
 					indent: 0,
 					version: 1,
+					direction: 'ltr' as const,
 					children: paragraphs.map((text: string) => ({
 						type: 'paragraph',
-						format: '',
+						format: '' as const,
 						indent: 0,
 						version: 1,
+						direction: 'ltr' as const,
 						children: [
 							{
 								mode: 'normal',
@@ -116,7 +117,6 @@ async function run() {
 								version: 1,
 							},
 						],
-						direction: 'ltr',
 					})),
 				},
 			}
@@ -134,7 +134,11 @@ async function run() {
 					repoUrl: projectData.repoUrl,
 					featured: projectData.featured || false,
 					techStack: techIds,
-					...(lexicalDescription ? { description: lexicalDescription } : {}),
+					// Cast is necessary because Payload's generated type requires an index signature
+					// that TypeScript cannot infer from our literal object shape.
+					...(lexicalDescription
+						? { description: lexicalDescription as unknown as Record<string, unknown> & { root: { type: string; children: { [k: string]: unknown; type: string; version: number }[]; direction: 'ltr' | 'rtl' | null; format: '' | 'left' | 'start' | 'center' | 'right' | 'end' | 'justify'; indent: number; version: number } } }
+						: {}),
 					...(projectData.publishedDate ? { publishedDate: projectData.publishedDate } : {}),
 				},
 			})

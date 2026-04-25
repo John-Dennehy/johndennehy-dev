@@ -67,21 +67,21 @@ export default function ProjectsGrid({
 			{/* Tech filter bar */}
 			{/* Tech filter box */}
 			{filterOptions.length > 0 && (
-				<div className="glass-card p-6 mb-10 animate-slide-up stagger-2">
+				<div className="border border-border p-6 mb-10">
 					<div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-						<h3 className="text-sm font-bold uppercase tracking-widest text-text-muted">
+						<h3 className="text-sm font-bold uppercase tracking-widest text-muted-foreground">
 							Filter Projects
 						</h3>
 
 						{activeTechs.length > 1 && (
-							<div className="flex items-center gap-1 text-xs font-medium bg-bg-surface p-1 rounded-lg border border-border">
+							<div className="flex items-center gap-px bg-border p-px border border-border">
 								<button
 									type="button"
 									onClick={() => setFilterMode('AND')}
-									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
+									className={`px-3 py-1.5 transition-all duration-300 rounded-none ${
 										filterMode === 'AND'
-											? 'bg-accent text-accent-foreground shadow-sm'
-											: 'text-text-muted hover:text-text-secondary'
+											? 'bg-primary text-primary-foreground'
+											: 'bg-background text-muted-foreground hover:text-foreground'
 									}`}
 								>
 									Match All (AND)
@@ -89,10 +89,10 @@ export default function ProjectsGrid({
 								<button
 									type="button"
 									onClick={() => setFilterMode('OR')}
-									className={`px-3 py-1.5 rounded-md transition-all duration-300 ${
+									className={`px-3 py-1.5 transition-all duration-300 rounded-none ${
 										filterMode === 'OR'
-											? 'bg-accent text-accent-foreground shadow-sm'
-											: 'text-text-muted hover:text-text-secondary'
+											? 'bg-primary text-primary-foreground'
+											: 'bg-background text-muted-foreground hover:text-foreground'
 									}`}
 								>
 									Match Any (OR)
@@ -105,10 +105,10 @@ export default function ProjectsGrid({
 						<button
 							type="button"
 							onClick={() => setActiveTechs([])}
-							className={`rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
+							className={`px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 border rounded-none ${
 								activeTechs.length === 0
-									? 'bg-accent text-accent-foreground border-accent shadow-lg shadow-accent-glow'
-									: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+									? 'bg-primary text-primary-foreground border-primary'
+									: 'bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground'
 							}`}
 						>
 							All
@@ -128,12 +128,12 @@ export default function ProjectsGrid({
 									type="button"
 									key={tech.slug}
 									onClick={() => toggleTech(tech.slug)}
-									className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-xs font-medium transition-all duration-300 border ${
+									className={`inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-widest transition-all duration-300 border rounded-none ${
 										isActive
-											? 'bg-accent text-accent-foreground border-accent shadow-lg shadow-accent-glow'
+											? 'bg-primary text-primary-foreground border-primary'
 											: !hasProjects
-												? 'bg-bg-surface text-text-muted/40 border-border/50 grayscale opacity-60 hover:opacity-100 hover:text-text-muted'
-												: 'bg-bg-surface text-text-muted border-border hover:border-border-hover hover:text-text-secondary'
+												? 'bg-transparent text-muted-foreground/40 border-border opacity-60'
+												: 'bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground'
 									}`}
 									title={!hasProjects ? `No published ${tech.name} projects currently` : ''}
 								>
@@ -143,7 +143,7 @@ export default function ProjectsGrid({
 											alt={tech.logo.alt}
 											width={14}
 											height={14}
-											className="rounded-sm"
+											className="rounded-none"
 										/>
 									) : iconUrl ? (
 										// eslint-disable-next-line @next/next/no-img-element
@@ -165,8 +165,8 @@ export default function ProjectsGrid({
 
 			{/* Matched projects */}
 			<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{matched.map((project, i) => (
-					<ProjectCard key={project.id} project={project} index={i} dimmed={false} />
+				{matched.map((project) => (
+					<ProjectCard key={project.id} project={project} dimmed={false} />
 				))}
 			</div>
 
@@ -181,8 +181,8 @@ export default function ProjectsGrid({
 						<div className="h-px flex-1 bg-border" />
 					</div>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-						{unmatched.map((project, i) => (
-							<ProjectCard key={project.id} project={project} index={i} dimmed={true} />
+						{unmatched.map((project) => (
+							<ProjectCard key={project.id} project={project} dimmed={true} />
 						))}
 					</div>
 				</>
@@ -214,20 +214,15 @@ export default function ProjectsGrid({
 
 function ProjectCard({
 	project,
-	index,
 	dimmed,
 }: {
 	project: Project
-	index: number
 	dimmed: boolean
 }) {
-	// Stagger classes cycle through stagger-1 to stagger-6
-	const staggerClass = `stagger-${(index % 6) + 1}`
-
 	return (
 		<Link
 			href={`/projects/${project.slug}`}
-			className={`glass-card group block overflow-hidden transition-all duration-500 animate-slide-up ${staggerClass} ${
+			className={`group block overflow-hidden transition-all duration-500 border border-border rounded-none ${
 				dimmed ? 'opacity-40 hover:opacity-70' : 'opacity-100'
 			}`}
 		>
@@ -270,7 +265,7 @@ function ProjectCard({
 
 				{/* Featured badge */}
 				{project.featured && (
-					<div className="absolute top-3 right-3 rounded-full bg-accent/90 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent-foreground shadow-lg shadow-accent-glow">
+					<div className="absolute top-0 right-0 bg-primary px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-primary-foreground">
 						Featured
 					</div>
 				)}
@@ -278,10 +273,10 @@ function ProjectCard({
 
 			{/* Card body */}
 			<div className="p-5">
-				<h3 className="text-base font-semibold text-text-primary mb-2 group-hover:text-accent transition-colors">
+				<h3 className="text-base font-bold uppercase tracking-widest text-foreground mb-2 group-hover:text-primary transition-colors">
 					{project.title}
 				</h3>
-				<p className="text-sm text-text-secondary leading-relaxed mb-4 line-clamp-2">
+				<p className="text-sm text-muted-foreground leading-relaxed mb-4 line-clamp-2">
 					{project.summary}
 				</p>
 
@@ -291,7 +286,7 @@ function ProjectCard({
 						{project.techStack.map((tech) => (
 							<span
 								key={tech.id}
-								className="rounded-full bg-bg-elevated px-2.5 py-0.5 text-[11px] font-medium text-text-muted border border-border"
+								className="rounded-none bg-muted px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-widest text-muted-foreground border border-border"
 							>
 								{tech.name}
 							</span>
