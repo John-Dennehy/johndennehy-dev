@@ -175,7 +175,7 @@ export default function ProjectsGrid({
 				<>
 					<div className="my-8 flex items-center gap-4">
 						<div className="h-px flex-1 bg-border" />
-						<span className="text-xs text-text-muted font-medium uppercase tracking-wider">
+						<span className="text-xs text-muted-foreground font-medium uppercase tracking-wider">
 							Other Projects
 						</span>
 						<div className="h-px flex-1 bg-border" />
@@ -190,10 +190,10 @@ export default function ProjectsGrid({
 
 			{/* Empty state */}
 			{projects.length === 0 && (
-				<div className="glass-card p-12 text-center animate-fade-in">
-					<div className="mb-4 text-4xl">🚀</div>
-					<h3 className="text-lg font-semibold text-text-primary mb-2">Projects on the way</h3>
-					<p className="text-sm text-text-secondary max-w-md mx-auto">
+				<div className="border border-border p-12 text-center">
+					<div className="mb-4 text-4xl" aria-hidden="true">🚀</div>
+					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">Projects on the way</h3>
+					<p className="text-sm text-muted-foreground max-w-md mx-auto">
 						I&apos;m actively building and will be adding projects here soon. Check back or follow
 						me on{' '}
 						<a
@@ -222,7 +222,7 @@ function ProjectCard({
 	return (
 		<Link
 			href={`/projects/${project.slug}`}
-			className={`group block overflow-hidden transition-all duration-500 border border-border rounded-none ${
+			className={`group block overflow-hidden transition-all duration-500 border border-border rounded-none hover:border-foreground ${
 				dimmed ? 'opacity-40 hover:opacity-70' : 'opacity-100'
 			}`}
 		>
@@ -236,30 +236,23 @@ function ProjectCard({
 						className="object-cover transition-transform duration-500 group-hover:scale-105"
 					/>
 				) : (
-					<div
-						className="h-full w-full"
-						style={{
-							background: `linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(34, 211, 238, 0.1) 100%)`,
-						}}
-					>
-						<div className="flex h-full items-center justify-center">
-							<svg
-								className="w-10 h-10 text-text-muted/30"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								strokeWidth={1}
-								role="img"
-								aria-labelledby="no-image-title"
-							>
-								<title id="no-image-title">Project placeholder</title>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-								/>
-							</svg>
-						</div>
+					<div className="h-full w-full bg-gradient-to-br from-muted to-border flex items-center justify-center">
+						<svg
+							className="w-10 h-10 text-muted-foreground/30"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							strokeWidth={1}
+							role="img"
+							aria-labelledby="no-image-title"
+						>
+							<title id="no-image-title">Project placeholder</title>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+							/>
+						</svg>
 					</div>
 				)}
 
@@ -297,7 +290,7 @@ function ProjectCard({
 				{/* Action links */}
 				<div className="flex items-center gap-3">
 					{project.repoUrl && (
-						<span className="inline-flex items-center gap-1 text-xs text-text-muted group-hover:text-text-secondary transition-colors">
+						<span className="inline-flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
 							<svg
 								className="w-3.5 h-3.5"
 								fill="currentColor"
@@ -316,7 +309,7 @@ function ProjectCard({
 						</span>
 					)}
 					{project.liveUrl && (
-						<span className="inline-flex items-center gap-1 text-xs text-text-muted group-hover:text-text-secondary transition-colors">
+						<span className="inline-flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
 							<svg
 								className="w-3.5 h-3.5"
 								fill="none"
@@ -336,7 +329,7 @@ function ProjectCard({
 							Live
 						</span>
 					)}
-					<span className="ml-auto text-xs text-text-muted group-hover:text-accent transition-colors">
+					<span className="ml-auto text-xs text-muted-foreground group-hover:text-primary transition-colors">
 						View →
 					</span>
 				</div>

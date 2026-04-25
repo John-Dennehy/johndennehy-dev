@@ -101,22 +101,23 @@ The design system is anchored in high-end editorial aesthetics, designed for eli
 
 The style is a fusion of **Modern Minimalism** and **Swiss Grid** principles. It relies on a rigorous adherence to hierarchy and a "content-first" philosophy. The emotional response is one of trust and exclusivity, making the user feel as though they are browsing a premium physical monograph or a curated gallery space.
 
-## Colors
+## Colours
 
 The palette is intentionally restricted to create maximum impact through contrast.
 
-- **Primary:** A vibrant Golden Yellow (#FFD700) serves as the sole "active" signal. It is used sparingly for interactive elements, notifications, and critical highlights to ensure it never loses its potency.
-- **Surface:** A pure White (#FFFFFF) background provides a sterile, high-contrast canvas.
-- **Typography:** Deep Black (#000000) is used for all text to ensure absolute legibility and a classic editorial feel.
-- **Accents:** Subtle Greys (#F5F5F5, #E5E5E5) are utilized for hairline dividers, disabled states, and secondary containers to provide structure without introducing visual noise.
+- **Primary:** A vibrant Golden Yellow (`#FFD700`) serves as the sole "active" signal. It is used sparingly for interactive elements, notifications, and critical highlights to ensure it never loses its potency.
+- **Surface (General):** The default page background is `#fbf9f9` (warm off-white), mapped to `--background`. This is the standard surface for all content areas.
+- **Surface (Pure White):** Where photographic or illustrative content with a white background must blend seamlessly into the layout, use `--card` (`#ffffff`), which maps to `surface-container-lowest` in the palette. This applies to image containers and hero portrait wrappers.
+- **Typography:** Near-black (`#1b1c1c`) is used for all body text, mapped to `--foreground`. This ensures legibility against both surface colours.
+- **Accents:** Subtle greys (`#f5f3f3`, `#e3e2e2`) are used for hairline dividers, disabled states, and secondary containers to provide structure without introducing visual noise.
 
 ## Typography
 
 This design system employs a classic serif/sans-serif pairing to distinguish between narrative and utility.
 
-- **Headlines:** Noto Serif is used for all headings. It should be set with tight line height and slight negative letter spacing to mimic traditional typesetting.
+- **Headlines:** Noto Serif (`font-heading`) is used for all `h1`–`h3` headings. Headlines are always set in mixed-case (sentence or title case). They must never be uppercased — let Noto Serif's editorial weight and tight tracking carry the hierarchy.
 - **Body:** Inter provides a functional, neutral counterpoint. Its purpose is to disappear into the layout, facilitating effortless reading.
-- **Labels:** Meta-information and small UI labels use Inter in uppercase with increased letter spacing to create a distinct visual texture for technical data.
+- **Labels (`label-caps`):** Meta-information, small UI labels, navigation items, filter chips, and button text use Inter in uppercase with increased letter spacing (`tracking-widest`). This creates a distinct visual texture for technical and interactive data. Uppercase is **exclusively** reserved for this role.
 
 ## Layout & Spacing
 

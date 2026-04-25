@@ -38,9 +38,9 @@ export default function Navigation() {
 					{/* Logo / Name */}
 					<Link
 						href="/"
-						className="text-lg font-bold tracking-tight text-foreground transition-colors hover:text-primary"
+						className="text-xs font-bold uppercase tracking-widest text-foreground transition-colors hover:text-primary"
 					>
-						JD
+						johndennehy.dev
 					</Link>
 
 					{/* Desktop nav links */}
