@@ -25,9 +25,34 @@ cp .env.example .env
 pnpm dev
 ```
 
+Point `DATABASE_URL` at your own Neon **dev branch**, never the production database (see [Local database](#local-database)). Then apply the migrations:
+
+```bash
+pnpm migrate
+```
+
 Open [http://localhost:3000](http://localhost:3000) for the frontend and [http://localhost:3000/admin](http://localhost:3000/admin) for the CMS admin panel.
 
 On first visit to `/admin`, you'll be prompted to create an admin user.
+
+## Local database
+
+Use a separate [Neon branch](https://neon.tech/docs/introduction/branching) for local development so nothing you do locally can touch production data or schema:
+
+1. In the Neon console, open the project and create a branch from `main` (e.g. `dev`). A branch is a copy-on-write clone of production, so you get real content to work with.
+2. Copy that branch's connection string into `DATABASE_URL` in your `.env`, and leave `PGHOST`/`PGUSER`/`PGDATABASE`/`PGPASSWORD` empty (when `PGHOST` is set it takes precedence over `DATABASE_URL`).
+3. Run `pnpm migrate`. To start over, use **Reset from parent** on the branch in the Neon console.
+
+## Schema changes (migrations)
+
+Dev-mode schema push is disabled (`push: false` in `src/payload.config.ts`). The schema only changes through migrations committed in `src/migrations`:
+
+1. Edit a collection in `src/collections`.
+2. `pnpm migrate:create <short-name>` to generate a migration, then read the generated SQL.
+3. `pnpm migrate` to apply it to your dev branch, and `pnpm generate:types` if fields changed.
+4. Commit the migration with the collection change.
+
+Production runs pending migrations during the deploy via `pnpm run ci` (see [Deployment](#deployment)).
 
 ## Collections
 
@@ -56,6 +81,10 @@ See [`.env.example`](.env.example) for all required variables.
 |---|---|
 | `pnpm dev` | Start development server |
 | `pnpm build` | Production build |
+| `pnpm run ci` | Deploy build: migration preflight, `payload migrate`, then `next build` |
+| `pnpm migrate` | Apply pending migrations to the database in `DATABASE_URL` |
+| `pnpm migrate:create <name>` | Generate a migration from collection changes |
+| `pnpm migrate:check` | Fail if the database carries a dev-push marker (would hang `payload migrate`) |
 | `pnpm start` | Start production server |
 | `pnpm generate:types` | Regenerate Payload TypeScript types |
 | `pnpm lint` | Run Biome lint + format checks |
@@ -65,7 +94,15 @@ See [`.env.example`](.env.example) for all required variables.
 
 ## Deployment
 
-The site is designed for deployment on Vercel or any Node.js hosting. For Docker, a `Dockerfile` is included with standalone output support.
+Production runs on Vercel. The Vercel **Build Command** must be `pnpm run ci` (not `pnpm ci`, which is a different, reserved pnpm command). It:
+
+1. runs `pnpm migrate:check`, which fails the build if the database was ever changed by dev-mode push (a `payload_migrations` row with `batch = -1` makes `payload migrate` hang on an interactive prompt);
+2. runs `payload migrate` against the database for that environment;
+3. runs `next build`.
+
+Preview deployments run migrations too, so they must use their own Neon branch (e.g. via the Neon Vercel integration's preview branching), never the production database.
+
+For Docker, a `Dockerfile` is included with standalone output support.
 
 ## Licence
 

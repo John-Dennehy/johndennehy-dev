@@ -50,6 +50,10 @@ export default buildConfig({
 		outputFile: path.resolve(dirname, 'payload-types.ts'),
 	},
 	db: postgresAdapter({
+		// Schema changes only ever happen through committed migrations (src/migrations),
+		// never by dev-mode push, so a misconfigured DATABASE_URL can't silently alter prod.
+		push: false,
+		migrationDir: path.resolve(dirname, 'migrations'),
 		pool: {
 			connectionString: process.env.PGHOST
 				? `postgresql://${process.env.PGUSER}:${process.env.PGPASSWORD}@${process.env.PGHOST}/${process.env.PGDATABASE}?sslmode=verify-full`

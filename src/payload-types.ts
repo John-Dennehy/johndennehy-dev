@@ -429,9 +429,6 @@ export interface ContactMessage {
    * The message content
    */
   message: string;
-  /**
-   * Honeypot field — should always be empty. Filled = spam.
-   */
   website?: string | null;
   status?: ('unread' | 'read' | 'replied') | null;
   updatedAt: string;
