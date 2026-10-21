@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { resendAdapter } from '@payloadcms/email-resend'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
 import { ContactMessages } from './collections/ContactMessages'
@@ -61,5 +62,19 @@ export default buildConfig({
 		},
 	}),
 	sharp,
-	plugins: [],
+	plugins: [
+		// Vercel's filesystem is ephemeral, so media lives in Vercel Blob. Without a token
+		// (local dev, CI) uploads fall back to local disk.
+		vercelBlobStorage({
+			enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
+			// Keep the schema identical whether or not the plugin is enabled
+			alwaysInsertFields: true,
+			collections: {
+				media: true,
+			},
+			token: process.env.BLOB_READ_WRITE_TOKEN,
+			// Upload straight from the browser to Blob, bypassing Vercel's 4.5 MB request body limit
+			clientUploads: true,
+		}),
+	],
 })
