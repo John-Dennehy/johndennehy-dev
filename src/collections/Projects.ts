@@ -1,4 +1,8 @@
-import type { CollectionConfig } from 'payload'
+import type { Access, CollectionConfig } from 'payload'
+
+// Signed-in users see drafts; the public (pages and the REST/GraphQL API) only sees published
+const readPublishedOrAuthenticated: Access = ({ req: { user } }) =>
+	user ? true : { status: { equals: 'published' } }
 
 export const Projects: CollectionConfig = {
 	slug: 'projects',
@@ -8,7 +12,7 @@ export const Projects: CollectionConfig = {
 		group: 'Content',
 	},
 	access: {
-		read: () => true,
+		read: readPublishedOrAuthenticated,
 	},
 	fields: [
 		{

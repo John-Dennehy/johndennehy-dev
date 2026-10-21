@@ -9,6 +9,8 @@ export const smokeProject = {
 
 export const contactSender = { name: 'Ada Lovelace', email: 'e2e-contact@example.com' }
 
+export const draftProject = { title: 'E2E Draft Project', slug: 'e2e-draft-project' }
+
 export const approvedFeedback = { name: 'E2E Approved', message: 'Visible to everyone' }
 export const pendingFeedback = { name: 'E2E Pending', message: 'Awaiting moderation' }
 
@@ -33,6 +35,10 @@ export async function seedSmokeContent(): Promise<void> {
 		collection: 'project-feedback',
 		data: { ...pendingFeedback, project: project.id, approved: false },
 	})
+	await payload.create({
+		collection: 'projects',
+		data: { ...draftProject, summary: 'Draft seeded by the e2e smoke tests.', status: 'draft' },
+	})
 }
 
 export async function cleanupSmokeContent(): Promise<void> {
@@ -46,7 +52,7 @@ export async function cleanupSmokeContent(): Promise<void> {
 
 	const { docs } = await payload.find({
 		collection: 'projects',
-		where: { slug: { equals: smokeProject.slug } },
+		where: { slug: { in: [smokeProject.slug, draftProject.slug] } },
 		depth: 0,
 	})
 	for (const project of docs) {

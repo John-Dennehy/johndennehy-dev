@@ -3,6 +3,7 @@ import {
 	approvedFeedback,
 	cleanupSmokeContent,
 	contactSender,
+	draftProject,
 	pendingFeedback,
 	seedSmokeContent,
 	smokeProject,
@@ -91,6 +92,20 @@ test.describe('Public API access', () => {
 			expect(doc).not.toHaveProperty('website')
 			expect(doc).not.toHaveProperty('submitterHash')
 		}
+	})
+
+	test('anonymous project reads exclude drafts', async ({ request }) => {
+		const response = await request.get('/api/projects?limit=100&depth=0')
+		expect(response.ok()).toBe(true)
+		const { docs } = (await response.json()) as { docs: { slug: string; status: string }[] }
+
+		const slugs = docs.map((doc) => doc.slug)
+		expect(slugs).toContain(smokeProject.slug)
+		expect(slugs).not.toContain(draftProject.slug)
+		expect(docs.every((doc) => doc.status === 'published')).toBe(true)
+
+		const draftPage = await request.get(`/projects/${draftProject.slug}`)
+		expect(draftPage.status()).toBe(404)
 	})
 
 	test('contact messages are not publicly readable', async ({ request }) => {
