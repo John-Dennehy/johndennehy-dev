@@ -7,7 +7,8 @@ export default function ContactForm() {
 	const [email, setEmail] = useState('')
 	const [subject, setSubject] = useState('')
 	const [message, setMessage] = useState('')
-	const [submitted, setSubmitted] = useState(false)
+	// First name of the last successful sender; non-null shows the thank-you state
+	const [sentName, setSentName] = useState<string | null>(null)
 	const [error, setError] = useState<string | null>(null)
 	const [isPending, startTransition] = useTransition()
 	const loadTimeRef = useRef(Date.now())
@@ -56,7 +57,7 @@ export default function ContactForm() {
 					throw new Error('Failed to submit message')
 				}
 
-				setSubmitted(true)
+				setSentName(name.trim().split(/\s+/)[0])
 				setName('')
 				setEmail('')
 				setSubject('')
@@ -67,7 +68,7 @@ export default function ContactForm() {
 		})
 	}
 
-	if (submitted) {
+	if (sentName !== null) {
 		return (
 			<div className="border border-border p-8 text-center">
 				<div className="mb-4 text-4xl" aria-hidden="true">
@@ -75,12 +76,12 @@ export default function ContactForm() {
 				</div>
 				<h3 className="font-heading text-xl font-bold text-foreground mb-3">Message Sent</h3>
 				<p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
-					Thanks for reaching out, {name.split(' ')[0]}! I&apos;ve received your message and will
-					get back to you as soon as I can.
+					Thanks for reaching out, {sentName}! I&apos;ve received your message and will get back to
+					you as soon as I can.
 				</p>
 				<button
 					type="button"
-					onClick={() => setSubmitted(false)}
+					onClick={() => setSentName(null)}
 					className="mt-8 text-sm font-bold uppercase tracking-widest text-primary hover:text-foreground transition-colors"
 				>
 					Send another message
