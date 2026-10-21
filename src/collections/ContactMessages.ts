@@ -1,6 +1,16 @@
 import type { CollectionConfig } from 'payload'
 import { email } from 'payload/shared'
-import { escapeHtml, rejectHoneypot, toHeaderValue } from '../lib/publicForms'
+import {
+	escapeHtml,
+	rateLimitSubmissions,
+	rejectHoneypot,
+	submitterHashField,
+	toHeaderValue,
+} from '../lib/publicForms'
+
+// Auto-replies go to visitor-supplied addresses, so cap how often they can be triggered
+const AUTO_REPLY_PER_ADDRESS_HOURS = 24
+const AUTO_REPLY_SITE_WIDE_PER_HOUR = 20
 
 export const ContactMessages: CollectionConfig = {
 	slug: 'contact-messages',
@@ -20,6 +30,7 @@ export const ContactMessages: CollectionConfig = {
 	},
 	hooks: {
 		beforeValidate: [rejectHoneypot],
+		beforeChange: [rateLimitSubmissions({ max: 3, windowMinutes: 60 })],
 		afterChange: [
 			async ({ doc, req, operation }) => {
 				if (operation !== 'create') return
@@ -59,6 +70,28 @@ export const ContactMessages: CollectionConfig = {
 				// 2. Auto-responder. The address is visitor-supplied, so this deliberately contains
 				// no visitor-supplied text: it can't be used to deliver someone else's content.
 				try {
+					const hoursAgo = (hours: number) => new Date(Date.now() - hours * 3_600_000).toISOString()
+					const [toThisAddress, siteWide] = await Promise.all([
+						req.payload.count({
+							collection: 'contact-messages',
+							where: {
+								email: { equals: doc.email },
+								id: { not_equals: doc.id },
+								createdAt: { greater_than: hoursAgo(AUTO_REPLY_PER_ADDRESS_HOURS) },
+							},
+							req,
+						}),
+						req.payload.count({
+							collection: 'contact-messages',
+							where: { createdAt: { greater_than: hoursAgo(1) } },
+							req,
+						}),
+					])
+					if (toThisAddress.totalDocs > 0 || siteWide.totalDocs > AUTO_REPLY_SITE_WIDE_PER_HOUR) {
+						req.payload.logger.info('Skipping contact auto-responder (rate limited)')
+						return
+					}
+
 					await req.payload.sendEmail({
 						to: doc.email,
 						subject: 'Thanks for reaching out',
@@ -117,6 +150,7 @@ export const ContactMessages: CollectionConfig = {
 				description: 'The message content',
 			},
 		},
+		submitterHashField,
 		{
 			// Honeypot field — filled-in submissions are rejected by rejectHoneypot
 			name: 'website',

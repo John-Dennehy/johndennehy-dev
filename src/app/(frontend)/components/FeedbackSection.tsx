@@ -56,6 +56,11 @@ export default function FeedbackSection({
 					}),
 				})
 
+				if (res.status === 429) {
+					setError("You've sent a lot of feedback recently. Please try again later.")
+					return
+				}
+
 				if (!res.ok) {
 					throw new Error('Failed to submit feedback')
 				}

@@ -308,6 +308,7 @@ export interface ProjectFeedback {
    * The feedback or suggestion
    */
   message: string;
+  submitterHash?: string | null;
   /**
    * Honeypot field — should always be empty. Filled = spam.
    */
@@ -429,6 +430,7 @@ export interface ContactMessage {
    * The message content
    */
   message: string;
+  submitterHash?: string | null;
   website?: string | null;
   status?: ('unread' | 'read' | 'replied') | null;
   updatedAt: string;
@@ -639,6 +641,7 @@ export interface ProjectFeedbackSelect<T extends boolean = true> {
   project?: T;
   name?: T;
   message?: T;
+  submitterHash?: T;
   website?: T;
   approved?: T;
   updatedAt?: T;
@@ -694,6 +697,7 @@ export interface ContactMessagesSelect<T extends boolean = true> {
   email?: T;
   subject?: T;
   message?: T;
+  submitterHash?: T;
   website?: T;
   status?: T;
   updatedAt?: T;

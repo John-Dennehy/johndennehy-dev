@@ -1,5 +1,5 @@
 import type { Access, CollectionConfig, FieldAccess } from 'payload'
-import { rejectHoneypot } from '../lib/publicForms'
+import { rateLimitSubmissions, rejectHoneypot, submitterHashField } from '../lib/publicForms'
 
 const isAuthenticated: FieldAccess = ({ req: { user } }) => Boolean(user)
 
@@ -24,6 +24,7 @@ export const ProjectFeedback: CollectionConfig = {
 	},
 	hooks: {
 		beforeValidate: [rejectHoneypot],
+		beforeChange: [rateLimitSubmissions({ max: 5, windowMinutes: 60 })],
 	},
 	fields: [
 		{
@@ -53,6 +54,7 @@ export const ProjectFeedback: CollectionConfig = {
 				description: 'The feedback or suggestion',
 			},
 		},
+		submitterHashField,
 		{
 			// Honeypot field — hidden from real users, bots fill it in
 			name: 'website',

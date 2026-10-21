@@ -45,6 +45,13 @@ export default function ContactForm() {
 					}),
 				})
 
+				if (res.status === 429) {
+					setError(
+						"You've sent a few messages recently. Please try again later or reach out on LinkedIn.",
+					)
+					return
+				}
+
 				if (!res.ok) {
 					throw new Error('Failed to submit message')
 				}
