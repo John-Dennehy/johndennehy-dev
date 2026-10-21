@@ -1,0 +1,32 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    groups:
+      # Payload packages are pinned to one exact version and must move together
+      payload:
+        patterns:
+          - payload
+          - "@payloadcms/*"
+      runtime:
+        dependency-type: production
+        update-types: [minor, patch]
+        exclude-patterns:
+          - payload
+          - "@payloadcms/*"
+      tooling:
+        dependency-type: development
+        update-types: [minor, patch]
+      # Security fixes (often transitive) arrive as one PR rather than one per package
+      security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
