@@ -28,14 +28,8 @@ export default function ContactForm() {
 			return
 		}
 
-		// Honeypot check — the hidden field should be empty
-		const formData = new FormData(e.currentTarget)
-		const honeypot = formData.get('website')
-		if (honeypot && String(honeypot).trim().length > 0) {
-			// Silently pretend success to not tip off the bot
-			setSubmitted(true)
-			return
-		}
+		// Honeypot — always sent so the server can reject submissions where it was filled in
+		const website = String(new FormData(e.currentTarget).get('website') ?? '')
 
 		startTransition(async () => {
 			try {
@@ -47,6 +41,7 @@ export default function ContactForm() {
 						email: email.trim().toLowerCase(),
 						subject: subject.trim(),
 						message: message.trim(),
+						website,
 					}),
 				})
 
@@ -99,6 +94,7 @@ export default function ContactForm() {
 					</label>
 					<input
 						id="contact-name"
+						maxLength={100}
 						type="text"
 						required
 						value={name}
@@ -116,6 +112,7 @@ export default function ContactForm() {
 					</label>
 					<input
 						id="contact-email"
+						maxLength={254}
 						type="email"
 						required
 						value={email}
@@ -135,6 +132,7 @@ export default function ContactForm() {
 				</label>
 				<input
 					id="contact-subject"
+					maxLength={150}
 					type="text"
 					required
 					value={subject}
@@ -153,6 +151,7 @@ export default function ContactForm() {
 				</label>
 				<textarea
 					id="contact-message"
+					maxLength={5000}
 					required
 					rows={5}
 					value={message}

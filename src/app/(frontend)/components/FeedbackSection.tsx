@@ -40,14 +40,8 @@ export default function FeedbackSection({
 			return
 		}
 
-		// Honeypot check — the hidden field should be empty
-		const formData = new FormData(e.currentTarget)
-		const honeypot = formData.get('website')
-		if (honeypot && String(honeypot).trim().length > 0) {
-			// Silently pretend success to not tip off the bot
-			setSubmitted(true)
-			return
-		}
+		// Honeypot — always sent so the server can reject submissions where it was filled in
+		const website = String(new FormData(e.currentTarget).get('website') ?? '')
 
 		startTransition(async () => {
 			try {
@@ -58,6 +52,7 @@ export default function FeedbackSection({
 						project: projectId,
 						name: name.trim(),
 						message: message.trim(),
+						website,
 					}),
 				})
 

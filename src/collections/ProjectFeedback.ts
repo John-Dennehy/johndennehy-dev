@@ -1,4 +1,5 @@
 import type { Access, CollectionConfig, FieldAccess } from 'payload'
+import { rejectHoneypot } from '../lib/publicForms'
 
 const isAuthenticated: FieldAccess = ({ req: { user } }) => Boolean(user)
 
@@ -22,15 +23,7 @@ export const ProjectFeedback: CollectionConfig = {
 		delete: ({ req: { user } }) => Boolean(user),
 	},
 	hooks: {
-		beforeValidate: [
-			({ data }) => {
-				// Honeypot spam protection — reject if the hidden field is filled
-				if (data?.website && String(data.website).trim().length > 0) {
-					throw new Error('Spam detected.')
-				}
-				return data
-			},
-		],
+		beforeValidate: [rejectHoneypot],
 	},
 	fields: [
 		{
