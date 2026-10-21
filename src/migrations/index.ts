@@ -1,6 +1,7 @@
 import * as migration_20261021_202350_baseline from './20261021_202350_baseline';
 import * as migration_20261021_203044_submitter_hash from './20261021_203044_submitter_hash';
 import * as migration_20261021_203239_media_prefix from './20261021_203239_media_prefix';
+import * as migration_20261021_205504_payload_3_90_upgrade from './20261021_205504_payload_3_90_upgrade';
 
 export const migrations = [
   {
@@ -16,6 +17,11 @@ export const migrations = [
   {
     up: migration_20261021_203239_media_prefix.up,
     down: migration_20261021_203239_media_prefix.down,
-    name: '20261021_203239_media_prefix'
+    name: '20261021_203239_media_prefix',
+  },
+  {
+    up: migration_20261021_205504_payload_3_90_upgrade.up,
+    down: migration_20261021_205504_payload_3_90_upgrade.down,
+    name: '20261021_205504_payload_3_90_upgrade'
   },
 ];
