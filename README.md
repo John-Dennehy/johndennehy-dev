@@ -38,6 +38,13 @@ On first visit to `/admin`, you'll be prompted to create an admin user.
 | **Projects** | Portfolio project entries |
 | **Technologies** | Tech stack items (linked to projects) |
 | **Project Feedback** | Community feedback on projects (moderated) |
+| **Work Experience** | CV work history |
+| **Education** | CV education history |
+| **Contact Messages** | Contact form submissions (emailed via Resend) |
+
+## Design
+
+The visual design system (Editorial Minimalist: Noto Serif + Inter, golden-yellow accent, sharp corners, no shadows) is specified in [`DESIGN.md`](DESIGN.md). Its tokens are implemented in `src/app/(frontend)/styles.css`.
 
 ## Environment Variables
 
@@ -51,7 +58,9 @@ See [`.env.example`](.env.example) for all required variables.
 | `pnpm build` | Production build |
 | `pnpm start` | Start production server |
 | `pnpm generate:types` | Regenerate Payload TypeScript types |
-| `pnpm lint` | Run ESLint |
+| `pnpm lint` | Run Biome lint + format checks |
+| `pnpm format` | Apply Biome formatting |
+| `pnpm import:projects` | Import projects from `projects-import.json` (shape: `ImportProject` in `src/scripts/import-projects.ts`) |
 | `pnpm test` | Run integration + e2e tests |
 
 ## Deployment
