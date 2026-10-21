@@ -11,7 +11,7 @@ export const metadata = {
 
 export default function NotFound() {
 	return (
-	<html lang="en" className={`${inter.variable} ${notoSerif.variable}`}>
+		<html lang="en" className={`${inter.variable} ${notoSerif.variable}`}>
 			<body
 				className={`${inter.className} flex flex-col min-h-screen antialiased bg-background text-foreground`}
 			>

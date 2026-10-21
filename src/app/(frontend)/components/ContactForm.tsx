@@ -68,7 +68,9 @@ export default function ContactForm() {
 	if (submitted) {
 		return (
 			<div className="border border-border p-8 text-center">
-				<div className="mb-4 text-4xl" aria-hidden="true">✉️</div>
+				<div className="mb-4 text-4xl" aria-hidden="true">
+					✉️
+				</div>
 				<h3 className="font-heading text-xl font-bold text-foreground mb-3">Message Sent</h3>
 				<p className="text-muted-foreground leading-relaxed max-w-sm mx-auto">
 					Thanks for reaching out, {name.split(' ')[0]}! I&apos;ve received your message and will

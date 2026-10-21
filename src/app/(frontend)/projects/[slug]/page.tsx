@@ -65,9 +65,9 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 		<section className="px-6 md:px-8 pt-20 pb-16 md:pt-24 md:pb-16">
 			<div className="mx-auto max-w-3xl">
 				{/* Back link */}
-			<Link
-				href="/projects"
-				className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
+				<Link
+					href="/projects"
+					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
 				>
 					<svg
 						className="w-4 h-4"
@@ -88,24 +88,22 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					Back to Projects
 				</Link>
 
-			{/* Header */}
-			<div className="mb-1 w-16 h-px bg-primary" />
+				{/* Header */}
+				<div className="mb-1 w-16 h-px bg-primary" />
 
-			<h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mt-6 mb-4">
-				{project.title}
-			</h1>
+				<h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mt-6 mb-4">
+					{project.title}
+				</h1>
 
-			<p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-				{project.summary}
-			</p>
+				<p className="text-muted-foreground text-lg mb-6 leading-relaxed">{project.summary}</p>
 
-			<div className="flex flex-wrap gap-3 mb-10">
-				{project.liveUrl && (
-					<a
-						href={project.liveUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
+				<div className="flex flex-wrap gap-3 mb-10">
+					{project.liveUrl && (
+						<a
+							href={project.liveUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
 						>
 							<svg
 								className="w-4 h-4"
@@ -125,13 +123,13 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 							</svg>
 							View Live
 						</a>
-				)}
-				{project.repoUrl && (
-					<a
-						href={project.repoUrl}
-						target="_blank"
-						rel="noopener noreferrer"
-						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
+					)}
+					{project.repoUrl && (
+						<a
+							href={project.repoUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 						>
 							<svg
 								className="w-4 h-4"
@@ -152,23 +150,23 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					)}
 				</div>
 
-			{thumbnail?.url && (
-				<div className="mb-10 overflow-hidden border border-border">
-					<Image
-						src={thumbnail.url}
-						alt={thumbnail.alt}
-						width={800}
-						height={450}
-						className="w-full object-cover"
-					/>
-				</div>
-			)}
+				{thumbnail?.url && (
+					<div className="mb-10 overflow-hidden border border-border">
+						<Image
+							src={thumbnail.url}
+							alt={thumbnail.alt}
+							width={800}
+							height={450}
+							className="w-full object-cover"
+						/>
+					</div>
+				)}
 
-			{techStack.length > 0 && (
-				<div className="mb-10">
-					<h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
-						Built With
-					</h2>
+				{techStack.length > 0 && (
+					<div className="mb-10">
+						<h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
+							Built With
+						</h2>
 						<div className="flex flex-wrap gap-3">
 							{techStack.map((tech) => {
 								const logo = tech.logo && typeof tech.logo !== 'number' ? tech.logo : null
@@ -227,11 +225,11 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					</div>
 				)}
 
-			{project.description && (
-				<div className="prose max-w-none mb-16 text-foreground prose-headings:font-heading prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm">
-					<RichText data={project.description} />
-				</div>
-			)}
+				{project.description && (
+					<div className="prose max-w-none mb-16 text-foreground prose-headings:font-heading prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm">
+						<RichText data={project.description} />
+					</div>
+				)}
 
 				<FeedbackSection
 					projectId={project.id}

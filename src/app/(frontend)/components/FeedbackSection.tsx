@@ -78,7 +78,9 @@ export default function FeedbackSection({
 		<div>
 			<div className="mb-1 w-16 h-px bg-primary" />
 
-			<h2 className="font-heading text-2xl font-bold text-foreground mt-6 mb-2">Feedback &amp; Suggestions</h2>
+			<h2 className="font-heading text-2xl font-bold text-foreground mt-6 mb-2">
+				Feedback &amp; Suggestions
+			</h2>
 			<p className="text-muted-foreground text-sm mb-8 leading-relaxed">
 				I genuinely value feedback and collaboration. If you have suggestions, spotted something
 				interesting, or just want to say hello — I&apos;d love to hear from you.
@@ -113,7 +115,9 @@ export default function FeedbackSection({
 			{/* Submission form */}
 			{submitted ? (
 				<div className="border border-border p-8 text-center">
-					<div className="mb-3 text-3xl" aria-hidden="true">✨</div>
+					<div className="mb-3 text-3xl" aria-hidden="true">
+						✨
+					</div>
 					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">
 						Thanks for your feedback!
 					</h3>

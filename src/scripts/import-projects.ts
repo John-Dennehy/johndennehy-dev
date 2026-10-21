@@ -137,7 +137,18 @@ async function run() {
 					// Cast is necessary because Payload's generated type requires an index signature
 					// that TypeScript cannot infer from our literal object shape.
 					...(lexicalDescription
-						? { description: lexicalDescription as unknown as Record<string, unknown> & { root: { type: string; children: { [k: string]: unknown; type: string; version: number }[]; direction: 'ltr' | 'rtl' | null; format: '' | 'left' | 'start' | 'center' | 'right' | 'end' | 'justify'; indent: number; version: number } } }
+						? {
+								description: lexicalDescription as unknown as Record<string, unknown> & {
+									root: {
+										type: string
+										children: { [k: string]: unknown; type: string; version: number }[]
+										direction: 'ltr' | 'rtl' | null
+										format: '' | 'left' | 'start' | 'center' | 'right' | 'end' | 'justify'
+										indent: number
+										version: number
+									}
+								},
+							}
 						: {}),
 					...(projectData.publishedDate ? { publishedDate: projectData.publishedDate } : {}),
 				},
