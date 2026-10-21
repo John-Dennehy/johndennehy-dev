@@ -191,8 +191,12 @@ export default function ProjectsGrid({
 			{/* Empty state */}
 			{projects.length === 0 && (
 				<div className="border border-border p-12 text-center">
-					<div className="mb-4 text-4xl" aria-hidden="true">🚀</div>
-					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">Projects on the way</h3>
+					<div className="mb-4 text-4xl" aria-hidden="true">
+						🚀
+					</div>
+					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">
+						Projects on the way
+					</h3>
 					<p className="text-sm text-muted-foreground max-w-md mx-auto">
 						I&apos;m actively building and will be adding projects here soon. Check back or follow
 						me on{' '}
@@ -212,13 +216,7 @@ export default function ProjectsGrid({
 	)
 }
 
-function ProjectCard({
-	project,
-	dimmed,
-}: {
-	project: Project
-	dimmed: boolean
-}) {
+function ProjectCard({ project, dimmed }: { project: Project; dimmed: boolean }) {
 	return (
 		<Link
 			href={`/projects/${project.slug}`}

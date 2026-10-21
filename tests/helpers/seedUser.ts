@@ -1,5 +1,6 @@
 import { getPayload } from 'payload'
 import config from '../../src/payload.config.js'
+import { assertLocalDatabase } from './localDatabase'
 
 export const testUser = {
 	email: 'dev@payloadcms.com',
@@ -11,6 +12,7 @@ export const testUser = {
  */
 export async function seedTestUser(): Promise<void> {
 	const payload = await getPayload({ config })
+	assertLocalDatabase()
 
 	// Delete existing test user if any
 	await payload.delete({
@@ -34,6 +36,7 @@ export async function seedTestUser(): Promise<void> {
  */
 export async function cleanupTestUser(): Promise<void> {
 	const payload = await getPayload({ config })
+	assertLocalDatabase()
 
 	await payload.delete({
 		collection: 'users',

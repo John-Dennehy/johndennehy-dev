@@ -40,14 +40,8 @@ export default function FeedbackSection({
 			return
 		}
 
-		// Honeypot check — the hidden field should be empty
-		const formData = new FormData(e.currentTarget)
-		const honeypot = formData.get('website')
-		if (honeypot && String(honeypot).trim().length > 0) {
-			// Silently pretend success to not tip off the bot
-			setSubmitted(true)
-			return
-		}
+		// Honeypot — always sent so the server can reject submissions where it was filled in
+		const website = String(new FormData(e.currentTarget).get('website') ?? '')
 
 		startTransition(async () => {
 			try {
@@ -58,8 +52,14 @@ export default function FeedbackSection({
 						project: projectId,
 						name: name.trim(),
 						message: message.trim(),
+						website,
 					}),
 				})
+
+				if (res.status === 429) {
+					setError("You've sent a lot of feedback recently. Please try again later.")
+					return
+				}
 
 				if (!res.ok) {
 					throw new Error('Failed to submit feedback')
@@ -78,7 +78,9 @@ export default function FeedbackSection({
 		<div>
 			<div className="mb-1 w-16 h-px bg-primary" />
 
-			<h2 className="font-heading text-2xl font-bold text-foreground mt-6 mb-2">Feedback &amp; Suggestions</h2>
+			<h2 className="font-heading text-2xl font-bold text-foreground mt-6 mb-2">
+				Feedback &amp; Suggestions
+			</h2>
 			<p className="text-muted-foreground text-sm mb-8 leading-relaxed">
 				I genuinely value feedback and collaboration. If you have suggestions, spotted something
 				interesting, or just want to say hello — I&apos;d love to hear from you.
@@ -113,7 +115,9 @@ export default function FeedbackSection({
 			{/* Submission form */}
 			{submitted ? (
 				<div className="border border-border p-8 text-center">
-					<div className="mb-3 text-3xl" aria-hidden="true">✨</div>
+					<div className="mb-3 text-3xl" aria-hidden="true">
+						✨
+					</div>
 					<h3 className="font-heading text-lg font-semibold text-foreground mb-2">
 						Thanks for your feedback!
 					</h3>

@@ -142,6 +142,7 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
+  resetPasswordRequestedAt?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
   sessions?:
@@ -161,6 +162,8 @@ export interface User {
 export interface Media {
   id: number;
   alt: string;
+  prefix?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -308,6 +311,7 @@ export interface ProjectFeedback {
    * The feedback or suggestion
    */
   message: string;
+  submitterHash?: string | null;
   /**
    * Honeypot field — should always be empty. Filled = spam.
    */
@@ -429,9 +433,7 @@ export interface ContactMessage {
    * The message content
    */
   message: string;
-  /**
-   * Honeypot field — should always be empty. Filled = spam.
-   */
+  submitterHash?: string | null;
   website?: string | null;
   status?: ('unread' | 'read' | 'replied') | null;
   updatedAt: string;
@@ -547,6 +549,7 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
+  resetPasswordRequestedAt?: T;
   loginAttempts?: T;
   lockUntil?: T;
   sessions?:
@@ -563,6 +566,8 @@ export interface UsersSelect<T extends boolean = true> {
  */
 export interface MediaSelect<T extends boolean = true> {
   alt?: T;
+  prefix?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -642,6 +647,7 @@ export interface ProjectFeedbackSelect<T extends boolean = true> {
   project?: T;
   name?: T;
   message?: T;
+  submitterHash?: T;
   website?: T;
   approved?: T;
   updatedAt?: T;
@@ -697,6 +703,7 @@ export interface ContactMessagesSelect<T extends boolean = true> {
   email?: T;
   subject?: T;
   message?: T;
+  submitterHash?: T;
   website?: T;
   status?: T;
   updatedAt?: T;

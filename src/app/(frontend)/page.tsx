@@ -140,9 +140,7 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-heading font-bold text-2xl">
-									Full-Stack
-								</CardTitle>
+								<CardTitle className="font-heading font-bold text-2xl">Full-Stack</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
 								<CardDescription className="text-base text-muted-foreground leading-relaxed">
@@ -172,9 +170,7 @@ export default function HomePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="font-heading font-bold text-2xl">
-									Communication
-								</CardTitle>
+								<CardTitle className="font-heading font-bold text-2xl">Communication</CardTitle>
 							</CardHeader>
 							<CardContent className="px-6">
 								<CardDescription className="text-base text-muted-foreground leading-relaxed">
