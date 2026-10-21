@@ -90,7 +90,11 @@ See [`.env.example`](.env.example) for all required variables.
 | `pnpm lint` | Run Biome lint + format checks |
 | `pnpm format` | Apply Biome formatting |
 | `pnpm import:projects` | Import projects from `projects-import.json` (shape: `ImportProject` in `src/scripts/import-projects.ts`) |
-| `pnpm test` | Run integration + e2e tests |
+| `pnpm test` | Run integration + Playwright smoke tests (they seed and delete `e2e`-namespaced data in the database in `DATABASE_URL`, so only run them against a dev branch) |
+
+## CI
+
+`.github/workflows/ci.yml` runs lint and typecheck, then `pnpm run ci`, the integration tests and the Playwright smoke tests against a throwaway Postgres service container. It needs no repository secrets.
 
 ## Deployment
 
