@@ -39,7 +39,7 @@ On first visit to `/admin`, you'll be prompted to create an admin user.
 
 Use a separate [Neon branch](https://neon.tech/docs/introduction/branching) for local development so nothing you do locally can touch production data or schema:
 
-1. In the Neon console, open the project and create a branch from `main` (e.g. `dev`). A branch is a copy-on-write clone of production, so you get real content to work with.
+1. In the Neon console, use the `vercel-dev` branch (the Vercel integration's development branch) and run **Reset from parent** to refresh it from production. A branch is a copy-on-write clone, so you get real content to work with. The free plan allows 10 branches, and preview deployments use them too.
 2. Copy that branch's connection string into `DATABASE_URL` in your `.env`, and leave `PGHOST`/`PGUSER`/`PGDATABASE`/`PGPASSWORD` empty (when `PGHOST` is set it takes precedence over `DATABASE_URL`).
 3. Run `pnpm migrate`. To start over, use **Reset from parent** on the branch in the Neon console.
 
@@ -90,7 +90,11 @@ See [`.env.example`](.env.example) for all required variables.
 | `pnpm lint` | Run Biome lint + format checks |
 | `pnpm format` | Apply Biome formatting |
 | `pnpm import:projects` | Import projects from `projects-import.json` (shape: `ImportProject` in `src/scripts/import-projects.ts`) |
-| `pnpm test` | Run integration + Playwright smoke tests (they seed and delete `e2e`-namespaced data in the database in `DATABASE_URL`, so only run them against a dev branch) |
+| `pnpm test` | Run integration + Playwright smoke tests. They seed and delete `e2e`-namespaced data, so the helpers refuse any non-local database: run them against a local Postgres (e.g. `docker run -p 5432:5432 -e POSTGRES_PASSWORD=payload postgres:16-alpine`). `E2E_PORT` changes the test server port |
+
+## Workflow
+
+`main` is protected by a GitHub ruleset: changes land only through a pull request, the **Lint and typecheck** and **Migrate, build and test** checks must pass, and force-pushes and deletion are blocked. Work on a short-lived branch and open the PR against `main`. Each PR gets a Vercel preview with its own Neon branch.
 
 ## CI
 
