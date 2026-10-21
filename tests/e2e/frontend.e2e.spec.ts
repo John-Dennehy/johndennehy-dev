@@ -2,6 +2,7 @@ import { expect, test } from '@playwright/test'
 import {
 	approvedFeedback,
 	cleanupSmokeContent,
+	contactSender,
 	pendingFeedback,
 	seedSmokeContent,
 	smokeProject,
@@ -55,6 +56,19 @@ test.describe('Frontend smoke', () => {
 		}
 		await expect(page.locator('#contact-website')).not.toBeInViewport()
 		await expect(page.getByRole('button', { name: /Send Message/ })).toBeVisible()
+	})
+
+	test('contact form thanks the sender by first name after sending', async ({ page }) => {
+		await page.goto('/contact')
+		await page.getByLabel('Your Name', { exact: true }).fill(contactSender.name)
+		await page.getByLabel('Email Address', { exact: true }).fill(contactSender.email)
+		await page.getByLabel('Subject', { exact: true }).fill('E2E subject')
+		await page.getByLabel('Message', { exact: true }).fill('Sent by the e2e smoke tests.')
+		// The form rejects submissions made within 3 seconds of page load
+		await page.waitForTimeout(3_100)
+		await page.getByRole('button', { name: /Send Message/ }).click()
+
+		await expect(page.getByText('Thanks for reaching out, Ada!')).toBeVisible()
 	})
 })
 
