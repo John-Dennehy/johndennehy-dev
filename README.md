@@ -102,13 +102,13 @@ See [`.env.example`](.env.example) for all required variables.
 
 ## Deployment
 
-Production runs on Vercel. The Vercel **Build Command** must be `pnpm run ci` (not `pnpm ci`, which is a different, reserved pnpm command). It:
+Production runs on Vercel. `vercel.json` sets the build command to `pnpm run ci` (not `pnpm ci`, which is a different, reserved pnpm command), so leave the dashboard Build Command on its default. It:
 
 1. runs `pnpm migrate:check`, which fails the build if the database was ever changed by dev-mode push (a `payload_migrations` row with `batch = -1` makes `payload migrate` hang on an interactive prompt);
 2. runs `payload migrate` against the database for that environment;
 3. runs `next build`.
 
-Preview deployments run migrations too, so they must use their own Neon branch (e.g. via the Neon Vercel integration's preview branching), never the production database.
+Preview deployments run migrations too, so they must use their own Neon branch. The Neon Vercel integration creates one per git branch and sets a branch-scoped `DATABASE_URL`; the project-wide `DATABASE_URL` is scoped to Production only, so a preview without its own branch fails to build instead of migrating production.
 
 For Docker, a `Dockerfile` is included with standalone output support.
 
