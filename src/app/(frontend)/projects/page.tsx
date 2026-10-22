@@ -1,5 +1,6 @@
 import config from '@payload-config'
 import { getPayload } from 'payload'
+import { getPublishedProjects, serialiseTechnology } from '@/lib/projects'
 import ProjectsGrid from '../components/ProjectsGrid'
 
 // Force dynamic rendering — the DB schema (e.g. `featured` column) is applied
@@ -16,65 +17,20 @@ export const metadata = {
 export default async function ProjectsPage() {
 	const payload = await getPayload({ config })
 
-	const { docs: projects } = await payload.find({
-		collection: 'projects',
-		where: {
-			status: { equals: 'published' },
-		},
-		sort: '-featured,-publishedDate',
-		depth: 2, // Populate techStack → Technologies and thumbnail → Media
-		limit: 50,
-	})
+	const [projects, { docs: allTechs }] = await Promise.all([
+		getPublishedProjects(),
+		payload.find({
+			collection: 'technologies',
+			where: {
+				displayAsFilterOption: { not_equals: false },
+			},
+			limit: 100,
+			depth: 1,
+		}),
+	])
 
-	const { docs: allTechs } = await payload.find({
-		collection: 'technologies',
-		where: {
-			displayAsFilterOption: { not_equals: false },
-		},
-		limit: 100,
-		depth: 1,
-	})
-
-	// Serialize for client component
-	const serialised = projects.map((p) => ({
-		id: p.id,
-		title: p.title,
-		slug: p.slug,
-		summary: p.summary,
-		techStack: Array.isArray(p.techStack)
-			? p.techStack
-					.filter((t): t is Exclude<typeof t, number> => typeof t !== 'number')
-					.map((t) => ({
-						id: t.id,
-						name: t.name,
-						slug: t.slug,
-						iconSlug: t.iconSlug ?? null,
-						iconVariant: t.iconVariant ?? null,
-						logo:
-							t.logo && typeof t.logo !== 'number'
-								? { url: t.logo.url ?? null, alt: t.logo.alt }
-								: null,
-					}))
-			: [],
-		liveUrl: p.liveUrl ?? null,
-		repoUrl: p.repoUrl ?? null,
-		thumbnail:
-			p.thumbnail && typeof p.thumbnail !== 'number'
-				? { url: p.thumbnail.url ?? null, alt: p.thumbnail.alt }
-				: null,
-		featured: p.featured ?? false,
-	}))
-
-	const serialisedTechs = allTechs
-		.map((t) => ({
-			id: t.id,
-			name: t.name,
-			slug: t.slug,
-			iconSlug: t.iconSlug ?? null,
-			iconVariant: t.iconVariant ?? null,
-			logo:
-				t.logo && typeof t.logo !== 'number' ? { url: t.logo.url ?? null, alt: t.logo.alt } : null,
-		}))
+	const filterOptions = allTechs
+		.map(serialiseTechnology)
 		.sort((a, b) => a.name.localeCompare(b.name))
 
 	return (
@@ -90,7 +46,7 @@ export default async function ProjectsPage() {
 					find what interests you.
 				</p>
 
-				<ProjectsGrid projects={serialised} filterOptions={serialisedTechs} />
+				<ProjectsGrid projects={projects} filterOptions={filterOptions} />
 			</div>
 		</section>
 	)
