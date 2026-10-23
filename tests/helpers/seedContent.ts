@@ -24,7 +24,12 @@ export async function seedSmokeContent(): Promise<void> {
 
 	const project = await payload.create({
 		collection: 'projects',
-		data: { ...smokeProject, summary: 'Seeded by the e2e smoke tests.', status: 'published' },
+		data: {
+			...smokeProject,
+			summary: 'Seeded by the e2e smoke tests.',
+			stage: 'in-progress',
+			status: 'published',
+		},
 	})
 
 	await payload.create({
