@@ -45,6 +45,7 @@ test.describe('Frontend smoke', () => {
 
 		await expect(page).toHaveURL(`/projects/${smokeProject.slug}`)
 		await expect(page.locator('h1').first()).toHaveText(smokeProject.title)
+		await expect(page.getByText('In progress', { exact: true })).toBeVisible()
 		await expect(page.getByText(approvedFeedback.message)).toBeVisible()
 		await expect(page.getByText(pendingFeedback.message)).toHaveCount(0)
 		await expect(page.getByRole('button', { name: 'Send Feedback' })).toBeVisible()

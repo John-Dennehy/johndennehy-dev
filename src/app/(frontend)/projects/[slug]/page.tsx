@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
+import type { Project } from '@/payload-types'
 import FeedbackSection from '../../components/FeedbackSection'
 import TechIcon from '../../components/TechIcon'
 
@@ -26,6 +27,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 		title: `${project.title} — John Dennehy`,
 		description: project.summary,
 	}
+}
+
+const STAGE_LABELS: Record<NonNullable<Project['stage']>, string> = {
+	'in-progress': 'In progress',
+	live: 'Live',
+	archived: 'Archived',
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ slug: string }> }) {
@@ -61,6 +68,14 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 	const thumbnail =
 		project.thumbnail && typeof project.thumbnail !== 'number' ? project.thumbnail : null
 
+	const gallery = (project.gallery ?? []).flatMap((item) =>
+		item.image && typeof item.image !== 'number' && item.image.url
+			? [{ id: item.id ?? item.image.id, image: item.image, caption: item.caption }]
+			: [],
+	)
+
+	const stageLabel = project.stage ? STAGE_LABELS[project.stage] : null
+
 	return (
 		<section className="px-6 md:px-8 pt-20 pb-16 md:pt-24 md:pb-16">
 			<div className="mx-auto max-w-3xl">
@@ -90,6 +105,12 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 
 				{/* Header */}
 				<div className="mb-1 w-16 h-px bg-primary" />
+
+				{stageLabel && (
+					<p className="mt-6 inline-block border border-border px-3 py-1 text-xs font-bold uppercase tracking-widest text-muted-foreground">
+						{stageLabel}
+					</p>
+				)}
 
 				<h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mt-6 mb-4">
 					{project.title}
@@ -228,6 +249,43 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 				{project.description && (
 					<div className="prose max-w-none mb-16 text-foreground prose-headings:font-heading prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm">
 						<RichText data={project.description} />
+					</div>
+				)}
+
+				{project.buildNotes && (
+					<div className="mb-16">
+						<h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
+							How I Built It
+						</h2>
+						<div className="prose max-w-none text-foreground prose-headings:font-heading prose-headings:text-foreground prose-a:text-primary prose-a:no-underline hover:prose-a:underline prose-strong:text-foreground prose-code:text-foreground prose-code:bg-muted prose-code:px-1.5 prose-code:py-0.5 prose-code:text-sm">
+							<RichText data={project.buildNotes} />
+						</div>
+					</div>
+				)}
+
+				{gallery.length > 0 && (
+					<div className="mb-16">
+						<h2 className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-4">
+							Screenshots
+						</h2>
+						<div className="grid gap-6 sm:grid-cols-2">
+							{gallery.map(({ id, image, caption }) => (
+								<figure key={id} className="overflow-hidden border border-border">
+									<Image
+										src={image.url as string}
+										alt={image.alt}
+										width={800}
+										height={450}
+										className="w-full object-cover"
+									/>
+									{caption && (
+										<figcaption className="px-4 py-3 text-sm text-muted-foreground">
+											{caption}
+										</figcaption>
+									)}
+								</figure>
+							))}
+						</div>
 					</div>
 				)}
 
