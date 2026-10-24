@@ -279,6 +279,38 @@ export interface Project {
    */
   thumbnail?: (number | null) | Media;
   /**
+   * Extra screenshots shown on the project page
+   */
+  gallery?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * The process behind the project: decisions, trade-offs, and how AI tools like Claude were used
+   */
+  buildNotes?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Where the project itself is at, shown as a badge (separate from publish status)
+   */
+  stage?: ('in-progress' | 'live' | 'archived') | null;
+  /**
    * Pin this project to the top of the listing
    */
   featured?: boolean | null;
@@ -633,6 +665,15 @@ export interface ProjectsSelect<T extends boolean = true> {
   liveUrl?: T;
   repoUrl?: T;
   thumbnail?: T;
+  gallery?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
+        id?: T;
+      };
+  buildNotes?: T;
+  stage?: T;
   featured?: T;
   status?: T;
   publishedDate?: T;
