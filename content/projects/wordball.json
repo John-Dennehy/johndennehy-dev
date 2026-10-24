@@ -1,0 +1,34 @@
+[
+	{
+		"title": "Wordball",
+		"slug": "wordball",
+		"summary": "Half pinball, half anagram. Sink letter balls for points, bank the ones you want, then spell words against the clock. A 2026 rewrite of my 2019 bootcamp final project, with a daily challenge and a cheat-resistant leaderboard.",
+		"description": [
+			"Wordball started in December 2019 as a team final project at Makers Academy: a game that tests dexterity and vocabulary at the same time. Each ball carries a letter. Shoot it up the arena into a hole to score its letter value times the hole's multiplier, or shoot it down into the bank to keep it.",
+			"Once the skill round ends, you have 60 seconds to spell as many words as you can from your banked letters, with longer words worth more. So every shot is a trade-off: points now, or a letter you might need later.",
+			"Every day the game draws the same letters for everyone, from a seed of the UTC date, and the best daily scores go on a shared leaderboard."
+		],
+		"buildNotes": [
+			"This is a from-scratch rewrite rather than an upgrade. The 2019 version kept its game logic inside React class components and jQuery event handlers. In the rewrite, all the rules live in a pure TypeScript engine with no React or DOM: a seeded random number generator, a Scrabble letter bag, fixed-timestep physics with wall and bumper collisions, and a skill-round state machine that emits events. React only runs the animation loop, draws the canvas and handles input.",
+			"Keeping the engine pure made it easy to test and to tune. Straight shots at the ×5 jackpot were far too easy, so I simulated about 8,600 shots across every angle and power, added bumpers, and tuned the capture speed until the jackpot became a skilled bank shot instead of a straight pull.",
+			"The leaderboard doesn't take scores on trust. Because the daily seed fixes which letters were drawn, the server can replay the important parts of a run: the banked letters must come from that draw, each word must be real and spellable from them, the word score is recomputed, and the skill score has a hard ceiling.",
+			"The game is playable with a mouse, touch or keyboard, and it announces scores to screen readers. The 115,000-word dictionary only downloads once the word round starts.",
+			"I built the rewrite with Claude as a pair programmer: I set the direction and made the design calls, and used it to move quickly through the engine, tests and UI. Vitest covers the engine, and Playwright runs the full game on desktop and mobile in CI."
+		],
+		"stage": "live",
+		"status": "draft",
+		"repoUrl": "https://github.com/John-Dennehy/wordball",
+		"featured": true,
+		"techStackSlugs": [
+			"typescript",
+			"react",
+			"tailwindcss",
+			"postgresql",
+			"neon",
+			"vite",
+			"vitest",
+			"playwright",
+			"vercel"
+		]
+	}
+]
