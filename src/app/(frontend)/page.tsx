@@ -2,9 +2,16 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { getPublishedProjects } from '@/lib/projects'
 import { cn } from '@/lib/utils'
+import ProjectCard from './components/ProjectCard'
 
-export default function HomePage() {
+// Reads projects from the database at request time, like /projects
+export const dynamic = 'force-dynamic'
+
+export default async function HomePage() {
+	const projects = await getPublishedProjects({ limit: 3 })
+
 	return (
 		<div className="flex flex-col min-h-screen bg-background">
 			{/* ── Hero Section ─────────────────────────────────────────── */}
@@ -73,6 +80,37 @@ export default function HomePage() {
 					</div>
 				</div>
 			</section>
+
+			{/* ── Selected Work ───────────────────────────────────────── */}
+			{projects.length > 0 && (
+				<section
+					aria-labelledby="selected-work-heading"
+					className="px-6 md:px-12 py-16 bg-background border-b border-border"
+				>
+					<div className="mx-auto max-w-7xl">
+						<div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+							<h2
+								id="selected-work-heading"
+								className="font-heading text-balance text-4xl md:text-6xl font-bold tracking-tighter text-foreground"
+							>
+								Selected Work
+							</h2>
+							<Link
+								href="/projects"
+								className="text-xs font-bold uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+							>
+								All projects →
+							</Link>
+						</div>
+
+						<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+							{projects.map((project) => (
+								<ProjectCard key={project.id} project={project} />
+							))}
+						</div>
+					</div>
+				</section>
+			)}
 
 			{/* ── What I Bring ──────────────────────────────────────────── */}
 			<section className="px-6 md:px-12 py-16 bg-background border-b border-border">

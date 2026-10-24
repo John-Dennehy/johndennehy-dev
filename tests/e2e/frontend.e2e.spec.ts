@@ -50,6 +50,19 @@ test.describe('Frontend smoke', () => {
 		await expect(page.getByRole('button', { name: 'Send Feedback' })).toBeVisible()
 	})
 
+	test('homepage shows published projects in Selected Work', async ({ page }) => {
+		await page.goto('/')
+		const selectedWork = page.getByRole('region', { name: 'Selected Work' })
+		await expect(selectedWork).toBeVisible()
+		await expect(selectedWork.getByText(draftProject.title)).toHaveCount(0)
+
+		await selectedWork
+			.getByRole('link', { name: new RegExp(smokeProject.title) })
+			.first()
+			.click()
+		await expect(page).toHaveURL(`/projects/${smokeProject.slug}`)
+	})
+
 	test('contact form renders with the honeypot hidden', async ({ page }) => {
 		await page.goto('/contact')
 		for (const label of ['Your Name', 'Email Address', 'Subject', 'Message']) {
