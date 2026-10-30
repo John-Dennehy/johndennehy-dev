@@ -1,0 +1,34 @@
+[
+	{
+		"title": "Compass",
+		"slug": "compass",
+		"summary": "What's on for families this week, day by day. Compass lists toddler groups, rhyme times and community sessions in Spelthorne, with Google Maps directions, and keeps itself accurate by letting parents and organisers confirm and correct listings.",
+		"description": [
+			"Compass started from a printed leaflet of local toddler groups and services. Parents told me they plan their week around regular sessions, so the home page is the week: what's on each day from Monday to Sunday, with filters for age, cost and town. One-off events have their own \"coming up\" list.",
+			"Each listing says when it runs in plain words (\"Mondays, Wednesdays and Thursdays, 10am to 12pm\"), whether it stops in school holidays, who it's for and what it costs, with a link to open the venue in Google Maps, which is what most parents already use.",
+			"The data is crowd-sourced, so every listing shows when it was last checked and by whom. Anyone can tap \"Yes, it's still on\" or report that it has stopped. Signed-in parents can suggest changes, which wait for a moderator, and organisers can claim their own listing and keep it up to date."
+		],
+		"buildNotes": [
+			"This is a from-scratch rewrite that kept only the original data. Listings are modelled for growth from day one: areas with their own school term dates, data-driven categories, and two kinds of listing. Regular sessions can run weekly, fortnightly or on a set week of the month, and term-time only. One-off events have dates.",
+			"Accuracy is designed in rather than bolted on. Freshness is worked out from the last confirmation, two separate \"it's stopped\" reports put a warning on the listing, and suggested changes are stored as field-by-field differences so a moderator sees exactly what would change. Trusted contributors and organisers skip parts of the queue, and there are rate limits and spam checks for everyone else.",
+			"Sign-in is by an emailed link, so there are no passwords to keep safe. Only a hash of each link is stored, links expire after 30 minutes and work once, and moderators are set by configuration and checked on every request.",
+			"I built it with Claude as a pair programmer: I set the direction and made the design calls, and used it to move quickly through the scheduling rules, moderation and UI. Vitest covers the scheduling and moderation rules, including against a real Postgres, and Playwright runs the main journeys on desktop and mobile in CI."
+		],
+		"stage": "live",
+		"status": "draft",
+		"liveUrl": "https://compass-navy.vercel.app",
+		"repoUrl": "https://github.com/John-Dennehy/compass",
+		"featured": true,
+		"techStackSlugs": [
+			"typescript",
+			"react",
+			"tailwindcss",
+			"postgresql",
+			"neon",
+			"vite",
+			"vitest",
+			"playwright",
+			"vercel"
+		]
+	}
+]
