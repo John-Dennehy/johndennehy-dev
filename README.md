@@ -89,7 +89,7 @@ See [`.env.example`](.env.example) for all required variables.
 | `pnpm generate:types` | Regenerate Payload TypeScript types |
 | `pnpm lint` | Run Biome lint + format checks |
 | `pnpm format` | Apply Biome formatting |
-| `pnpm import:projects` | Import projects from `projects-import.json` (shape: `ImportProject` in `src/scripts/import-projects.ts`) |
+| `pnpm import:projects [file]` | Import projects as drafts from a JSON file (default `projects-import.json`; write-ups live in `content/projects/`). Shape: `ImportProject` in `src/scripts/import-projects.ts`. Existing slugs are skipped |
 | `pnpm test` | Run integration + Playwright smoke tests. They seed and delete `e2e`-namespaced data, so the helpers refuse any non-local database: run them against a local Postgres (e.g. `docker run -p 5432:5432 -e POSTGRES_PASSWORD=payload postgres:16-alpine`). `E2E_PORT` changes the test server port |
 
 ## Workflow

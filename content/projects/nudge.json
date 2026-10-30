@@ -1,0 +1,34 @@
+[
+	{
+		"title": "Nudge",
+		"slug": "nudge",
+		"summary": "A gentle second brain for ADHD and autistic minds. Dump whatever is on your mind, answer one small question at a time, and pick one thing that fits your energy. Goals that slip fail by themselves, and Nudge learns from the pattern instead of nagging.",
+		"description": [
+			"Nudge is for the moment when there's too much in your head to start anything. You write a brain dump, however messy, and Nudge splits it into separate goals, strips out the \"I really need to\", spots dates like \"by Friday\" and guesses how big each one is.",
+			"Every goal becomes a small SMART goal without ever showing a form. Nudge asks for whatever it couldn't guess, one card at a time: the first physical action, what done looks like, a size, a due date and why it matters. Big goals get a small first step instead.",
+			"When you're ready to do something, you say how much energy you have and Nudge offers two to four options, each with a plain reason. Anything not done by its date fails by itself. That isn't a punishment: Nudge uses the pattern to pitch the next goal so it's a stretch, but a doable one, and says in plain words whenever it adjusts."
+		],
+		"buildNotes": [
+			"This is a from-scratch rewrite. Everything a user does is stored as an append-only journal of events, and a single pure apply() function decides whether each event is allowed. The browser and the server run the same function, so the browser can show changes instantly and work from a cache while the server still checks every change.",
+			"All the rules live in a pure TypeScript core with no React or server code: the journal, the brain-dump parser, date phrases like \"in 3 days\", the clarification cards, the energy-led suggestions and the calibration that learns from results. That core is fully unit tested.",
+			"Plain English is a rule, not a style guide. A test scans every screen's text and every built-in question and suggestion against a banned-words list, and replies from the optional AI engine that break the rule are thrown away. Without an AI key, Nudge untangles brain dumps with its own offline rules.",
+			"I built it with Claude as a pair programmer: I set the direction and made the design calls, and used it to move quickly through the core, tests and UI. Vitest covers the core, and Playwright runs the main journeys on desktop and mobile in CI."
+		],
+		"stage": "live",
+		"status": "draft",
+		"liveUrl": "https://nudge-alpha-nine.vercel.app",
+		"repoUrl": "https://github.com/John-Dennehy/nudge",
+		"featured": true,
+		"techStackSlugs": [
+			"typescript",
+			"react",
+			"tailwindcss",
+			"postgresql",
+			"neon",
+			"vite",
+			"vitest",
+			"playwright",
+			"vercel"
+		]
+	}
+]
