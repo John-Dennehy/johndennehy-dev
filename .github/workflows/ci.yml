@@ -15,7 +15,7 @@ concurrency:
 jobs:
   check:
     name: Lint and typecheck
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -29,7 +29,7 @@ jobs:
 
   build:
     name: Migrate, build and test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: check
     # A throwaway Postgres, so the build and tests never need production secrets
     services:

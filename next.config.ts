@@ -2,6 +2,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { withPayload } from '@payloadcms/next/withPayload'
 import type { NextConfig } from 'next'
+import { TIP_URL } from './src/config/site'
 
 const __filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(__filename)
@@ -16,6 +17,17 @@ const nextConfig: NextConfig = {
 				pathname: '/images/**',
 			},
 		],
+	},
+	async redirects() {
+		if (!TIP_URL) return []
+		return [
+			{
+				source: '/tip',
+				destination: TIP_URL,
+				// Temporary (307) so the tip page can change later without browsers caching the old one
+				permanent: false,
+			},
+		]
 	},
 	webpack: (webpackConfig) => {
 		webpackConfig.resolve.extensionAlias = {

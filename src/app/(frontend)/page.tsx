@@ -4,6 +4,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { getPublishedProjects } from '@/lib/projects'
 import { cn } from '@/lib/utils'
+import AboutSection from './components/AboutSection'
 import ProjectCard from './components/ProjectCard'
 
 // Reads projects from the database at request time, like /projects
@@ -111,6 +112,8 @@ export default async function HomePage() {
 					</div>
 				</section>
 			)}
+
+			<AboutSection />
 
 			{/* ── What I Bring ──────────────────────────────────────────── */}
 			<section className="px-6 md:px-12 py-16 bg-background border-b border-border">
