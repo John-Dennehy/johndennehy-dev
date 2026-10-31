@@ -5,7 +5,7 @@
  * here (see next.config.ts), and the "Leave a tip" button links to /tip.
  * Leave it empty and /tip returns a 404 and the button is hidden.
  */
-export const TIP_URL = ''
+export const TIP_URL = 'https://buymeacoffee.com/johndennehy.dev'
 
 export type Tool = {
 	name: string
