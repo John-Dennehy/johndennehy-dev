@@ -13,15 +13,61 @@ console.log('PAYLOAD_SECRET is loaded:', !!process.env.PAYLOAD_SECRET)
 import fs from 'node:fs'
 import { getPayload } from 'payload'
 
+type LexicalRoot = Record<string, unknown> & {
+	root: {
+		type: string
+		children: { [k: string]: unknown; type: string; version: number }[]
+		direction: 'ltr' | 'rtl' | null
+		format: '' | 'left' | 'start' | 'center' | 'right' | 'end' | 'justify'
+		indent: number
+		version: number
+	}
+}
+
+/** Turns plain paragraphs into Lexical rich text. */
+function toLexical(text: string | string[]): LexicalRoot {
+	const paragraphs = Array.isArray(text) ? text : [text]
+	return {
+		root: {
+			type: 'root',
+			format: '',
+			indent: 0,
+			version: 1,
+			direction: 'ltr',
+			children: paragraphs.map((paragraph) => ({
+				type: 'paragraph',
+				format: '',
+				indent: 0,
+				version: 1,
+				direction: 'ltr',
+				children: [
+					{
+						mode: 'normal',
+						text: paragraph,
+						type: 'text',
+						style: '',
+						detail: 0,
+						format: 0,
+						version: 1,
+					},
+				],
+			})),
+		},
+	}
+}
+
 async function run() {
 	const { default: config } = await import('@payload-config')
 	const payload = await getPayload({ config })
 
-	const importFilePath = path.join(__dirname, '../../projects-import.json')
+	// Optional path argument, e.g. `pnpm import:projects content/projects/wordball.json`
+	const importFilePath = process.argv[2]
+		? path.resolve(rootDir, process.argv[2])
+		: path.join(__dirname, '../../projects-import.json')
 
 	if (!fs.existsSync(importFilePath)) {
 		console.error(`Import file not found at ${importFilePath}`)
-		console.error('Please ensure projects-import.json exists in the root of the project.')
+		console.error('Pass a JSON file path, or create projects-import.json in the project root.')
 		process.exit(1)
 	}
 
@@ -31,6 +77,8 @@ async function run() {
 		slug: string
 		summary: string
 		description?: string | string[]
+		buildNotes?: string | string[]
+		stage?: 'in-progress' | 'live' | 'archived'
 		status?: 'published' | 'draft'
 		liveUrl?: string
 		repoUrl?: string
@@ -87,40 +135,8 @@ async function run() {
 			}
 		}
 
-		let lexicalDescription: Record<string, unknown> | null = null
-		if (projectData.description) {
-			const paragraphs = Array.isArray(projectData.description)
-				? projectData.description
-				: [projectData.description]
-
-			lexicalDescription = {
-				root: {
-					type: 'root',
-					format: '' as const,
-					indent: 0,
-					version: 1,
-					direction: 'ltr' as const,
-					children: paragraphs.map((text: string) => ({
-						type: 'paragraph',
-						format: '' as const,
-						indent: 0,
-						version: 1,
-						direction: 'ltr' as const,
-						children: [
-							{
-								mode: 'normal',
-								text: text,
-								type: 'text',
-								style: '',
-								detail: 0,
-								format: 0,
-								version: 1,
-							},
-						],
-					})),
-				},
-			}
-		}
+		const lexicalDescription = projectData.description ? toLexical(projectData.description) : null
+		const lexicalBuildNotes = projectData.buildNotes ? toLexical(projectData.buildNotes) : null
 
 		try {
 			await payload.create({
@@ -134,22 +150,9 @@ async function run() {
 					repoUrl: projectData.repoUrl,
 					featured: projectData.featured || false,
 					techStack: techIds,
-					// Cast is necessary because Payload's generated type requires an index signature
-					// that TypeScript cannot infer from our literal object shape.
-					...(lexicalDescription
-						? {
-								description: lexicalDescription as unknown as Record<string, unknown> & {
-									root: {
-										type: string
-										children: { [k: string]: unknown; type: string; version: number }[]
-										direction: 'ltr' | 'rtl' | null
-										format: '' | 'left' | 'start' | 'center' | 'right' | 'end' | 'justify'
-										indent: number
-										version: number
-									}
-								},
-							}
-						: {}),
+					...(projectData.stage ? { stage: projectData.stage } : {}),
+					...(lexicalDescription ? { description: lexicalDescription } : {}),
+					...(lexicalBuildNotes ? { buildNotes: lexicalBuildNotes } : {}),
 					...(projectData.publishedDate ? { publishedDate: projectData.publishedDate } : {}),
 				},
 			})
