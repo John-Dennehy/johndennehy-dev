@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 
 const navLinks = [
 	{ href: '/', label: 'Home' },
+	{ href: '/#about', label: 'About' },
 	{ href: '/projects', label: 'Projects' },
 	{ href: '/blog', label: 'Blog' },
 	{ href: '/contact', label: 'Contact Me' },
@@ -18,6 +19,7 @@ export default function Navigation() {
 
 	const isActive = (href: string) => {
 		if (href === '/') return pathname === '/'
+		if (href.startsWith('/#')) return false
 		return pathname.startsWith(href)
 	}
 

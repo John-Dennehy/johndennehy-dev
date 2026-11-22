@@ -1,3 +1,4 @@
+import { GITHUB_URL, LINKEDIN_URL } from '@/config/site'
 import ContactForm from '../components/ContactForm'
 
 export const metadata = {
@@ -29,7 +30,7 @@ export default function ContactPage() {
 						</h3>
 						<div className="space-y-2">
 							<a
-								href="https://linkedin.com/in/johnfdennehy"
+								href={LINKEDIN_URL}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="block text-foreground hover:text-primary transition-colors"
@@ -37,7 +38,7 @@ export default function ContactPage() {
 								LinkedIn
 							</a>
 							<a
-								href="https://github.com/john-dennehy"
+								href={GITHUB_URL}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="block text-foreground hover:text-primary transition-colors"

@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useMemo, useState } from 'react'
+import { GITHUB_URL } from '@/config/site'
 import type { ProjectSummary, TechnologySummary } from '@/lib/projects'
 import ProjectCard from './ProjectCard'
 
@@ -177,7 +178,7 @@ export default function ProjectsGrid({
 						I&apos;m actively building and will be adding projects here soon. Check back or follow
 						me on{' '}
 						<a
-							href="https://github.com/john-dennehy"
+							href={GITHUB_URL}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-primary font-semibold hover:underline transition-colors"

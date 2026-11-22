@@ -1,9 +1,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import {
+	ArrowRightIcon,
+	CodeBracketIcon,
+	DatabaseIcon,
+	GitHubIcon,
+	LinkedInIcon,
+	UsersIcon,
+} from '@/components/icons'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { GITHUB_URL, LINKEDIN_URL } from '@/config/site'
 import { getPublishedProjects } from '@/lib/projects'
 import { cn } from '@/lib/utils'
+import AboutSection from './components/AboutSection'
 import ProjectCard from './components/ProjectCard'
 
 // Reads projects from the database at request time, like /projects
@@ -112,6 +122,8 @@ export default async function HomePage() {
 				</section>
 			)}
 
+			<AboutSection />
+
 			{/* ── What I Bring ──────────────────────────────────────────── */}
 			<section className="px-6 md:px-12 py-16 bg-background border-b border-border">
 				<div className="mx-auto max-w-7xl">
@@ -130,21 +142,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<svg
-										className="w-8 h-8"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										strokeWidth={1.5}
-										role="img"
-										aria-hidden="true"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
-										/>
-									</svg>
+									<CodeBracketIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">
 									React &amp; Next.js
@@ -162,21 +160,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<svg
-										className="w-8 h-8"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										strokeWidth={1.5}
-										role="img"
-										aria-hidden="true"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125"
-										/>
-									</svg>
+									<DatabaseIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">Full-Stack</CardTitle>
 							</CardHeader>
@@ -192,21 +176,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<svg
-										className="w-8 h-8"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-										strokeWidth={1.5}
-										role="img"
-										aria-hidden="true"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-										/>
-									</svg>
+									<UsersIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">Communication</CardTitle>
 							</CardHeader>
@@ -235,77 +205,35 @@ export default async function HomePage() {
 
 					<div className="flex flex-col w-full md:w-auto gap-4">
 						<a
-							href="https://github.com/john-dennehy"
+							href={GITHUB_URL}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="group flex items-center justify-between gap-8 p-8 md:w-96 rounded-none border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 						>
 							<div className="flex items-center gap-4">
-								<svg
-									className="w-8 h-8 text-foreground group-hover:text-primary transition-colors"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-									role="img"
-									aria-hidden="true"
-								>
-									<path
-										fillRule="evenodd"
-										d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-										clipRule="evenodd"
-									/>
-								</svg>
+								<GitHubIcon className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
 								<p className="text-lg font-bold uppercase tracking-widest">GitHub</p>
 							</div>
-							<svg
+							<ArrowRightIcon
 								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								strokeWidth={2}
-								role="img"
 								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-								/>
-							</svg>
+							/>
 						</a>
 
 						<a
-							href="https://linkedin.com/in/johnfdennehy"
+							href={LINKEDIN_URL}
 							target="_blank"
 							rel="noopener noreferrer"
 							className="group flex items-center justify-between gap-8 p-8 md:w-96 rounded-none border border-border bg-card hover:border-primary transition duration-300 focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-none"
 						>
 							<div className="flex items-center gap-4">
-								<svg
-									className="w-8 h-8 text-foreground group-hover:text-primary transition-colors"
-									fill="currentColor"
-									viewBox="0 0 24 24"
-									role="img"
-									aria-hidden="true"
-								>
-									<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-								</svg>
+								<LinkedInIcon className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
 								<p className="text-lg font-bold uppercase tracking-widest">LinkedIn</p>
 							</div>
-							<svg
+							<ArrowRightIcon
 								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								strokeWidth={2}
-								role="img"
 								aria-hidden="true"
-							>
-								<path
-									strokeLinecap="round"
-									strokeLinejoin="round"
-									d="M4.5 12h15m0 0l-6.75-6.75M19.5 12l-6.75 6.75"
-								/>
-							</svg>
+							/>
 						</a>
 					</div>
 				</div>
