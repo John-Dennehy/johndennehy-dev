@@ -60,7 +60,7 @@ async function run() {
 	const { default: config } = await import('@payload-config')
 	const payload = await getPayload({ config })
 
-	// Optional path argument, e.g. `pnpm import:projects content/projects/wordball.json`
+	// Optional path argument, e.g. `pnpm import:projects path/to/projects.json`
 	const importFilePath = process.argv[2]
 		? path.resolve(rootDir, process.argv[2])
 		: path.join(__dirname, '../../projects-import.json')
