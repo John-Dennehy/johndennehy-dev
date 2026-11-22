@@ -7,6 +7,9 @@
  */
 export const TIP_URL = 'https://buymeacoffee.com/johndennehy.dev'
 
+export const GITHUB_URL = 'https://github.com/john-dennehy'
+export const LINKEDIN_URL = 'https://linkedin.com/in/johnfdennehy'
+
 export type Tool = {
 	name: string
 	url: string

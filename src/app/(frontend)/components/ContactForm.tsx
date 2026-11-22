@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useRef, useState, useTransition } from 'react'
+import { SendIcon, SpinnerIcon } from '@/components/icons'
 
 export default function ContactForm() {
 	const [name, setName] = useState('')
@@ -199,49 +200,17 @@ export default function ContactForm() {
 			>
 				{isPending ? (
 					<>
-						<svg
+						<SpinnerIcon
 							className="w-4 h-4 animate-spin"
-							fill="none"
-							viewBox="0 0 24 24"
-							role="img"
-							aria-labelledby="loading-icon-title"
-						>
-							<title id="loading-icon-title">Loading</title>
-							<circle
-								className="opacity-25"
-								cx="12"
-								cy="12"
-								r="10"
-								stroke="currentColor"
-								strokeWidth="4"
-							/>
-							<path
-								className="opacity-75"
-								fill="currentColor"
-								d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-							/>
-						</svg>
+							title="Loading"
+							titleId="loading-icon-title"
+						/>
 						Sending Message…
 					</>
 				) : (
 					<>
 						Send Message
-						<svg
-							className="w-4 h-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							strokeWidth={2.5}
-							role="img"
-							aria-labelledby="send-icon-title"
-						>
-							<title id="send-icon-title">Send icon</title>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-							/>
-						</svg>
+						<SendIcon className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
 					</>
 				)}
 			</button>
