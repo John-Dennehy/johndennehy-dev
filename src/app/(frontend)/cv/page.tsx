@@ -1,4 +1,7 @@
+import { ArrowLeft, FileText } from 'lucide-react'
 import Link from 'next/link'
+import { LinkedInIcon } from '@/components/icons'
+import { LINKEDIN_URL } from '@/config/site'
 
 export const metadata = {
 	title: 'CV — John Dennehy',
@@ -14,22 +17,7 @@ export default function CVPage() {
 
 				{/* Icon */}
 				<div className="mb-8 inline-flex h-20 w-20 items-center justify-center border border-border bg-muted">
-					<svg
-						className="w-9 h-9 text-foreground"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						strokeWidth={1.5}
-						role="img"
-						aria-labelledby="cv-icon-title"
-					>
-						<title id="cv-icon-title">CV icon</title>
-						<path
-							strokeLinecap="round"
-							strokeLinejoin="round"
-							d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-						/>
-					</svg>
+					<FileText className="w-9 h-9 text-foreground" strokeWidth={1.5} aria-hidden="true" />
 				</div>
 
 				<h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
@@ -49,40 +37,16 @@ export default function CVPage() {
 						href="/"
 						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 					>
-						<svg
-							className="w-4 h-4"
-							fill="none"
-							viewBox="0 0 24 24"
-							stroke="currentColor"
-							strokeWidth={2}
-							role="img"
-							aria-labelledby="cv-back-home-title"
-						>
-							<title id="cv-back-home-title">Back to Home</title>
-							<path
-								strokeLinecap="round"
-								strokeLinejoin="round"
-								d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
-							/>
-						</svg>
+						<ArrowLeft className="w-4 h-4" aria-hidden="true" />
 						Back to Home
 					</Link>
 					<a
-						href="https://linkedin.com/in/johnfdennehy"
+						href={LINKEDIN_URL}
 						target="_blank"
 						rel="noopener noreferrer"
 						className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
 					>
-						<svg
-							className="w-4 h-4"
-							fill="currentColor"
-							viewBox="0 0 24 24"
-							role="img"
-							aria-labelledby="linkedin-icon-title"
-						>
-							<title id="linkedin-icon-title">LinkedIn</title>
-							<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-						</svg>
+						<LinkedInIcon className="w-4 h-4" title="LinkedIn" titleId="linkedin-icon-title" />
 						View on LinkedIn
 					</a>
 				</div>
