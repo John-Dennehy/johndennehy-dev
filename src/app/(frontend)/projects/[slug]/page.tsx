@@ -1,11 +1,10 @@
 import config from '@payload-config'
 import { RichText } from '@payloadcms/richtext-lexical/react'
-import { ArrowLeft, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
-import { GitHubIcon } from '@/components/icons'
+import { ArrowLeftIcon, ExternalLinkIcon, GitHubIcon } from '@/components/icons'
 import type { Project } from '@/payload-types'
 import FeedbackSection from '../../components/FeedbackSection'
 import TechIcon from '../../components/TechIcon'
@@ -86,7 +85,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 					href="/projects"
 					className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8"
 				>
-					<ArrowLeft className="w-4 h-4" aria-hidden="true" />
+					<ArrowLeftIcon className="w-4 h-4" aria-hidden="true" />
 					Back to Projects
 				</Link>
 
@@ -113,7 +112,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 							rel="noopener noreferrer"
 							className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 text-sm font-bold uppercase tracking-widest transition-colors duration-200 hover:bg-primary/90"
 						>
-							<ExternalLink className="w-4 h-4" aria-hidden="true" />
+							<ExternalLinkIcon className="w-4 h-4" aria-hidden="true" />
 							View Live
 						</a>
 					)}
@@ -162,7 +161,7 @@ export default async function ProjectDetailPage({ params }: { params: Promise<{ 
 										/>
 										{tech.name}
 										{tech.docsUrl && (
-											<ExternalLink
+											<ExternalLinkIcon
 												className="w-3 h-3 text-muted-foreground"
 												role="img"
 												aria-label="Documentation"

@@ -1,5 +1,5 @@
-import { ArrowLeft, Newspaper } from 'lucide-react'
 import Link from 'next/link'
+import { ArrowLeftIcon, NewspaperIcon } from '@/components/icons'
 
 export const metadata = {
 	title: 'Blog — John Dennehy',
@@ -15,7 +15,7 @@ export default function BlogPage() {
 
 				{/* Icon */}
 				<div className="mb-8 inline-flex h-20 w-20 items-center justify-center border border-border bg-muted">
-					<Newspaper className="w-9 h-9 text-foreground" strokeWidth={1.5} aria-hidden="true" />
+					<NewspaperIcon className="w-9 h-9 text-foreground" strokeWidth={1.5} aria-hidden="true" />
 				</div>
 
 				<h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
@@ -36,7 +36,7 @@ export default function BlogPage() {
 						href="/"
 						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 					>
-						<ArrowLeft className="w-4 h-4" aria-hidden="true" />
+						<ArrowLeftIcon className="w-4 h-4" aria-hidden="true" />
 						Back to Home
 					</Link>
 				</div>

@@ -1,5 +1,5 @@
-import { House } from 'lucide-react'
 import Link from 'next/link'
+import { HomeIcon } from '@/components/icons'
 import { inter, notoSerif } from './fonts'
 import './(frontend)/styles.css'
 import Footer from './(frontend)/components/Footer'
@@ -42,7 +42,7 @@ export default function NotFound() {
 										href="/"
 										className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:opacity-90 hover:shadow-xl hover:-translate-y-0.5"
 									>
-										<House className="w-4 h-4" aria-hidden="true" />
+										<HomeIcon className="w-4 h-4" aria-hidden="true" />
 										Go Home
 									</Link>
 									<Link

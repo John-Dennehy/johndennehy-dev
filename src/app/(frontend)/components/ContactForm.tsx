@@ -1,8 +1,7 @@
 'use client'
 
-import { Send } from 'lucide-react'
 import React, { useRef, useState, useTransition } from 'react'
-import { SpinnerIcon } from '@/components/icons'
+import { SendIcon, SpinnerIcon } from '@/components/icons'
 
 export default function ContactForm() {
 	const [name, setName] = useState('')
@@ -211,7 +210,7 @@ export default function ContactForm() {
 				) : (
 					<>
 						Send Message
-						<Send className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
+						<SendIcon className="w-4 h-4" strokeWidth={2.5} aria-hidden="true" />
 					</>
 				)}
 			</button>

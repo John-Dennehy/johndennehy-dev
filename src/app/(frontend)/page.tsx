@@ -1,7 +1,13 @@
-import { ArrowRight, CodeXml, Database, Users } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { GitHubIcon, LinkedInIcon } from '@/components/icons'
+import {
+	ArrowRightIcon,
+	CodeBracketIcon,
+	DatabaseIcon,
+	GitHubIcon,
+	LinkedInIcon,
+	UsersIcon,
+} from '@/components/icons'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { GITHUB_URL, LINKEDIN_URL } from '@/config/site'
@@ -136,7 +142,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<CodeXml className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
+									<CodeBracketIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">
 									React &amp; Next.js
@@ -154,7 +160,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<Database className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
+									<DatabaseIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">Full-Stack</CardTitle>
 							</CardHeader>
@@ -170,7 +176,7 @@ export default async function HomePage() {
 						<Card className="rounded-none border border-border bg-transparent transition duration-300 group pt-10 hover:border-foreground">
 							<CardHeader className="px-8 pb-2">
 								<div className="mb-8 flex h-16 w-16 items-center justify-center bg-primary text-primary-foreground transition-colors duration-300">
-									<Users className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
+									<UsersIcon className="w-8 h-8" strokeWidth={1.5} aria-hidden="true" />
 								</div>
 								<CardTitle className="font-heading font-bold text-2xl">Communication</CardTitle>
 							</CardHeader>
@@ -208,7 +214,7 @@ export default async function HomePage() {
 								<GitHubIcon className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
 								<p className="text-lg font-bold uppercase tracking-widest">GitHub</p>
 							</div>
-							<ArrowRight
+							<ArrowRightIcon
 								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
 								aria-hidden="true"
 							/>
@@ -224,7 +230,7 @@ export default async function HomePage() {
 								<LinkedInIcon className="w-8 h-8 text-foreground group-hover:text-primary transition-colors" />
 								<p className="text-lg font-bold uppercase tracking-widest">LinkedIn</p>
 							</div>
-							<ArrowRight
+							<ArrowRightIcon
 								className="w-6 h-6 opacity-0 -translate-x-2 text-primary group-hover:opacity-100 group-hover:translate-x-0 transition duration-300"
 								aria-hidden="true"
 							/>

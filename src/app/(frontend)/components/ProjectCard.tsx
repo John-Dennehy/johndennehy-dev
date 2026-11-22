@@ -1,7 +1,6 @@
-import { CodeXml, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { GitHubIcon } from '@/components/icons'
+import { CodeBracketIcon, ExternalLinkIcon, GitHubIcon } from '@/components/icons'
 import type { ProjectSummary } from '@/lib/projects'
 
 export default function ProjectCard({
@@ -29,7 +28,7 @@ export default function ProjectCard({
 					/>
 				) : (
 					<div className="h-full w-full bg-gradient-to-br from-muted to-border flex items-center justify-center">
-						<CodeXml
+						<CodeBracketIcon
 							className="w-10 h-10 text-muted-foreground/30"
 							strokeWidth={1}
 							aria-hidden="true"
@@ -78,7 +77,7 @@ export default function ProjectCard({
 					)}
 					{project.liveUrl && (
 						<span className="inline-flex items-center gap-1 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
-							<ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+							<ExternalLinkIcon className="w-3.5 h-3.5" aria-hidden="true" />
 							Live
 						</span>
 					)}

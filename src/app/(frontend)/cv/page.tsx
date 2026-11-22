@@ -1,6 +1,5 @@
-import { ArrowLeft, FileText } from 'lucide-react'
 import Link from 'next/link'
-import { LinkedInIcon } from '@/components/icons'
+import { ArrowLeftIcon, FileTextIcon, LinkedInIcon } from '@/components/icons'
 import { LINKEDIN_URL } from '@/config/site'
 
 export const metadata = {
@@ -17,7 +16,7 @@ export default function CVPage() {
 
 				{/* Icon */}
 				<div className="mb-8 inline-flex h-20 w-20 items-center justify-center border border-border bg-muted">
-					<FileText className="w-9 h-9 text-foreground" strokeWidth={1.5} aria-hidden="true" />
+					<FileTextIcon className="w-9 h-9 text-foreground" strokeWidth={1.5} aria-hidden="true" />
 				</div>
 
 				<h1 className="font-heading text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-4">
@@ -37,7 +36,7 @@ export default function CVPage() {
 						href="/"
 						className="inline-flex items-center gap-2 border border-border px-5 py-2.5 text-sm font-bold uppercase tracking-widest text-foreground transition-colors duration-200 hover:border-foreground"
 					>
-						<ArrowLeft className="w-4 h-4" aria-hidden="true" />
+						<ArrowLeftIcon className="w-4 h-4" aria-hidden="true" />
 						Back to Home
 					</Link>
 					<a
