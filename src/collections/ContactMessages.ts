@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { email } from 'payload/shared'
+import { LINKEDIN_URL } from '../config/site'
 import {
 	escapeHtml,
 	rateLimitSubmissions,
@@ -99,7 +100,7 @@ export const ContactMessages: CollectionConfig = {
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #111; padding: 40px; line-height: 1.6;">
                   <h1 style="color: #6366f1; font-size: 24px;">Thanks for getting in touch</h1>
                   <p>I've received your message through the contact form on johndennehy.dev and I'll get back to you as soon as I can.</p>
-                  <p>In the meantime, feel free to check out my latest projects on my <a href="${escapeHtml(siteUrl)}" style="color: #6366f1; text-decoration: none; font-weight: bold;">portfolio</a> or connect with me on <a href="https://linkedin.com/in/johnfdennehy" style="color: #6366f1; text-decoration: none; font-weight: bold;">LinkedIn</a>.</p>
+                  <p>In the meantime, feel free to check out my latest projects on my <a href="${escapeHtml(siteUrl)}" style="color: #6366f1; text-decoration: none; font-weight: bold;">portfolio</a> or connect with me on <a href="${escapeHtml(LINKEDIN_URL)}" style="color: #6366f1; text-decoration: none; font-weight: bold;">LinkedIn</a>.</p>
                   <p style="margin-top: 40px;">Best regards,<br><strong>John Dennehy</strong></p>
                   <hr style="border: 0; border-top: 1px solid #eee; margin: 40px 0;">
                   <p style="font-size: 12px; color: #999;">This is an automated confirmation. If you didn't use the contact form on johndennehy.dev, you can ignore this email.</p>

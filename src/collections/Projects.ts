@@ -76,6 +76,47 @@ export const Projects: CollectionConfig = {
 			},
 		},
 		{
+			name: 'gallery',
+			type: 'array',
+			admin: {
+				description: 'Extra screenshots shown on the project page',
+			},
+			fields: [
+				{
+					name: 'image',
+					type: 'upload',
+					relationTo: 'media',
+					required: true,
+				},
+				{
+					name: 'caption',
+					type: 'text',
+				},
+			],
+		},
+		{
+			name: 'buildNotes',
+			label: 'How I built it',
+			type: 'richText',
+			admin: {
+				description:
+					'The process behind the project: decisions, trade-offs, and how AI tools like Claude were used',
+			},
+		},
+		{
+			name: 'stage',
+			type: 'select',
+			options: [
+				{ label: 'In progress', value: 'in-progress' },
+				{ label: 'Live', value: 'live' },
+				{ label: 'Archived', value: 'archived' },
+			],
+			admin: {
+				description:
+					'Where the project itself is at, shown as a badge (separate from publish status)',
+			},
+		},
+		{
 			name: 'featured',
 			type: 'checkbox',
 			defaultValue: false,

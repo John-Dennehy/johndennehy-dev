@@ -45,9 +45,23 @@ test.describe('Frontend smoke', () => {
 
 		await expect(page).toHaveURL(`/projects/${smokeProject.slug}`)
 		await expect(page.locator('h1').first()).toHaveText(smokeProject.title)
+		await expect(page.getByText('In progress', { exact: true })).toBeVisible()
 		await expect(page.getByText(approvedFeedback.message)).toBeVisible()
 		await expect(page.getByText(pendingFeedback.message)).toHaveCount(0)
 		await expect(page.getByRole('button', { name: 'Send Feedback' })).toBeVisible()
+	})
+
+	test('homepage shows published projects in Selected Work', async ({ page }) => {
+		await page.goto('/')
+		const selectedWork = page.getByRole('region', { name: 'Selected Work' })
+		await expect(selectedWork).toBeVisible()
+		await expect(selectedWork.getByText(draftProject.title)).toHaveCount(0)
+
+		await selectedWork
+			.getByRole('link', { name: new RegExp(smokeProject.title) })
+			.first()
+			.click()
+		await expect(page).toHaveURL(`/projects/${smokeProject.slug}`)
 	})
 
 	test('contact form renders with the honeypot hidden', async ({ page }) => {
